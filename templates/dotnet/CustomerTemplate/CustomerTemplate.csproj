@@ -1,0 +1,50 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <!-- Framework target - replaced by template generator -->
+    <TargetFramework>net8.0</TargetFramework>
+    <!-- Multi-target example: <TargetFrameworks>net8.0;net48</TargetFrameworks> -->
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <OutputType>Library</OutputType>
+    <AssemblyName>{{CUSTOMER_NAME}}Converters</AssemblyName>
+    <RootNamespace>{{CUSTOMER_NAME}}Converters</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- WATS NuGet Package - Update version as needed -->
+    <PackageReference Include="WATS.Client" Version="8.0.0" />
+
+    <!-- Common logging and utilities -->
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="8.0.0" />
+
+    <!-- Testing -->
+    <PackageReference Include="xunit" Version="2.6.6" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.5.6">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+
+    <!-- JSON configuration -->
+    <PackageReference Include="System.Text.Json" Version="8.0.0" />
+  </ItemGroup>
+
+  <!-- Include config file in output -->
+  <ItemGroup>
+    <None Update="converter.config.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Data\**\*">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <!-- Reference to shared converter utilities (if needed) -->
+  <!--
+  <ItemGroup>
+    <ProjectReference Include="..\..\Common\WATS.Converters.Shared\WATS.Converters.Shared.csproj" />
+  </ItemGroup>
+  -->
+
+</Project>

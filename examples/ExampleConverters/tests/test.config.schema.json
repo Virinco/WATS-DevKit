@@ -1,0 +1,37 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Converter Test Configuration",
+    "type": "object",
+    "properties": {
+        "testMode": {
+            "type": "string",
+            "enum": [
+                "ValidateOnly",
+                "SubmitToDebug",
+                "Production"
+            ],
+            "default": "ValidateOnly",
+            "description": "Current test execution mode"
+        },
+        "modes": {
+            "type": "object",
+            "properties": {
+                "ValidateOnly": {
+                    "type": "object",
+                    "description": "Validate conversion without server submission"
+                },
+                "SubmitToDebug": {
+                    "type": "object",
+                    "description": "Submit to SW-Debug process for testing"
+                },
+                "Production": {
+                    "type": "object",
+                    "description": "Submit with actual operation codes"
+                }
+            }
+        }
+    },
+    "required": [
+        "testMode"
+    ]
+}
