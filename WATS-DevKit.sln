@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExampleConverters", "Conver
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExampleConverters.Tests", "Converters\ExampleConverters\tests\ExampleConverters.Tests.csproj", "{7C27BA7E-2E8E-4F59-8A4D-E8F0D6E5C842}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TDRConverters", "Converters\TDRConverters\src\TDRConverters.csproj", "{10bd9cf7-9706-4ec8-aa21-1e490c556935}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TDRConverters.Tests", "Converters\TDRConverters\tests\TDRConverters.Tests.csproj", "{fb8c998b-dcc9-4efa-a76c-760a5bb7db1d}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,5 +25,13 @@ Global
 		{7C27BA7E-2E8E-4F59-8A4D-E8F0D6E5C842}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7C27BA7E-2E8E-4F59-8A4D-E8F0D6E5C842}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7C27BA7E-2E8E-4F59-8A4D-E8F0D6E5C842}.Release|Any CPU.Build.0 = Release|Any CPU
-	EndGlobalSection
+			{10bd9cf7-9706-4ec8-aa21-1e490c556935}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{10bd9cf7-9706-4ec8-aa21-1e490c556935}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{10bd9cf7-9706-4ec8-aa21-1e490c556935}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{10bd9cf7-9706-4ec8-aa21-1e490c556935}.Release|Any CPU.Build.0 = Release|Any CPU
+		{fb8c998b-dcc9-4efa-a76c-760a5bb7db1d}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{fb8c998b-dcc9-4efa-a76c-760a5bb7db1d}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{fb8c998b-dcc9-4efa-a76c-760a5bb7db1d}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{fb8c998b-dcc9-4efa-a76c-760a5bb7db1d}.Release|Any CPU.Build.0 = Release|Any CPU
+EndGlobalSection
 EndGlobal

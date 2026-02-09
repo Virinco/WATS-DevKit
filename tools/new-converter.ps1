@@ -71,7 +71,7 @@ Write-Host ""
 
 # Define paths
 $convertersPath = Join-Path $PSScriptRoot "..\Converters"
-$outputPath = Join-Path $ $assemblyName
+$outputPath = Join-Path $convertersPath $assemblyName
 $rootSlnPath = Join-Path $PSScriptRoot "..\WATS-DevKit.sln"
 
 if (Test-Path $outputPath) {
@@ -80,13 +80,13 @@ if (Test-Path $outputPath) {
 }
 
 # Create directory structure
-Write-Host "📁 Creating directory structure..." -ForegroundColor Gray
+Write-Host "Creating directory structure..." -ForegroundColor Gray
 New-Item -ItemType Directory -Path $outputPath -Force | Out-Null
 New-Item -ItemType Directory -Path "$outputPath\src" -Force | Out-Null
 New-Item -ItemType Directory -Path "$outputPath\tests" -Force | Out-Null
 New-Item -ItemType Directory -Path "$outputPath\tests\Data" -Force | Out-Null
 
-Write-Host "✏️  Generating project files..." -ForegroundColor Gray
+Write-Host "Generating project files..." -ForegroundColor Gray
 
 # Create src project file (using -replace for variable substitution)
 $srcCsproj = @'
@@ -161,7 +161,7 @@ $testCsproj = $testCsproj -replace 'ASSEMBLYNAME', $assemblyName
 Set-Content "$outputPath\tests\$assemblyName.Tests.csproj" -Value $testCsproj
 
 # Add projects to master solution file
-Write-Host "📋 Adding projects to WATS-DevKit.sln..." -ForegroundColor Gray
+Write-Host "Adding projects to WATS-DevKit.sln..." -ForegroundColor Gray
 
 $guid1 = New-Guid
 $guid2 = New-Guid
@@ -207,7 +207,7 @@ $slnContent = $slnContent.Insert($configInsertPoint, $configEntries)
 # Save updated solution
 Set-Content $rootSlnPath -Value $slnContent -NoNewline
 
-Write-Host "📝 Generating converter classes..." -ForegroundColor Gray
+Write-Host "Generating converter classes..." -ForegroundColor Gray
 
 # Create converter classes
 foreach ($converter in $converters) {
@@ -282,7 +282,7 @@ namespace $assemblyName
 
                         if (operationType != null)
                         {
-                            Console.WriteLine(`$"✓ Using operation type '{operationType.Name}' (Code: {operationType.Code})");
+                            Console.WriteLine(`$"Using operation type '{operationType.Name}' (Code: {operationType.Code})");
                         }
                         else
                         {
@@ -327,7 +327,7 @@ namespace $assemblyName
                     // Submit to server
                     api.Submit(uut);
 
-                    Console.WriteLine(`$"✓ Successfully submitted UUT: {serialNumber}");
+                    Console.WriteLine(`$"Successfully submitted UUT: {serialNumber}");
                     return null;
                 }
             }
@@ -344,7 +344,7 @@ namespace $assemblyName
     Set-Content "$outputPath\src\$converter.cs" -Value $converterCode
 }
 
-Write-Host "🧪 Generating test infrastructure..." -ForegroundColor Gray
+Write-Host "Generating test infrastructure..." -ForegroundColor Gray
 
 # Create ConverterTests.cs (generic test scaffold)
 $firstConverterName = $converters[0]
@@ -409,11 +409,11 @@ namespace $assemblyName.Tests
                 try
                 {
                     converter.ImportReport(api, fileStream);
-                    _output.WriteLine(`$"✓ Successfully converted: {fileName}");
+                    _output.WriteLine(`$"Successfully converted: {fileName}");
                 }
                 catch (Exception ex)
                 {
-                    _output.WriteLine(`$"✗ FAILED: {fileName}");
+                    _output.WriteLine(`$"FAILED: {fileName}");
                     _output.WriteLine(`$"  Error: {ex.Message}");
                     throw;
                 }
@@ -588,7 +588,7 @@ obj/
 Set-Content "$outputPath\.gitignore" -Value $gitignore
 
 Write-Host ""
-Write-Host "✅ Assembly created successfully!" -ForegroundColor Green
+Write-Host "Assembly created successfully!" -ForegroundColor Green
 Write-Host ""
 Write-Host "Assembly location:" -ForegroundColor Cyan
 Write-Host "  $outputPath" -ForegroundColor White

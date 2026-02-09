@@ -36,3 +36,5 @@ desktop.ini
 
 # Allow README files
 !**/README.md
+
+.fake
