@@ -6,6 +6,24 @@
 
 ---
 
+> **📖 CRITICAL RESOURCE - API REFERENCE**
+>
+> This guide focuses on **workflow and process**. For detailed API usage, method signatures, and code examples, **ALWAYS consult:**
+> 
+> **[API_REFERENCE.md](../api/API_REFERENCE.md)** - Complete WATS Report API documentation
+>
+> Key topics covered in API Reference:
+> - ✅ API initialization (`api.InitializeAPI(true)`)
+> - ✅ Operation types (retrieved from YOUR server, not hardcoded)
+> - ✅ UUT header properties and required fields
+> - ✅ All step types with complete examples
+> - ✅ Validation modes and submission patterns
+> - ✅ Best practices and common pitfalls
+>
+> **When implementing code for any milestone below, check the API Reference first!**
+
+---
+
 ## Table of Contents
 
 1. [Overview](#overview)
@@ -253,7 +271,7 @@ private DateTime ExtractStartTime(string[] lines)
 
 ```powershell
 # Place test files in Data/ folder
-cd templates/dotnet/MyConverter
+cd Converters/MyConverters
 dotnet test
 ```
 
@@ -1010,4 +1028,4 @@ M4: Refinement
 ---
 
 **For complete API reference, see:** [API_GUIDE.md](API_GUIDE.md)  
-**For working example, see:** [../examples/SimpleCSVConverter/](../examples/SimpleCSVConverter/)
+**For working example, see:** [../Converters/ExampleConverters/](../Converters/ExampleConverters/)

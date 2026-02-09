@@ -1,4 +1,4 @@
-﻿# Deploy DevKit - Creates a clean zip package for customer distribution
+﻿# Deploy DevKit - Creates a clean zip package for distribution
 param(
     [string]$OutputPath = "C:\Temp\WATS-Converter-DevKit.zip",
     [switch]$OpenFolder

@@ -51,10 +51,10 @@ using WATS.Client; // Adjust based on actual WATS NuGet package namespace
 //
 // ═══════════════════════════════════════════════════════════════════════════════
 
-namespace {{CUSTOMER_NAME }}Converters
+namespace {{PROJECT_NAME}}Converters
 {
     /// <summary>
-    /// Converter for {{CUSTOMER_NAME}} test reports.
+    /// Converter for {{PROJECT_NAME}} test reports.
     /// Transforms {{FILE_FORMAT}} files into WATS UUT reports.
     /// </summary>
     /// <remarks>
@@ -73,20 +73,17 @@ namespace {{CUSTOMER_NAME }}Converters
     ///   - Expose via ConverterParameters property
     ///   See: API_KNOWLEDGE/DotNet/REPORT_API_KNOWLEDGE/TDM_API_USAGE.md
     /// </remarks>
-    public class {{CUSTOMER_NAME }}Converter: IReportConverter_v2
+    public class {{PROJECT_NAME}}Converter: IReportConverter_v2
     {
-        private readonly ILogger<{{ CUSTOMER_NAME} }
-Converter > _logger;
-private readonly Dictionary<string, string> _parameters;
+        private readonly ILogger<{{PROJECT_NAME}}Converter> _logger;
+        private readonly Dictionary<string, string> _parameters;
 
-/// <summary>
-/// Default constructor with default parameter values.
-/// </summary>
-public {{ CUSTOMER_NAME} }
-Converter(ILogger <{ { CUSTOMER_NAME} }
-Converter > logger = null)
+        /// <summary>
+        /// Default constructor with default parameter values.
+        /// </summary>
+        public {{PROJECT_NAME}}Converter(ILogger<{{PROJECT_NAME}}Converter> logger = null)
         {
-    _logger = logger ?? new NullLogger<{ { CUSTOMER_NAME } }Converter > ();
+            _logger = logger ?? new NullLogger<{{PROJECT_NAME}}Converter>();
 
     // Set default parameters
     _parameters = new Dictionary<string, string>
@@ -102,11 +99,9 @@ Converter > logger = null)
 /// Alternative constructor that accepts parameters from WATS Client.
 /// This is called by WATS when converter is loaded with custom parameters.
 /// </summary>
-/// <param name="parameters">Parameters from WATS Client configuration</param>
-/// <param name="logger">Logger instance</param>
-public {{ CUSTOMER_NAME} }
-Converter(IDictionary<string, string> parameters, ILogger <{ { CUSTOMER_NAME} }
-Converter > logger = null)
+        /// <param name="parameters">Parameters from WATS Client configuration</param>
+        /// <param name="logger">Logger instance</param>
+        public {{PROJECT_NAME}}Converter(IDictionary<string, string> parameters, ILogger<{{PROJECT_NAME}}Converter> logger = null)
             : this(logger)
         {
     if (parameters != null)
@@ -445,11 +440,11 @@ private class StepData
     public string Value { get; set; }
 }
 
-/// <summary>
-/// Null logger implementation for when no logger is provided.
-/// </summary>
-private class NullLogger<T> : ILogger<T>
-{
+        /// <summary>
+        /// Null logger implementation for when no logger is provided.
+        /// </summary>
+        private class NullLogger<T> : ILogger<T>
+        {
     public IDisposable BeginScope<TState>(TState state) => null;
     public bool IsEnabled(LogLevel logLevel) => false;
     public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception exception, Func<TState, Exception, string> formatter) { }

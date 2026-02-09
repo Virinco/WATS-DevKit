@@ -1,6 +1,6 @@
 {
   "ConverterInfo": {
-    "CustomerName": "{{CUSTOMER_NAME}}",
+    "ProjectName": "{{PROJECT_NAME}}",
     "Version": "1.0.0",
     "Developer": "{{DEVELOPER_NAME}}",
     "Created": "{{DATE}}",
@@ -22,7 +22,7 @@
   
   "Build": {
     "TargetFrameworks": "{{TARGET_FRAMEWORK}}",
-    "OutputName": "{{CUSTOMER_NAME}}Converters"
+    "OutputName": "{{PROJECT_NAME}}Converters"
   },
   
   "DefaultParameters": {

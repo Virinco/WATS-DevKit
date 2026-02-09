@@ -1,7 +1,7 @@
 # WATS Converter Development Kit
 
 **Version:** 1.0.0  
-**For:** WATS Customers  
+**For:** WATS Users  
 **Purpose:** Build custom .NET converters to import your test data into WATS
 
 ---
@@ -13,10 +13,12 @@ This kit provides everything you need to create custom .NET converters that tran
 ## What's Included
 
 - **.NET Converter Template** - Ready-to-use C# project with built-in test suite
-- **API Documentation** - Complete guide to WATS Report API
+- **API Documentation** - Complete guide to WATS Report API (see [docs/api/API_REFERENCE.md](docs/api/API_REFERENCE.md))
 - **Development Tools** - Scripts to create and test converters
 - **Testing Framework** - Automated xUnit tests that auto-discover files in Data/ folder
 - **Best Practices Guide** - Proven patterns for robust converters
+
+> **🤖 For AI Agents:** When helping with converter development, **always reference** [docs/api/API_REFERENCE.md](docs/api/API_REFERENCE.md) for authoritative API documentation. Do not guess at API usage.
 
 ## Prerequisites
 
@@ -73,13 +75,16 @@ Answer the prompts:
 - Uses .NET 8.0 (modern, cross-platform)
 - Uses WATS Client API v7.* (latest)
 - Creates separate src/ and tests/ projects
+- Adds projects to WATS-DevKit.sln (master solution)
+
+**To open your project:** Open `WATS-DevKit.sln` in the root folder - all converters are in one solution.
 
 ### Step 3: Add Test Files 📁
 
 Copy 10+ test files from your test equipment into the tests/Data folder:
 
 ```
-examples/YourAssembly/
+Converters/YourAssembly/
 └── tests/
     └── Data/
         ├── sample1.log
@@ -98,7 +103,7 @@ examples/YourAssembly/
 ### 4. Run Initial Tests
 
 ```powershell
-cd examples/YourAssembly
+cd Converters/YourAssembly
 dotnet test
 ```
 
@@ -165,17 +170,20 @@ WATS-Converter-Kit/
 ├── .gitignore                 # Git ignore patterns
 │
 ├── docs/                      # Documentation
-│   ├── QUICKSTART.md          # 15-minute getting started
-│   ├── API_GUIDE.md           # WATS Report API reference
-│   ├── METHODOLOGY.md         # Best practices & patterns
+│   ├── guides/
+│   │   ├── QUICKSTART.md      # 15-minute getting started
+│   │   ├── API_GUIDE.md       # WATS Report API user guide
+│   │   └── METHODOLOGY.md     # Best practices & patterns
+│   └── api/
+│       └── API_REFERENCE.md   # Detailed API reference for agents
 │   └── TESTING.md             # Testing guide
 │
 ├── templates/                 # Converter templates
 │   └── dotnet/
-│       └── CustomerTemplate/  # Template project
-│           ├── CustomerConverter.cs      # Converter implementation
+│       └── FileConverterTemplate/  # Template project
+│           ├── FileConverter.cs      # Converter implementation
 │           ├── ConverterTests.cs         # xUnit test suite
-│           ├── CustomerTemplate.csproj   # Project file
+│           ├── FileConverterTemplate.csproj   # Project file
 │           ├── converter.config.json     # Test configuration
 │           ├── Data/                     # Test files go here!
 │           │   └── README.md
@@ -233,12 +241,15 @@ dotnet test
 
 ## Documentation
 
-| Document | Description |
-|----------|-------------|
-| [QUICKSTART.md](docs/QUICKSTART.md) | Get up and running in 15 minutes |
-| [API_GUIDE.md](docs/API_GUIDE.md) | Complete WATS Report API reference |
-| [METHODOLOGY.md](docs/METHODOLOGY.md) | Best practices for robust converters |
-| [TESTING.md](docs/TESTING.md) | Testing strategies and validation |
+**Quick Access:**
+
+| Guide | Description |
+|-------|-------------|
+| **[Documentation Hub](docs/README.md)** | Full documentation navigation |
+| [QUICKSTART.md](docs/guides/QUICKSTART.md) | Get up and running in 15 minutes |
+| [METHODOLOGY.md](docs/guides/METHODOLOGY.md) | Best practices for robust converters |
+| [API_GUIDE.md](docs/guides/API_GUIDE.md) | Complete WATS Report API guide |
+| [API_REFERENCE.md](docs/api/API_REFERENCE.md) | Detailed API reference for agents |
 
 ## Milestone-Based Development
 

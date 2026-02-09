@@ -28,7 +28,7 @@ The script will ask:
 ### 3. Verify Creation
 
 After completion:
-- ✅ Project created in: `templates/dotnet/{ProjectName}/`
+- ✅ Project created in: `Converters/{AssemblyName}/`
 - ✅ Contains: Converter class, test suite, Data/ folder, README
 
 ### 4. Next Steps
@@ -38,24 +38,41 @@ Inform the user:
 **"✅ Converter project created successfully!"**
 
 **Next steps:**
-1. **Add test files** to: `templates/dotnet/{ProjectName}/Data/`
+1. **Add test files** to: `Converters/{AssemblyName}/tests/Data/`
    - Include 10+ files with variety (PASS/FAIL, different SNs, etc.)
 
 2. **Run initial tests** to verify setup:
    ```powershell
-   cd templates/dotnet/{ProjectName}
+   cd Converters/{AssemblyName}
    dotnet test
    ```
    Note: Tests will fail initially - that's expected! The template doesn't know your file format yet.
 
 3. **Implement converter**:
-   - Edit `{ProjectName}Converter.cs`
+   - Edit `src/{ConverterName}.cs`
    - Follow the milestone approach in README.md
    - Re-run `dotnet test` after each change
 
 4. **Review documentation**:
-   - See `docs/QUICKSTART.md` for detailed tutorial
-   - See `docs/API_GUIDE.md` for WATS API reference
+   - See `docs/guides/QUICKSTART.md` for detailed tutorial
+   - **⚠️ CRITICAL:** See `docs/api/API_REFERENCE.md` for complete WATS API reference
+
+---
+
+## ⚠️ IMPORTANT FOR AI AGENTS
+
+When helping implement converters, **YOU MUST REFERENCE**:
+
+📘 **`docs/api/API_REFERENCE.md`** - Complete WATS Report API documentation
+
+This contains:
+- ✅ Correct API initialization patterns (`api.InitializeAPI(true)`)
+- ✅ Operation type handling (server-specific, NEVER hardcoded)
+- ✅ All step types: NumericLimitStep, PassFailStep, StringValueStep, etc.
+- ✅ UUT properties, timing, validation modes
+- ✅ Best practices and common mistakes to avoid
+
+**DO NOT guess at API methods or properties.** Always check the API reference first!
 
 ---
 

@@ -11,11 +11,11 @@
     If not specified, uses current directory
 
 .EXAMPLE
-    .\test-converter.ps1 -ConverterPath "templates\dotnet\MyConverter"
+    .\test-converter.ps1 -ConverterPath "Converters\MyConverters"
 
 .EXAMPLE
-    cd templates\dotnet\MyConverter
-    ..\..\..\tools\test-converter.ps1
+    cd Converters\MyConverters
+    ..\..\tools\test-converter.ps1
 #>
 
 [CmdletBinding()]

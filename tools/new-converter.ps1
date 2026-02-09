@@ -70,8 +70,9 @@ Write-Host "Converters: $($converters -join ', ')" -ForegroundColor Gray
 Write-Host ""
 
 # Define paths
-$examplesPath = Join-Path $PSScriptRoot "..\examples"
-$outputPath = Join-Path $examplesPath $assemblyName
+$convertersPath = Join-Path $PSScriptRoot "..\Converters"
+$outputPath = Join-Path $ $assemblyName
+$rootSlnPath = Join-Path $PSScriptRoot "..\WATS-DevKit.sln"
 
 if (Test-Path $outputPath) {
     Write-Error "Assembly already exists at: $outputPath"
@@ -92,7 +93,8 @@ $srcCsproj = @'
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net8.0</TargetFramework>
+        <!-- Multi-target both modern .NET and .NET Framework -->
+        <TargetFrameworks>net8.0;net48</TargetFrameworks>
         <LangVersion>latest</LangVersion>
         <Nullable>enable</Nullable>
         <OutputType>Library</OutputType>
@@ -100,8 +102,12 @@ $srcCsproj = @'
         <RootNamespace>ASSEMBLYNAME</RootNamespace>
     </PropertyGroup>
 
-    <ItemGroup>
-        <PackageReference Include="Virinco.WATS.ClientAPI" Version="7.*" />
+    <!-- WATS Client API - Different packages for different frameworks -->
+    <ItemGroup Condition="'$(TargetFramework)' == 'net48'">
+        <PackageReference Include="WATS.Client" Version="6.1.*" />
+    </ItemGroup>
+    <ItemGroup Condition="'$(TargetFramework)' == 'net8.0'">
+        <PackageReference Include="Virinco.WATS.ClientAPI" Version="7.0.*" />
     </ItemGroup>
 
 </Project>
@@ -115,7 +121,8 @@ $testCsproj = @'
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net8.0</TargetFramework>
+        <!-- Multi-target both modern .NET and .NET Framework -->
+        <TargetFrameworks>net8.0;net48</TargetFrameworks>
         <IsPackable>false</IsPackable>
         <IsTestProject>true</IsTestProject>
         <LangVersion>latest</LangVersion>
@@ -153,28 +160,52 @@ $testCsproj = @'
 $testCsproj = $testCsproj -replace 'ASSEMBLYNAME', $assemblyName
 Set-Content "$outputPath\tests\$assemblyName.Tests.csproj" -Value $testCsproj
 
-# Create solution file
+# Add projects to master solution file
+Write-Host "📋 Adding projects to WATS-DevKit.sln..." -ForegroundColor Gray
+
 $guid1 = New-Guid
 $guid2 = New-Guid
-$slnContent = ""
-$slnContent += "`r`n"
-$slnContent += "Microsoft Visual Studio Solution File, Format Version 12.00`r`n"
-$slnContent += "# Visual Studio Version 17`r`n"
-$slnContent += "VisualStudioVersion = 17.0.31903.59`r`n"
-$slnContent += "MinimumVisualStudioVersion = 10.0.40219.1`r`n"
-$slnContent += "Project(`"{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}`") = `"$assemblyName`", `"src\$assemblyName.csproj`", `"{$guid1}`"`r`n"
-$slnContent += "EndProject`r`n"
-$slnContent += "Project(`"{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}`") = `"$assemblyName.Tests`", `"tests\$assemblyName.Tests.csproj`", `"{$guid2}`"`r`n"
-$slnContent += "EndProject`r`n"
-$slnContent += "Global`r`n"
-$slnContent += "`tGlobalSection(SolutionConfigurationPlatforms) = preSolution`r`n"
-$slnContent += "`t`tDebug|Any CPU = Debug|Any CPU`r`n"
-$slnContent += "`t`tRelease|Any CPU = Release|Any CPU`r`n"
-$slnContent += "`tEndGlobalSection`r`n"
-$slnContent += "`tGlobalSection(ProjectConfigurationPlatforms) = postSolution`r`n"
-$slnContent += "`tEndGlobalSection`r`n"
-$slnContent += "EndGlobal`r`n"
-Set-Content "$outputPath\$assemblyName.sln" -Value $slnContent
+
+# Read existing solution file
+$slnContent = Get-Content $rootSlnPath -Raw
+
+# Find the insertion point (before Global section)
+$insertionPoint = $slnContent.IndexOf("Global")
+
+# Create project entries
+$srcProjectPath = "Converters\$assemblyName\src\$assemblyName.csproj"
+$testProjectPath = "Converters\$assemblyName\tests\$assemblyName.Tests.csproj"
+
+$projectEntries = @"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "$assemblyName", "$srcProjectPath", "{$guid1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "$assemblyName.Tests", "$testProjectPath", "{$guid2}"
+EndProject
+
+"@
+
+# Insert project entries
+$slnContent = $slnContent.Insert($insertionPoint, $projectEntries)
+
+# Add project configurations (find the ProjectConfigurationPlatforms section end)
+$configInsertPoint = $slnContent.IndexOf("EndGlobalSection", $slnContent.IndexOf("ProjectConfigurationPlatforms"))
+
+$configEntries = @"
+		{$guid1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{$guid1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{$guid1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{$guid1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{$guid2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{$guid2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{$guid2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{$guid2}.Release|Any CPU.Build.0 = Release|Any CPU
+
+"@
+
+$slnContent = $slnContent.Insert($configInsertPoint, $configEntries)
+
+# Save updated solution
+Set-Content $rootSlnPath -Value $slnContent -NoNewline
 
 Write-Host "📝 Generating converter classes..." -ForegroundColor Gray
 
@@ -430,7 +461,7 @@ namespace $assemblyName.Tests
 Set-Content "$outputPath\tests\ConverterTests.cs" -Value $testCode
 
 # Copy TestConfiguration.cs from ExampleConverters
-$exampleConvertersPath = Join-Path $PSScriptRoot "..\examples\ExampleConverters\tests"
+$exampleConvertersPath = Join-Path $PSScriptRoot "..\Converters\ExampleConverters\tests"
 if (Test-Path "$exampleConvertersPath\TestConfiguration.cs") {
     Copy-Item "$exampleConvertersPath\TestConfiguration.cs" -Destination "$outputPath\tests\" -Force
 }

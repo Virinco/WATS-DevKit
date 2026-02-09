@@ -7,7 +7,7 @@ using Xunit;
 using Xunit.Abstractions;
 using Virinco.WATS.Interface;
 
-namespace {{CUSTOMER_NAME}}Converters
+namespace {{PROJECT_NAME}}Converters
 {
     /// <summary>
     /// Tests for {{CONVERTER_CLASS_NAME}} with built-in safety checks.
@@ -388,7 +388,7 @@ namespace {{CUSTOMER_NAME}}Converters
 
     public class ConverterInfo
     {
-        public string CustomerName { get; set; }
+        public string ProjectName { get; set; }
         public string Version { get; set; }
         public string Developer { get; set; }
         public string Created { get; set; }

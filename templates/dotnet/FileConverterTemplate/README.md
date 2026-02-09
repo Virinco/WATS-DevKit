@@ -1,4 +1,4 @@
-# {{CUSTOMER_NAME}} Converter - Technical Documentation
+# {{PROJECT_NAME}} Converter - Technical Documentation
 
 **Version:** 1.0  
 **Created:** {{DATE}}  
@@ -24,7 +24,7 @@
 
 ### Purpose
 
-Converts **{{FILE_FORMAT}}** test data files from [Customer's test system] into WATS UUT reports.
+Converts **{{FILE_FORMAT}}** test data files from [Source test system] into WATS UUT reports.
 
 ### File Format Summary
 
@@ -137,7 +137,7 @@ step.Status = StepStatusType.Passed;
 ### Class Structure
 
 ```
-{{CUSTOMER_NAME}}Converters
+{{PROJECT_NAME}}Converters
 ├── {{CONVERTER_CLASS_NAME}}.cs           # Main converter class (IReportConverter_v2)
 ├── FileParser.cs                         # File parsing logic (if separated)
 ├── UUTBuilder.cs                         # WATS UUT construction (if separated)
@@ -213,14 +213,13 @@ This converter project is part of a larger repository with automation tools:
 | `analyze-test-files.ps1` | Analyze sample files | `.\analyze-test-files.ps1 -TestFilesPath "path"` |
 | `test-converter.ps1` | Run converter tests | `.\test-converter.ps1 -ProjectPath "path"` |
 | `validate-converter.ps1` | Test against WATS server | `.\validate-converter.ps1 -ConverterPath "path"` |
-| `send-customer-email.ps1` | Generate delivery emails | `.\send-customer-email.ps1 -CustomerName "{{CUSTOMER_NAME}}" -Type delivery` |
 | `build-docs.ps1` | Build/preview documentation | `.\build-docs.ps1 -Watch` |
 
 **Quick Start:**
 ```powershell
 # From repository root
 cd tools
-.\test-converter.ps1 -ProjectPath "../src/DotNet/Customers/{{CUSTOMER_NAME}}"
+.\test-converter.ps1 -ProjectPath "../src/DotNet/Projects/{{PROJECT_NAME}}"
 ```
 
 ### 🤖 AI Agent Assistance
@@ -291,7 +290,7 @@ Track progress in `PROGRESS.md`:
 
 ### Test Data Location
 
-Sample files: `Data/` folder in project (or `test-files/{{CUSTOMER_NAME}}/`)
+Sample files: `Data/` folder in project
 
 **Test File Coverage:**
 
@@ -429,12 +428,12 @@ Before delivering to customer:
 **Build for delivery:**
 ```bash
 dotnet build -c Release
-# Output: bin/Release/{{TARGET_FRAMEWORK}}/{{CUSTOMER_NAME}}Converters.dll
+# Output: bin/Release/{{TARGET_FRAMEWORK}}/{{PROJECT_NAME}}Converters.dll
 ```
 
 **Package contents:**
-- `{{CUSTOMER_NAME}}Converters.dll`
-- `DEPLOYMENT.md` (customer-facing installation guide)
+- `{{PROJECT_NAME}}Converters.dll`
+- `DEPLOYMENT.md` (installation guide)
 - `README.md` (this file - technical documentation)
 - Sample test file (anonymized)
 

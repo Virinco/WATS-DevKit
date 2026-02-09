@@ -1,7 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net8.0</TargetFramework>
+        <!-- Multi-target both modern .NET and .NET Framework -->
+        <TargetFrameworks>net8.0;net48</TargetFrameworks>
         <IsPackable>false</IsPackable>
         <IsTestProject>true</IsTestProject>
         <LangVersion>latest</LangVersion>
@@ -17,8 +18,12 @@
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
 
-        <!-- JSON serialization (.NET Framework 4.8needs explicit package) -->
+        <!-- JSON serialization -->
         <PackageReference Include="System.Text.Json" Version="8.0.5" />
+
+        <!-- Required by WATS API on .NET Core -->
+        <PackageReference Include="System.Security.Cryptography.ProtectedData" Version="8.0.0" />
+        <PackageReference Include="System.Diagnostics.EventLog" Version="8.0.0" />
     </ItemGroup>
 
     <ItemGroup>
@@ -28,8 +33,7 @@
 
     <ItemGroup>
         <!-- Copy Data folder to output for tests -->
-        <None Update="..\Data\**\*">
-            <Link>Data\%(RecursiveDir)%(FileName)%(Extension)</Link>
+        <None Update="Data\**\*">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
         <!-- Copy test configuration -->

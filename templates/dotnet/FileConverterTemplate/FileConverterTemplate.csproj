@@ -1,19 +1,24 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <!-- Framework target - replaced by template generator -->
-    <TargetFramework>net8.0</TargetFramework>
-    <!-- Multi-target example: <TargetFrameworks>net8.0;net48</TargetFrameworks> -->
+    <!-- Multi-target both modern .NET and .NET Framework -->
+    <TargetFrameworks>net8.0;net48</TargetFrameworks>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <OutputType>Library</OutputType>
-    <AssemblyName>{{CUSTOMER_NAME}}Converters</AssemblyName>
-    <RootNamespace>{{CUSTOMER_NAME}}Converters</RootNamespace>
+    <AssemblyName>{{PROJECT_NAME}}Converters</AssemblyName>
+    <RootNamespace>{{PROJECT_NAME}}Converters</RootNamespace>
   </PropertyGroup>
 
+  <!-- WATS Client API - Different packages for different frameworks -->
+  <ItemGroup Condition="'$(TargetFramework)' == 'net48'">
+    <PackageReference Include="WATS.Client" Version="6.1.*" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)' == 'net8.0'">
+    <PackageReference Include="Virinco.WATS.ClientAPI" Version="7.0.*" />
+  </ItemGroup>
+
   <ItemGroup>
-    <!-- WATS NuGet Package - Update version as needed -->
-    <PackageReference Include="WATS.Client" Version="8.0.0" />
 
     <!-- Common logging and utilities -->
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.0" />

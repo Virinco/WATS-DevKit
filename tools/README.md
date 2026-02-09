@@ -18,7 +18,7 @@ Interactive wizard that prompts for:
 - Converter class name
 - Target framework (.NET 8.0 or .NET Framework 4.8)
 
-**Output:** New project in `templates/dotnet/YourProjectName/`
+**Output:** New project in `Converters/YourAssemblyName/`
 
 ### test-converter.ps1
 

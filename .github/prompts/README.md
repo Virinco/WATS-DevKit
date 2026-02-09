@@ -2,6 +2,25 @@
 
 This folder contains **GitHub Copilot Chat prompts** that make it easy to run converter development tasks directly from the chat window.
 
+---
+
+## ⚠️ CRITICAL FOR AI AGENTS
+
+When using these prompts to help with WATS converter development:
+
+**📘 ALWAYS REFERENCE:** `docs/api/API_REFERENCE.md`
+
+This is the **authoritative source** for:
+- ✅ Correct WATS API usage patterns
+- ✅ Operation type handling (server-specific, NEVER hardcoded)
+- ✅ All step types (Numeric, PassFail, StringValue, etc.)
+- ✅ UUT properties, validation modes, submission patterns
+- ✅ Best practices and common mistakes
+
+**DO NOT guess at API methods or properties.** Check the API reference first!
+
+---
+
 ## Available Prompts
 
 ### @workspace /new-converter
@@ -31,7 +50,7 @@ Runs tests on a converter project.
 or with specific path:
 
 ```
-@workspace /test-converter templates/dotnet/MyConverter
+@workspace /test-converter Converters/MyConverters
 ```
 
 Runs `tools/test-converter.ps1` and interprets results.

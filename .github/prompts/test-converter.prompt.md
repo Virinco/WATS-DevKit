@@ -1,7 +1,7 @@
 ---
 name: test-converter
 description: Run tests on a WATS converter project
-argument-hint: "Optional: converter project path, e.g., 'templates/dotnet/MyConverter'"
+argument-hint: "Optional: converter project path, e.g., 'Converters/MyConverters'"
 ---
 
 You are my assistant for testing WATS converter projects.
@@ -23,7 +23,7 @@ If user provided path:
 - Use it directly
 
 If not provided:
-- List available converters in `templates/dotnet/`
+- List available converters in `Converters/`
 - Ask: "Which converter would you like to test?"
 - Use selected converter
 
@@ -32,7 +32,7 @@ If not provided:
 Execute:
 
 ```powershell
-.\tools\test-converter.ps1 -ConverterPath "templates/dotnet/{ConverterName}"
+.\tools\test-converter.ps1 -ConverterPath "Converters/{AssemblyName}"
 ```
 
 Or if user is in the converter directory:
@@ -76,6 +76,23 @@ Based on results, ask:
 - "Would you like help debugging a specific failure?"
 - "Ready to implement the next milestone?"
 - "Need help understanding the test output?"
+
+---
+
+## ⚠️ IMPORTANT FOR AI AGENTS
+
+When helping debug converter issues or implement features, **YOU MUST REFERENCE**:
+
+📘 **`docs/api/API_REFERENCE.md`** - Complete WATS Report API documentation
+
+This contains:
+- ✅ Correct API initialization patterns
+- ✅ Operation type handling (server-specific, NEVER hardcoded)
+- ✅ All step types with complete examples
+- ✅ UUT properties and validation modes
+- ✅ Common errors and how to fix them
+
+**DO NOT guess at API usage.** Always check the API reference first!
 
 ---
 

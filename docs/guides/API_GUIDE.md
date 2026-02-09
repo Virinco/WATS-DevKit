@@ -6,6 +6,10 @@
 
 ---
 
+> **📘 Note for AI Agents:** This is the **user-facing guide**. For a complete, structured API reference optimized for agent consumption, see [../api/API_REFERENCE.md](../api/API_REFERENCE.md).
+
+---
+
 ## Table of Contents
 
 1. [Getting Started](#getting-started)
@@ -30,8 +34,8 @@
 
 **IMPORTANT:** There are two different NuGet packages depending on your target framework:
 
-- **WATS.Client** - For .NET Framework 4.x (WATS Client 6.x)
-- **WATS.Client.Core** - For .NET Core/6/8/10+ (WATS Client 7.x)
+- **WATS.Client** - For .NET Framework 4.x (version 6.1.*)
+- **Virinco.WATS.ClientAPI** - For .NET Core/6/8/10+ (version 7.0.*)
 
 For multi-targeting projects (net8.0 and net48), add to your `.csproj`:
 
@@ -40,7 +44,7 @@ For multi-targeting projects (net8.0 and net48), add to your `.csproj`:
   <PackageReference Include="WATS.Client" Version="6.1.*" />
 </ItemGroup>
 <ItemGroup Condition="'$(TargetFramework)' == 'net8.0'">
-  <PackageReference Include="WATS.Client.Core" Version="7.0.*" />
+  <PackageReference Include="Virinco.WATS.ClientAPI" Version="7.0.*" />
 </ItemGroup>
 ```
 
@@ -51,7 +55,7 @@ Or via command line:
 dotnet add package WATS.Client
 
 # For .NET 8.0+
-dotnet add package WATS.Client.Core
+dotnet add package Virinco.WATS.ClientAPI
 ```
 
 ### Namespace Import
@@ -788,5 +792,5 @@ public class ExampleConverter : IReportConverter_v2
 
 **For more examples, see:**
 
-- [DevKit/examples/SimpleCSVConverter/](../examples/SimpleCSVConverter/)
+- [DevKit/Converters/ExampleConverters/](../Converters/ExampleConverters/)
 - Repository API_KNOWLEDGE/DotNet/UUTReport_API_Quick_Reference.md

@@ -9,7 +9,7 @@ using Xunit.Abstractions;
 namespace ExampleConverters.Tests
 {
     /// <summary>
-    /// Tests for SimpleCSVConverter (in ExampleConverters assembly).
+    /// Tests for ExampleCSVConverter (in ExampleConverters assembly).
     /// Supports three test modes (configured in test.config.json):
     /// 1. ValidateOnly (default) - Validates conversion without server submission
     /// 2. SubmitToDebug - Submits all reports to SW-Debug (operation code 10)
@@ -45,7 +45,7 @@ namespace ExampleConverters.Tests
 
             _output.WriteLine($"Testing file: {fileName}");
 
-            var converter = new SimpleCSVConverter();
+            var converter = new ExampleCSVConverter();
             var modeSettings = _config.GetCurrentModeSettings();
 
             // Create API (mock or real based on mode)
@@ -114,7 +114,7 @@ namespace ExampleConverters.Tests
             int failed = 0;
             var failures = new List<string>();
 
-            var converter = new SimpleCSVConverter();
+            var converter = new ExampleCSVConverter();
             var modeSettings = _config.GetCurrentModeSettings();
 
             // Create API once for batch

@@ -28,11 +28,11 @@ namespace ExampleConverters
     /// - PassFailStep: Binary pass/fail tests (e.g., continuity, presence detection)
     /// - StringValueStep: Text-based results (e.g., firmware version, serial numbers)
     /// </remarks>
-    public class SimpleCSVConverter : IReportConverter_v2
+    public class ExampleCSVConverter : IReportConverter_v2
     {
         private readonly Dictionary<string, string> parameters = new Dictionary<string, string>();
 
-        public SimpleCSVConverter()
+        public ExampleCSVConverter()
         {
             // Default parameters
             parameters["operationTypeCode"] = "30";  // Default code - YOUR server may use different codes!
@@ -40,7 +40,7 @@ namespace ExampleConverters
             parameters["operator"] = "Auto";
         }
 
-        public SimpleCSVConverter(IDictionary<string, string> args)
+        public ExampleCSVConverter(IDictionary<string, string> args)
             : this()
         {
             if (args != null)

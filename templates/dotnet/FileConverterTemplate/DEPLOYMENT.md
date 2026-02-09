@@ -1,4 +1,4 @@
-# {{CUSTOMER_NAME}} Converter - Deployment Guide
+# {{PROJECT_NAME}} Converter - Deployment Guide
 
 **Version:** 1.0  
 **Created:** {{DATE}}  
@@ -48,7 +48,7 @@ This converter processes **{{FILE_FORMAT}}** test data files and uploads them to
 ### Prerequisites
 
 **System Requirements:**
-- Windows 10/11 or Windows Server 2016+
+- Windows 10/11
 - .NET {{TARGET_FRAMEWORK}} Runtime ([Download here](https://dotnet.microsoft.com/download))
 - WATS Client installed ([download.wats.com](https://download.wats.com))
 
@@ -99,16 +99,16 @@ If you downloaded the DLL from email or file share, Windows may block it:
 
 1. In WATS Client, click **Converters** menu
 2. Click **"ADD CONVERTER"**
-3. Enter converter name: `{{CUSTOMER_NAME}}`
+3. Enter converter name: `{{PROJECT_NAME}}`
 
 **Assembly & Class:**
-1. Click **"BROWSE"** and select `{{CUSTOMER_NAME}}Converters.dll`
-2. In **Class** dropdown, select: `{{CUSTOMER_NAME}}Converters.{{CONVERTER_CLASS_NAME}}`
+1. Click **"BROWSE"** and select `{{PROJECT_NAME}}Converters.dll`
+2. In **Class** dropdown, select: `{{PROJECT_NAME}}Converters.{{CONVERTER_CLASS_NAME}}`
 
 **Input Path:**
 1. Click **"BROWSE"** next to Input Path
 2. Select the folder where test files will be dropped
-   - Example: `C:\WATS\Upload\{{CUSTOMER_NAME}}\`
+   - Example: `C:\WATS\Upload\{{PROJECT_NAME}}\`
    - WATS Client will monitor this folder continuously
 
 **Filter:**
@@ -284,15 +284,15 @@ Click the **Parameters** tab and configure:
 **Single target:**
 ```bash
 dotnet build -c Release
-# Output: bin/Release/{{TARGET_FRAMEWORK}}/{{CUSTOMER_NAME}}Converters.dll
+# Output: bin/Release/{{TARGET_FRAMEWORK}}/{{PROJECT_NAME}}Converters.dll
 ```
 
 **Multi-target build:**
 ```bash
 dotnet build -c Release
 # Output: 
-#   bin/Release/net8.0/{{CUSTOMER_NAME}}Converters.dll
-#   bin/Release/net48/{{CUSTOMER_NAME}}Converters.dll
+#   bin/Release/net8.0/{{PROJECT_NAME}}Converters.dll
+#   bin/Release/net48/{{PROJECT_NAME}}Converters.dll
 ```
 
 **Specific framework:**
@@ -303,13 +303,13 @@ dotnet build -c Release -f net48
 ### Packaging for Delivery
 
 1. Build in Release configuration
-2. Locate DLL: `bin/Release/[framework]/{{CUSTOMER_NAME}}Converters.dll`
+2. Locate DLL: `bin/Release/[framework]/{{PROJECT_NAME}}Converters.dll`
 3. Create ZIP package with:
-   - `{{CUSTOMER_NAME}}Converters.dll`
+   - `{{PROJECT_NAME}}Converters.dll`
    - `DEPLOYMENT.md` (this file)
    - `README.md` (technical documentation)
    - Sample test file (anonymized)
-4. Name: `{{CUSTOMER_NAME}}_Converter_v1.0.zip`
+4. Name: `{{PROJECT_NAME}}_Converter_v1.0.zip`
 
 ### Version History
 

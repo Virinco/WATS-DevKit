@@ -1,4 +1,4 @@
-# Test Data for {{CUSTOMER_NAME}}
+# Test Data for {{PROJECT_NAME}}
 
 Place sample test files in this directory.
 

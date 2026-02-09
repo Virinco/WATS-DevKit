@@ -59,9 +59,9 @@ else {
 # CHECK 3: NuGet Package Restore
 Write-Host ""
 Write-Host "[3/6] Restoring NuGet packages..." -ForegroundColor Yellow
-Push-Location "$PSScriptRoot/examples/SimpleCSVConverter"
+Push-Location "$PSScriptRoot"
 try {
-    $output = dotnet restore 2>&1
+    $output = dotnet restore WATS-DevKit.sln 2>&1
     if ($LASTEXITCODE -eq 0) {
         Write-Host "  [OK] NuGet packages restored" -ForegroundColor Green
         $checks.Passed++
@@ -78,9 +78,9 @@ finally {
 # CHECK 4: Build Example Converter
 Write-Host ""
 Write-Host "[4/6] Building example converter..." -ForegroundColor Yellow
-Push-Location "$PSScriptRoot/examples/SimpleCSVConverter"
+Push-Location "$PSScriptRoot"
 try {
-    $output = dotnet build --no-restore -v quiet 2>&1
+    $output = dotnet build WATS-DevKit.sln --no-restore -v quiet 2>&1
     if ($LASTEXITCODE -eq 0) {
         Write-Host "  [OK] Example built successfully (net8.0 + net48)" -ForegroundColor Green
         $checks.Passed++
@@ -118,19 +118,19 @@ if ($allPromptsExist) {
     Write-Host "  [INFO] Use '@workspace /new-converter' in Copilot Chat" -ForegroundColor Cyan
 }
 
-# CHECK 6: Workspace Settings
+# CHECK 6: VS Code Extensions
 Write-Host ""
-Write-Host "[6/6] Checking workspace configuration..." -ForegroundColor Yellow
-$settingsFile = Join-Path $PSScriptRoot ".vscode/settings.json"
+Write-Host "[6/6] Checking recommended VS Code extensions..." -ForegroundColor Yellow
 $extensionsFile = Join-Path $PSScriptRoot ".vscode/extensions.json"
-$tasksFile = Join-Path $PSScriptRoot ".vscode/tasks.json"
-if ((Test-Path $settingsFile) -and (Test-Path $extensionsFile) -and (Test-Path $tasksFile)) {
-    Write-Host "  [OK] VS Code workspace configured" -ForegroundColor Green
+if (Test-Path $extensionsFile) {
+    Write-Host "  [OK] Extension recommendations available" -ForegroundColor Green
+    Write-Host "  [INFO] Install: C# Dev Kit, GitHub Copilot" -ForegroundColor Cyan
     $checks.Passed++
 }
 else {
-    Write-Host "  [WARNING] Some workspace files missing" -ForegroundColor Yellow
-    $checks.Warnings++
+    Write-Host "  [INFO] Extension recommendations optional" -ForegroundColor Cyan
+    Write-Host "  [INFO] Recommended: C# Dev Kit, GitHub Copilot" -ForegroundColor Cyan
+    $checks.Passed++
 }
 
 # SUMMARY

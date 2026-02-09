@@ -5,6 +5,17 @@
 
 ---
 
+> **🤖 FOR AI AGENTS:** When helping with WATS converter development, **ALWAYS REFERENCE** the complete API documentation at [docs/api/API_REFERENCE.md](../api/API_REFERENCE.md). This contains critical information about:
+> - Correct API initialization patterns
+> - Operation type handling (server-specific, NOT hardcoded)
+> - Step types (NumericLimitStep, PassFailStep, StringValueStep, etc.)
+> - Validation modes and best practices
+> - Common pitfalls and how to avoid them
+>
+> **DO NOT guess at API usage** - check the reference first!
+
+---
+
 ## Step 1: Set Up Environment (5 minutes)
 
 ### Install Required Software
@@ -36,10 +47,10 @@ dotnet --version
 .\tools\new-converter.ps1
 ```
 
-1. Answer the prompts:
-   - **Company/Customer name?** Enter your company name
-   - **WATS server URL?** Enter your WATS server address (or leave blank)
-   - **File format?** Select the format of your test files (CSV, LOG, XML, etc.)
+The script will prompt you for:
+   - **Assembly name** - Your converter project name (e.g., 'MyConverters', 'ProductionConverters')
+   - **First converter name** - Main converter class (e.g., 'ICTConverter', 'LogFileConverter')
+   - **Additional converters** (optional) - Press Enter to skip
 
 The wizard creates a ready-to-run .NET converter project!
 
@@ -58,12 +69,13 @@ The wizard creates a ready-to-run .NET converter project!
 **Example:**
 
 ```
-templates/dotnet/MyCompanyConverter/
-└── Data/
-    ├── pass_sample1.log
-    ├── pass_sample2.log
-    ├── fail_sample1.log
-    └── pass_sample3.log
+Converters/MyConverters/
+└── tests/
+    └── Data/
+        ├── pass_sample1.log
+        ├── pass_sample2.log
+        ├── fail_sample1.log
+        └── pass_sample3.log
 ```
 
 ---
@@ -73,7 +85,7 @@ templates/dotnet/MyCompanyConverter/
 Run the test suite to see what happens with the default template:
 
 ```powershell
-cd templates/dotnet/YourConverterName
+cd Converters/YourAssemblyName
 dotnet test
 ```
 
@@ -87,7 +99,9 @@ Now you'll modify the converter to read your specific file format.
 
 ### Open the converter file
 
-Open: **`YourConverterName/Converter.cs`**
+Open: **`Converters/YourAssemblyName/src/YourConverterName.cs`**
+
+(e.g., if you named your assembly "MyConverters" and converter "ICTConverter", open `Converters/MyConverters/src/ICTConverter.cs`)
 
 ### Locate the `ImportReport()` method
 
@@ -123,23 +137,22 @@ public Report ImportReport(TDM api, Stream file)
         var partNumber = ExtractPartNumber(lines);
         var startTime = ExtractStartTime(lines);
         
-        // Get operation type from YOUR WATS server
-        OperationType opType = api.GetOperationTypes()
-            .Where(o => o.Name.Equals("ICT", StringComparison.OrdinalIgnoreCase))
-            .FirstOrDefault();
-        
-        if (opType == null)
-        {
-            opType = api.GetOperationType("30");  // Fallback to code
+// Get operation type from server
+                    OperationType? operationType = null;
+                    string opCode = "30";  // Change to your operation type code
+                    
+                    operationType = api.GetOperationType(opCode);
+                    if (operationType == null)
+                    {
+                        throw new Exception(
+                            $"Operation type with code '{opCode}' not found on WATS server!\n" +
+                            "Check Control Panel → Process & Production → Processes");
         }
         
         // Create UUT report
         UUTReport uut = api.CreateUUTReport(
             "Operator", partNumber, "A", serialNumber,
-            opType, "SequenceName", "1.0");
-        
-        uut.StartDateTime = startTime;
-        
+                        operationType, "SequenceName", "1.0");
         // Submit to WATS
         api.Submit(uut);
         
@@ -183,15 +196,10 @@ step2.Status = StepStatusType.Passed;
 Once your tests pass locally, validate against your WATS test server:
 
 ```powershell
-.\tools\test-converter.ps1 -ConverterPath "templates\dotnet\YourConverter" -ServerUrl "https://your-wats-server.com" -ValidateServer
+.\tools\test-converter.ps1 -ConverterPath "Converters\YourAssemblyName"
 ```
 
-This will:
-
-1. Convert a test file
-2. Submit to WATS server
-3. Retrieve the UUT back from server
-4. Verify data matches
+This will run all tests in the Data/ folder.
 
 ---
 
