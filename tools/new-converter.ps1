@@ -20,9 +20,8 @@ $ErrorActionPreference = "Stop"
 
 # Banner
 Write-Host ""
-Write-Host "════════════════════════════════════════════════" -ForegroundColor Cyan
-Write-Host "  WATS Converter Assembly Generator" -ForegroundColor Cyan
-Write-Host "════════════════════════════════════════════════" -ForegroundColor Cyan
+Write-Host "WATS Converter Assembly Generator" -ForegroundColor Cyan
+Write-Host "--------------------------------" -ForegroundColor Cyan
 Write-Host ""
 
 # Get assembly name
@@ -70,8 +69,12 @@ Write-Host "Converters: $($converters -join ', ')" -ForegroundColor Gray
 Write-Host ""
 
 # Define paths
+<<<<<<< HEAD
 $convertersPath = Join-Path $PSScriptRoot "..\Converters"
 $outputPath = Join-Path $convertersPath $assemblyName
+=======
+$outputPath = Join-Path $PSScriptRoot "Converters\$assemblyName"
+>>>>>>> 6e32c93 (Fix new-converter.ps1 to ensure output path is correctly set under Converters directory and remove potential issues with folder creation.)
 $rootSlnPath = Join-Path $PSScriptRoot "..\WATS-DevKit.sln"
 
 if (Test-Path $outputPath) {
