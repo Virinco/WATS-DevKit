@@ -1,0 +1,30 @@
+{
+    "$schema": "./TestConfig.Schema.json",
+    "testMode": "ValidateOnly",
+    "modes": {
+        "ValidateOnly": {
+            "description": "Test conversion logic without submitting to server (default)",
+            "submit": false,
+            "mockApi": true
+        },
+        "SubmitToDebug": {
+            "description": "Submit all reports to SW-Debug process (Operation Code 10)",
+            "submit": true,
+            "mockApi": false,
+            "forceOperationCode": "10",
+            "serverUrl": "http://localhost:8086/wats"
+        },
+        "Production": {
+            "description": "Submit reports with actual operation codes from file/converter",
+            "submit": true,
+            "mockApi": false,
+            "serverUrl": "http://localhost:8086/wats"
+        }
+    },
+    "comments": {
+        "testMode": "Current test mode: 'ValidateOnly' (default), 'SubmitToDebug', or 'Production'",
+        "ValidateOnly": "Reports are validated but NOT submitted to server. No WATS server required.",
+        "SubmitToDebug": "ALL reports sent to SW-Debug (code 10) for testing. Check WATS under SW-Debug process.",
+        "Production": "Reports sent with original operation codes. Use carefully!"
+    }
+}

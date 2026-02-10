@@ -1,0 +1,43 @@
+# Build outputs
+bin/
+obj/
+*.dll
+*.exe
+*.pdb
+
+# Distribution artifacts
+Dist/
+
+# User-specific files
+*.user
+*.suo
+.vs/
+.vscode/
+
+# Test results
+TestResults/
+
+# NuGet packages
+packages/
+*.nupkg
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Temporary files
+*.tmp
+*.temp
+~$*
+
+# Large test data files
+# Keep small samples, ignore large files
+*.zip
+*.mdb
+*.xlsx
+
+# Allow README files
+!**/README.md
+
+.fake

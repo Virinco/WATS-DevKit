@@ -1,0 +1,4 @@
+SerialNumber,PartNumber,TestDate,OperationType,StepName,StepType,Value,LowLimit,HighLimit,Unit,Result
+SN12345,PN-001,2026-02-03 14:30:00,ICT,Voltage Measurement,NumericLimit,5.02,4.90,5.10,V,PASS
+SN12345,PN-001,2026-02-03 14:30:00,ICT,Continuity Test,PassFail,,,,,PASS
+SN12345,PN-001,2026-02-03 14:30:00,ICT,Firmware Version,StringValue,v2.1.5,,,,,PASS
