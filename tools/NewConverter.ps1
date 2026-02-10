@@ -513,7 +513,7 @@ $readmeContent = "# $assemblyName`n`n" +
                  "   dotnet test`n" +
                  "   ``````n`n" +
                  "3. **Implement converters**`n" +
-                 "   Edit ````src/$($converters[0]).cs```` (and others)`n`n" +
+                 "   Edit ````src/$($converters[0]).cs```` `(and others`)`n`n" +
                  "## Project Structure`n`n" +
                  "``````n" +
                  "$assemblyName/`n" +
@@ -530,12 +530,12 @@ $readmeContent = "# $assemblyName`n`n" +
                  "``````n`n" +
                  "## Test Modes`n`n" +
                  "Configured in ````tests/TestConfig.json````:`n`n" +
-                 "### ValidateOnly (Default)`n" +
+                 "### ValidateOnly `(Default`)`n" +
                  "- No server submission`n" +
                  "- Validates conversion logic only`n" +
                  "- Fast, no WATS server required`n`n" +
                  "### SubmitToDebug`n" +
-                 "- Submits to ````SW-Debug```` process (code 10)`n" +
+                 "- Submits to ````SW-Debug```` process `(code 10`)`n" +
                  "- Useful for testing on real server`n" +
                  "- Won't clutter production data`n`n" +
                  "### Production`n" +
