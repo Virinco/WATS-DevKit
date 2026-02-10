@@ -129,7 +129,7 @@ namespace {{PROJECT_NAME}}Converters.Tests
         private TDM CreateRealApi(TestModeSettings settings)
         {
             var api = new TDM();
-            api.InitializeAPI();  // Authentication handled by WATS Client
+            api.InitializeAPI(true);  // Authentication handled by WATS Client
             return api;
         }
 
