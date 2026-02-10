@@ -31,12 +31,7 @@ Data/
 ### Option 2: Subdirectories by Stage
 ```
 Data/
-├── ICT/
-│   ├── board-001.{{FILE_EXTENSION}}
-│   └── board-002.{{FILE_EXTENSION}}
-├── Functional/
-│   └── func-test.{{FILE_EXTENSION}}
-└── EOL/
+├── EOL/
     └── eol-test.{{FILE_EXTENSION}}
 ```
 
