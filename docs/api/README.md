@@ -8,9 +8,11 @@ This directory contains comprehensive WATS API documentation for converter devel
 
 **When helping with WATS converter development, you MUST reference:**
 
-1. **[UUT_REFERENCE.md](UUT_REFERENCE.md)** - For test report converters (UUTReport)
-2. **[UUR_REFERENCE.md](UUR_REFERENCE.md)** - For repair report converters (UURReport)
-3. **[CONVERTER_GUIDE.md](CONVERTER_GUIDE.md)** - Complete converter development guide with examples
+1. **[uut/INDEX.md](uut/INDEX.md)** - For test report converters (UUTReport) - SPLIT INTO 9 FILES
+2. **[uur/INDEX.md](uur/INDEX.md)** - For repair report converters (UURReport) - SPLIT INTO 10 FILES
+3. **[converter/INDEX.md](converter/INDEX.md)** - Complete converter development guide - SPLIT INTO 11 FILES
+
+**Documents are SPLIT for AI accessibility - use INDEX files to navigate!**
 
 **DO NOT guess at API usage - always verify against these references!**
 
@@ -18,42 +20,43 @@ This directory contains comprehensive WATS API documentation for converter devel
 
 ## Documentation Files
 
-### [CONVERTER_GUIDE.md](CONVERTER_GUIDE.md) - Start Here! 🚀
+### [converter/INDEX.md](converter/INDEX.md) - Converter Development Guide 🚀
 
-**Complete reference** for building IReportConverter_v2 implementations:
-- Interface requirements and architecture
-- Configuration and parameters
-- Parsing source data (XML, CSV, JSON)
-- Building UUT and UUR reports
-- Error handling and logging
-- Testing, debugging, and deployment
-- Complete working examples (CSV, XML, UUR)
+**Complete reference** split into 11 focused files:
+- Overview, Getting Started, Interface
+- Architecture, Configuration, Parsing
+- Building Reports, Error Handling, Testing
+- Deployment, Complete Examples
 
 **Use when:** Building any converter, learning the API, understanding deployment
 
-### [UUT_REFERENCE.md](UUT_REFERENCE.md) - UUT Report Reference 📚
+### [uut/INDEX.md](uut/INDEX.md) - UUT Report Reference 📚
 
-**Comprehensive SDK reference for test reports** based on actual API source code:
-- All UUTReport classes, properties, and methods
-- Validation rules and constraints
-- TestMode and ValidationMode details
-- Charts, Attachments, Header containers
-- Complete CompOperator list
-- Status propagation rules
+**Comprehensive SDK reference** split into 9 focused files:
+- Overview, Creating Reports, Header Properties
+- Step Types (NumericLimit, PassFail, String, etc.)
+- Header Containers, Validation, Examples
+- Quick Reference, Advanced Topics
 
 **Use when:** Looking up specific UUT properties, understanding validation, debugging test reports
 
-### [UUR_REFERENCE.md](UUR_REFERENCE.md) - UUR Report Reference 🔧
+### [uur/INDEX.md](uur/INDEX.md) - UUR Report Reference 🔧
 
-**Comprehensive SDK reference for repair reports**:
-- All UURReport classes, properties, and methods
-- RepairType and FailCode hierarchies
-- Failure tracking and component references
-- MiscInfo fields (repair-specific metadata)
-- Part tracking for replaced components
-- Attachments and documentation
+**Comprehensive SDK reference** split into 10 focused files:
+- Overview, Creating Reports, Header Properties
+- Repair Types, Fail Codes, Failures
+- Header Containers, Validation, Examples
+- Quick Reference, Advanced Topics
 
 **Use when:** Building repair converters, tracking failures, documenting component replacements
+
+### Legacy Files (Retained for Compatibility)
+
+- [CONVERTER_GUIDE.md](CONVERTER_GUIDE.md) - Full converter guide (1608 lines)
+- [UUT_REFERENCE.md](UUT_REFERENCE.md) - Full UUT reference (1368 lines)
+- [UUR_REFERENCE.md](UUR_REFERENCE.md) - Full UUR reference (1291 lines)
+
+**Note:** These monolithic files remain for backward compatibility but AI agents should use the split versions.
 
 ---
 
@@ -62,19 +65,25 @@ This directory contains comprehensive WATS API documentation for converter devel
 **CRITICAL:** Always reference the correct documentation:
 
 **For Test Report Converters (most common):**
-- Complete Guide: [CONVERTER_GUIDE.md](CONVERTER_GUIDE.md)
-- API Reference: [UUT_REFERENCE.md](UUT_REFERENCE.md)
+- Complete Guide: [converter/INDEX.md](converter/INDEX.md)
+- API Reference: [uut/INDEX.md](uut/INDEX.md)
 - Use UUTReport, NumericLimitStep, PassFailStep, etc.
 
 **For Repair Report Converters:**
-- Complete API: [UUR_REFERENCE.md](UUR_REFERENCE.md)
+- Complete API: [uur/INDEX.md](uur/INDEX.md)
 - Use UURReport, RepairType, FailCode, Failure, etc.
+
+**Documentation is SPLIT for better AI accessibility:**
+- Each section is in its own file (< 500 lines)
+- Use INDEX.md files to navigate
+- Files are numbered for sequential reading
 
 **Before suggesting ANY code:**
 1. Identify report type (UUT = test results, UUR = repairs)
-2. Reference correct documentation file
-3. Verify exact method signatures and properties
-4. Use patterns from Complete Example sections
+2. Reference INDEX.md to find the right section
+3. Read the specific section file you need
+4. Verify exact method signatures and properties
+5. Use patterns from Complete Example sections
 
 **DO NOT:**
 - Guess at API method names
