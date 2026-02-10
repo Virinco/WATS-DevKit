@@ -26,11 +26,11 @@
 ### Clone from GitHub
 
 ```bash
-git clone https://github.com/virinco/WATS-DevKit.git
+git clone https://github.com/Virinco/WATS-DevKit.git
 cd WATS-DevKit
 ```
 
-**Or download:** Get the latest release from [github.com/virinco/WATS-DevKit/releases](https://github.com/virinco/WATS-DevKit/releases)
+> **Tip:** Using Git allows you to easily get updates with `git pull` when new features are added.
 
 ---
 

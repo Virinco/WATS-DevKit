@@ -54,21 +54,22 @@ Install WATS Client → Configure server connection.
 
 ## Getting Started
 
-### 1. Extract DevKit
+### 1. Clone the DevKit
 
-Unzip the WATS-DevKit package to your preferred location:
+Clone from GitHub to your preferred location:
 
-```
-C:\Work\WATS-DevKit\
+```powershell
+git clone https://github.com/Virinco/WATS-DevKit.git
+cd WATS-DevKit
 ```
 
 ### 2. Open in VS Code
 
 Right-click folder → **Open with Code**
 
-Or from PowerShell:
+Or from PowerShell (if already cloned):
 ```powershell
-cd C:\Work\WATS-DevKit
+cd path\to\WATS-DevKit
 code .
 ```
 
