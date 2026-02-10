@@ -38,6 +38,7 @@ $assemblyName = $assemblyName -replace '[^a-zA-Z0-9_]', ''
 $converters = @()
 $addMore = $true
 $isFirst = $true
+$firstExtension = "log"  # Default file extension for templates
 
 while ($addMore) {
     $prompt = if ($isFirst) {
@@ -285,13 +286,13 @@ namespace $assemblyName
 
                         if (operationType != null)
                         {
-                            Console.WriteLine(`$"Using operation type '{operationType.Name}' (Code: {operationType.Code})");
+                            Console.WriteLine($"Using operation type '{operationType.Name}' (Code: {operationType.Code})");
                         }
                         else
                         {
                             throw new Exception(
-                                `$"Operation type with code '{opCode}' not found on WATS server!\\n" +
-                                `$"Check Control Panel → Process & Production → Processes");
+                                $"Operation type with code '{opCode}' not found on WATS server!\n" +
+                                $"Check Control Panel → Process & Production → Processes");
                         }
                     }
                     else
@@ -330,13 +331,13 @@ namespace $assemblyName
                     // Submit to server
                     api.Submit(uut);
 
-                    Console.WriteLine(`$"Successfully submitted UUT: {serialNumber}");
+                    Console.WriteLine($"Successfully submitted UUT: {serialNumber}");
                     return null;
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine(`$"ERROR: {ex.Message}");
+                Console.WriteLine($"ERROR: {ex.Message}");
                 throw;
             }
         }
@@ -391,7 +392,7 @@ namespace $assemblyName.Tests
         [MemberData(nameof(GetTestFiles))]
         public void TestFile(string filePath, string fileName)
         {
-            _output.WriteLine(`$"Testing file: {fileName}");
+            _output.WriteLine($"Testing file: {fileName}");
             var converter = new $firstConverterName();
             var modeSettings = _config.GetCurrentModeSettings();
             TDM api = modeSettings.MockApi ? CreateMockApi() : CreateRealApi(modeSettings);
@@ -399,7 +400,7 @@ namespace $assemblyName.Tests
             using (var fileStream = File.OpenRead(filePath))
             {
                 converter.ImportReport(api, fileStream);
-                _output.WriteLine(`$"Successfully converted: {fileName}");
+                _output.WriteLine($"Successfully converted: {fileName}");
             }
         }
 
@@ -474,105 +475,78 @@ if (Test-Path "$templatePath\Data\README.md") {
     Set-Content "$outputPath\tests\Data\README.md" -Value $dataReadme
 } else {
     # Fallback to basic README if template not found
-    $dataReadme = @"
-# Test Data
-
-Place your test files in this directory.
-
-The test framework will automatically discover and test all files in this folder.
-
-## Example
-
-``````
-Data/
-  sample1.$firstExtension
-  sample2.$firstExtension
-``````
-
-Then run: ``dotnet test``
-"@
+    $dataReadme = "# Test Data`n`n" +
+                  "Place your test files in this directory.`n`n" +
+                  "The test framework will automatically discover and test all files in this folder.`n`n" +
+                  "## Example`n`n" +
+                  "``````n" +
+                  "Data/`n" +
+                  "  sample1.$firstExtension`n" +
+                  "  sample2.$firstExtension`n" +
+                  "``````n`n" +
+                  "Then run: ````dotnet test````"
     Set-Content "$outputPath\tests\Data\README.md" -Value $dataReadme
 }
 
-# Create main README
-$readmeContent = @"
-# $assemblyName
-
-WATS converter assembly containing:
-$($converters | ForEach-Object { "- $($_)" } | Out-String)
-
-## Quick Start
-
-1. **Add test files**
-   ``````
-   tests/Data/your-test-file.log
-   ``````
-
-2. **Run tests**
-   ``````bash
-   dotnet test
-   ``````
-
-3. **Implement converters**
-   Edit ``src/$($converters[0]).cs`` (and others)
-
-## Project Structure
-
-``````
-$assemblyName/
-  src/                      # Converter implementation
-    $assemblyName.csproj
-$($converters | ForEach-Object { "    $($_).cs`n" } | Out-String)  tests/                    # Test framework
-    $assemblyName.Tests.csproj
-    ConverterTests.cs
-    TestConfiguration.cs
-    TestConfig.json
-    Data/                 # Test files go here
-  $assemblyName.sln
-``````
-
-## Test Modes
-
-Configured in ``tests/TestConfig.json``:
-
-### ValidateOnly (Default)
-- No server submission
-- Validates conversion logic only
-- Fast, no WATS server required
-
-### SubmitToDebug
-- Submits to ``SW-Debug`` process (code 10)
-- Useful for testing on real server
-- Won't clutter production data
-
-### Production
-- Submits with actual operation codes
-- Use when converter is ready for deployment
-
-## Building
-
-``````bash
-dotnet build
-``````
-
-## Deployment
-
-Build the converter DLL:
-``````bash
-dotnet build src/$assemblyName.csproj --configuration Release
-``````
-
-Output: ``src/bin/Release/net8.0/$assemblyName.dll``
-
-Install in WATS Client:
-1. Copy DLL to WATS Client converters folder
-2. Configure converter in WATS Client
-3. Test with actual data
-
-## API Documentation
-
-See ``../docs/API_GUIDE.md`` for complete WATS API reference.
-"@
+# Create main README - using string concatenation to avoid backtick issues
+$converterList = ($converters | ForEach-Object { "- $($_)" }) -join "`n"
+$converterFiles = ($converters | ForEach-Object { "    $($_).cs" }) -join "`n"
+$readmeContent = "# $assemblyName`n`n" +
+                 "WATS converter assembly containing:`n$converterList`n`n" +
+                 "## Quick Start`n`n" +
+                 "1. **Add test files**`n" +
+                 "   ``````n" +
+                 "   tests/Data/your-test-file.log`n" +
+                 "   ``````n`n" +
+                 "2. **Run tests**`n" +
+                 "   ``````bash`n" +
+                 "   dotnet test`n" +
+                 "   ``````n`n" +
+                 "3. **Implement converters**`n" +
+                 "   Edit ````src/$($converters[0]).cs```` (and others)`n`n" +
+                 "## Project Structure`n`n" +
+                 "``````n" +
+                 "$assemblyName/`n" +
+                 "  src/                      # Converter implementation`n" +
+                 "    $assemblyName.csproj`n" +
+                 "$converterFiles`n" +
+                 "  tests/                    # Test framework`n" +
+                 "    $assemblyName.Tests.csproj`n" +
+                 "    ConverterTests.cs`n" +
+                 "    TestConfiguration.cs`n" +
+                 "    TestConfig.json`n" +
+                 "    Data/                 # Test files go here`n" +
+                 "  $assemblyName.sln`n" +
+                 "``````n`n" +
+                 "## Test Modes`n`n" +
+                 "Configured in ````tests/TestConfig.json````:`n`n" +
+                 "### ValidateOnly (Default)`n" +
+                 "- No server submission`n" +
+                 "- Validates conversion logic only`n" +
+                 "- Fast, no WATS server required`n`n" +
+                 "### SubmitToDebug`n" +
+                 "- Submits to ````SW-Debug```` process (code 10)`n" +
+                 "- Useful for testing on real server`n" +
+                 "- Won't clutter production data`n`n" +
+                 "### Production`n" +
+                 "- Submits with actual operation codes`n" +
+                 "- Use when converter is ready for deployment`n`n" +
+                 "## Building`n`n" +
+                 "``````bash`n" +
+                 "dotnet build`n" +
+                 "``````n`n" +
+                 "## Deployment`n`n" +
+                 "Build the converter DLL:`n" +
+                 "``````bash`n" +
+                 "dotnet build src/$assemblyName.csproj --configuration Release`n" +
+                 "``````n`n" +
+                 "Output: ````src/bin/Release/net8.0/$assemblyName.dll````" + "`n`n" +
+                 "Install in WATS Client:`n" +
+                 "1. Copy DLL to WATS Client converters folder`n" +
+                 "2. Configure converter in WATS Client`n" +
+                 "3. Test with actual data`n`n" +
+                 "## API Documentation`n`n" +
+                 "See ````../docs/API_GUIDE.md```` for complete WATS API reference."
 Set-Content "$outputPath\README.md" -Value $readmeContent
 
 # Create .gitignore
@@ -597,18 +571,18 @@ foreach ($conv in $converters) {
 Write-Host ""
 Write-Host "Next steps:" -ForegroundColor Yellow
 Write-Host ""
-Write-Host "1️⃣  Add test files:" -ForegroundColor Cyan
+Write-Host "1. Add test files:" -ForegroundColor Cyan
 Write-Host "   $outputPath\tests\Data\your-file.log" -ForegroundColor Gray
 Write-Host ""
-Write-Host "2️⃣  Open in VS Code:" -ForegroundColor Cyan
+Write-Host " 2. Open in VS Code:" -ForegroundColor Cyan
 Write-Host "   code $outputPath" -ForegroundColor Gray
 Write-Host ""
-Write-Host "3️⃣  Implement your converter(s):" -ForegroundColor Cyan
+Write-Host "3. Implement your converter(s):" -ForegroundColor Cyan
 foreach ($conv in $converters) {
     Write-Host "   Edit src\$conv.cs" -ForegroundColor Gray
 }
 Write-Host ""
-Write-Host "4️⃣  Run tests:" -ForegroundColor Cyan
+Write-Host "4. Run tests:" -ForegroundColor Cyan
 Write-Host "   cd $outputPath" -ForegroundColor Gray
 Write-Host "   dotnet test" -ForegroundColor Gray
 Write-Host ""
