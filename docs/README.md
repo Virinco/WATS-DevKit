@@ -10,23 +10,30 @@ When assisting with WATS converter development:
 
 **📘 CRITICAL RESOURCES:**
 
-1. **[api/UUT_REFERENCE.md](api/UUT_REFERENCE.md)** - For TEST report converters (UUTReport)
+1. **[api/uut/INDEX.md](api/uut/INDEX.md)** - For TEST report converters (UUTReport) - SPLIT INTO 9 FILES
    - Complete UUTReport API with all properties and methods
    - NumericLimitStep, PassFailStep, StringValueStep, SequenceCall
    - Step types, measurements, limits, validation
    - TestMode, ValidationMode, status propagation
 
-2. **[api/UUR_REFERENCE.md](api/UUR_REFERENCE.md)** - For REPAIR report converters (UURReport)
+2. **[api/uur/INDEX.md](api/uur/INDEX.md)** - For REPAIR report converters (UURReport) - SPLIT INTO 10 FILES
    - Complete UURReport API with all properties and methods
    - RepairType, FailCode hierarchies, Failures
    - Component tracking, MiscInfo fields, part replacement
    - Repair workflows and validation
 
-3. **[api/CONVERTER_GUIDE.md](api/CONVERTER_GUIDE.md)** - Complete converter development guide with examples
+3. **[api/converter/INDEX.md](api/converter/INDEX.md)** - Complete converter development guide - SPLIT INTO 11 FILES
    - IReportConverter_v2 interface
    - API initialization (`api.InitializeAPI(true)`)
    - Operation type handling (server-specific, NEVER hardcoded)
    - Best practices and common pitfalls
+
+**⚠️ CRITICAL - DO NOT USE REFLECTION:**
+- The WATS Client API is a **compiled NuGet package** (Virinco.WATS.ClientAPI)
+- **Reflection will FAIL** - source code is NOT available in this repository
+- **ALL method signatures, properties, and parameters are FULLY DOCUMENTED** in these files
+- **ALWAYS search and read the documentation** instead of attempting reflection
+- Use grep_search or semantic_search to find method names, class names, or signatures
 
 **ALWAYS consult the correct reference before suggesting code.** Do not guess at API usage.
 
@@ -51,11 +58,13 @@ When assisting with WATS converter development:
 ### For AI Agents (API References)
 
 📂 **[api/](api/)**
-- **[UUT_REFERENCE.md](api/UUT_REFERENCE.md)** - Complete UUTReport API for test converters
-- **[UUR_REFERENCE.md](api/UUR_REFERENCE.md)** - Complete UURReport API for repair converters
-- **[CONVERTER_GUIDE.md](api/CONVERTER_GUIDE.md)** - Complete converter development guide with examples
+- **[api/converter/INDEX.md](api/converter/INDEX.md)** - Complete converter development guide (11 files, < 500 lines each)
+- **[api/uut/INDEX.md](api/uut/INDEX.md)** - Complete UUTReport API for test converters (9 files, < 500 lines each)
+- **[api/uur/INDEX.md](api/uur/INDEX.md)** - Complete UURReport API for repair converters (10 files, < 500 lines each)
 
 **Purpose:** These provide clean, detailed API documentation specifically formatted for AI agents assisting users with WATS converter development. They include all method signatures, parameters, validation rules, examples, and common patterns.
+
+**Layout:** Documents are intentionally split into small files (< 500 lines) for better AI accessibility and semantic search performance. Use INDEX.md files to navigate.
 
 ---
 
@@ -76,7 +85,13 @@ When assisting with WATS converter development:
 → [guides/API_GUIDE.md](guides/API_GUIDE.md)
 
 **Help users as an AI agent (test converters)**  
-→ [api/UUT_REFERENCE.md](api/UUT_REFERENCE.md)
+→ [api/uut/INDEX.md](api/uut/INDEX.md)
+
+**Help users as an AI agent (repair converters)**  
+→ [api/uur/INDEX.md](api/uur/INDEX.md)
+
+**Help users as an AI agent (building converters)**  
+→ [api/converter/INDEX.md](api/converter/INDEX.md)
 
 **Help users as an AI agent (repair converters)**  
 → [api/UUR_REFERENCE.md](api/UUR_REFERENCE.md)

@@ -14,6 +14,14 @@ This directory contains comprehensive WATS API documentation for converter devel
 
 **Documents are SPLIT for AI accessibility - use INDEX files to navigate!**
 
+**⚠️ CRITICAL - DO NOT USE REFLECTION:**
+- The WATS Client API is a **compiled NuGet package** (Virinco.WATS.ClientAPI)
+- Source code is **NOT available** in this repository
+- **Reflection will FAIL** - you cannot inspect DLL files
+- **ALL method signatures, properties, and parameters are already documented** in these files
+- **ALWAYS search and read the documentation** instead of attempting reflection
+- If you cannot find what you need, search more thoroughly - it's already here
+
 **DO NOT guess at API usage - always verify against these references!**
 
 ---
@@ -85,11 +93,19 @@ This directory contains comprehensive WATS API documentation for converter devel
 4. Verify exact method signatures and properties
 5. Use patterns from Complete Example sections
 
+**ALL API METHODS ARE FULLY DOCUMENTED:**
+- Every class, method, property, and parameter is documented in these files
+- Method signatures are shown in code examples throughout
+- If you think something is missing, search more thoroughly - it's already documented
+- Use grep/search tools to find method names, class names, or property names
+
 **DO NOT:**
-- Guess at API method names
+- **Use reflection or attempt to inspect DLL files** - API is compiled, source not available
+- Guess at API method names or signatures
 - Assume operation types are hardcoded
 - Invent properties that don't exist
 - Skip validation modes
+- Try to discover methods programmatically - read the documentation instead
 
 ---
 
