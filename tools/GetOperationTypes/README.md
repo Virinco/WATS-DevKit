@@ -41,17 +41,19 @@ By default, the tool runs in mock mode (`api.InitializeAPI(true)`), which provid
 
 ## Production Mode
 
-To retrieve operation types from your actual WATS server, modify [Program.cs](Program.cs#L44):
+To retrieve operation types from your actual WATS server:
 
-```csharp
-// Replace:
-api.InitializeAPI(true);  // Mock mode
+1. Ensure WATS Client is installed and configured
+2. Modify [Program.cs](Program.cs#L44):
+   ```csharp
+   // Change from:
+   api.InitializeAPI(true);  // Mock mode
+   
+   // To:
+   api.InitializeAPI();  // Production - uses WATS Client credentials
+   ```
 
-// With production connection:
-api.InitializeAPI();
-api.SetClientInfo("WATS-DevKit", "1.0", "GetOperationTypes");
-api.Connect("username", "password", "http://wats-server/wats", "Client Name");
-```
+**Note:** Authentication is handled automatically by the installed WATS Client.
 
 ## Dependencies
 

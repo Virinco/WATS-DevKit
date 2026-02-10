@@ -61,12 +61,26 @@ namespace {{PROJECT_NAME}}Converters.Tests
             {
                 try
                 {
-                    converter.ImportReport(api, fileStream);
-                    _output.WriteLine($"Successfully converted: {fileName}");
+                    var report = converter.ImportReport(api, fileStream);
+                    
+                    // Submit report if converter returned it (not null)
+                    if (report != null && modeSettings.Submit)
+                    {
+                        api.Submit(report);
+                        _output.WriteLine($"✓ Successfully converted and SUBMITTED: {fileName}");
+                    }
+                    else if (report != null)
+                    {
+                        _output.WriteLine($"✓ Successfully VALIDATED (not submitted): {fileName}");
+                    }
+                    else
+                    {
+                        _output.WriteLine($"✓ Successfully converted: {fileName}");
+                    }
                 }
                 catch (Exception ex)
                 {
-                    _output.WriteLine($"FAILED: {fileName}");
+                    _output.WriteLine($"✗ FAILED: {fileName}");
                     _output.WriteLine($"  Error: {ex.Message}");
                     throw;
                 }
@@ -115,10 +129,7 @@ namespace {{PROJECT_NAME}}Converters.Tests
         private TDM CreateRealApi(TestModeSettings settings)
         {
             var api = new TDM();
-            api.InitializeAPI();
-            // TODO: Configure real API connection if needed
-            // api.SetClientInfo("{{PROJECT_NAME}}", "1.0", "Test");
-            // api.Connect(username, password, settings.ServerUrl, "{{PROJECT_NAME}} Test");
+            api.InitializeAPI();  // Authentication handled by WATS Client
             return api;
         }
 

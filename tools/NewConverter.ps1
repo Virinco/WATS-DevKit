@@ -395,8 +395,22 @@ namespace $assemblyName.Tests
             
             using (var fileStream = File.OpenRead(filePath))
             {
-                converter.ImportReport(api, fileStream);
-                _output.WriteLine($"Successfully converted: {fileName}");
+                var report = converter.ImportReport(api, fileStream);
+                
+                // Submit report if converter returned it (not null)
+                if (report != null && modeSettings.Submit)
+                {
+                    api.Submit(report);
+                    _output.WriteLine($"Successfully converted and SUBMITTED: {fileName}");
+                }
+                else if (report != null)
+                {
+                    _output.WriteLine($"Successfully VALIDATED (not submitted): {fileName}");
+                }
+                else
+                {
+                    _output.WriteLine($"Successfully converted: {fileName}");
+                }
             }
         }
 

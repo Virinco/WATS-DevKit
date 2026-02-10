@@ -1,14 +1,12 @@
-# WATS Report API Guide
+# WATS Converter API - Quick Start Guide
 
-**Version:** WATS.Client 6.1+  
+**Version:** WATS.Client 6.1+ / Virinco.WATS.ClientAPI 7.0+  
 **Namespace:** `Virinco.WATS.Interface`  
-**For:** .NET Converter Development
+**For:** Developers Building WATS Converters
 
----
-
-> **📘 Note for AI Agents:** This is the **user-facing guide**. For complete, structured API references optimized for agent consumption, see:
-> - [../api/UUT_REFERENCE.md](../api/UUT_REFERENCE.md) - Test reports (UUTReport)
-> - [../api/UUR_REFERENCE.md](../api/UUR_REFERENCE.md) - Repair reports (UURReport)
+> **📖 Complete References:**
+> - **Test Reports (UUT):** [UUT_REFERENCE.md](UUT_REFERENCE.md) - Complete UUTReport API
+> - **Repair Reports (UUR):** [UUR_REFERENCE.md](UUR_REFERENCE.md) - Complete UURReport API
 
 ---
 
@@ -21,6 +19,8 @@
 5. [Step Types Reference](#step-types-reference)
 6. [Validation & Submission](#validation--submission)
 7. [Best Practices](#best-practices)
+8. [Complete Example](#complete-example)
+9. [Troubleshooting](#troubleshooting)
 
 ---
 
@@ -29,17 +29,17 @@
 ### Prerequisites
 
 - .NET SDK 8.0 or .NET Framework 4.8
-- WATS.Client NuGet package (6.1+)
+- WATS Client NuGet package
 - Visual Studio Code or Visual Studio
 
 ### Installing the NuGet Package
 
-**IMPORTANT:** There are two different NuGet packages depending on your target framework:
+**IMPORTANT:** Different packages for different frameworks:
 
-- **WATS.Client** - For .NET Framework 4.x (version 6.1.*)
-- **Virinco.WATS.ClientAPI** - For .NET Core/6/8/10+ (version 7.0.*)
+- **.NET Framework 4.8:** `WATS.Client` version 6.1.*
+- **.NET 8.0+:** `Virinco.WATS.ClientAPI` version 7.0.*
 
-For multi-targeting projects (net8.0 and net48), add to your `.csproj`:
+For multi-targeting projects:
 
 ```xml
 <ItemGroup Condition="'$(TargetFramework)' == 'net48'">
@@ -50,7 +50,7 @@ For multi-targeting projects (net8.0 and net48), add to your `.csproj`:
 </ItemGroup>
 ```
 
-Or via command line:
+Via command line:
 
 ```powershell
 # For .NET Framework 4.8
@@ -83,13 +83,13 @@ using Virinco.WATS.Interface;
 public class MyConverter : IReportConverter_v2
 {
     private readonly Dictionary<string, string> _parameters;
-    
+
     // Default constructor
     public MyConverter()
     {
         _parameters = new Dictionary<string, string>
         {
-            { "operationTypeCode", "30" },  // Default operation type
+            { "operationTypeCode", "30" },  // Default operation type code
             { "stationName", Environment.MachineName }
         };
     }
@@ -116,7 +116,7 @@ public class MyConverter : IReportConverter_v2
         // ⚠️ CRITICAL: Initialize API first
         api.InitializeAPI(true);
         
-        // Set validation mode (see Validation & Submission section)
+        // Set validation mode
         api.ValidationMode = ValidationModeType.AutoTruncate;
         
         // Your conversion logic here
@@ -144,7 +144,7 @@ public class MyConverter : IReportConverter_v2
 
 ### ⚠️ CRITICAL: API Initialization
 
-**The most important thing to know:**
+The most important thing to know:
 
 ```csharp
 var api = new TDM();
@@ -152,7 +152,6 @@ api.InitializeAPI(true);  // That's it! No username/password/token needed!
 ```
 
 **Why no authentication?**
-
 - Authentication happens via the installed WATS Client
 - The converter runs in the WATS Client context
 - **NEVER** try to authenticate with username/password in converter code
@@ -168,7 +167,7 @@ public Report ImportReport(TDM api, Stream file)
 {
     api.InitializeAPI(true);
     api.ValidationMode = ValidationModeType.AutoTruncate;
-    
+
     // Parse your file to extract data
     string serialNumber = "SN12345";
     string partNumber = "PN-001";
@@ -176,7 +175,7 @@ public Report ImportReport(TDM api, Stream file)
     
     // Get operation type from YOUR server
     OperationType opType = api.GetOperationTypes()
-        .Where(o => o.Name.Equals("In-Circuit Test", StringComparison.OrdinalIgnoreCase))
+        .Where(o => o.Name.Equals("ICT Test", StringComparison.OrdinalIgnoreCase))
         .FirstOrDefault();
     
     if (opType == null)
@@ -188,15 +187,15 @@ public Report ImportReport(TDM api, Stream file)
     
     // Create UUT report
     UUTReport uut = api.CreateUUTReport(
-        operatorName: "Auto",              // Test operator name ("Auto" for automated, or operator ID)
-        partNumber: partNumber,             // Product/part identifier (required)
-        partRevisionNumber: "A",            // Part revision ("A", "Rev 1", etc. - use "A" if unknown)
-        serialNumber: serialNumber,         // Unique unit serial number (required)
-        operationType: opType,              // Operation type from server (ICT, FCT, etc.)
-        sequenceFileName: "TestProgram.seq", // Test sequence/program filename (helps track test software changes)
-        sequenceFileVersion: "2.4.1"        // Test sequence version (important for correlating issues to test changes)
+        operatorName: "Auto",           // Who ran the test
+        partNumber: partNumber,          // Product identifier
+        partRevisionNumber: "A",         // Product revision
+        serialNumber: serialNumber,      // Unique unit ID
+        operationType: opType,           // Test operation from server
+        sequenceFileName: "TestProgram.seq",  // Test software name
+        sequenceFileVersion: "1.0"       // Test software version
     );
-    
+
     // Set timing
     uut.StartDateTime = testTime;
     uut.ExecutionTime = 45.5;  // Seconds
@@ -220,11 +219,11 @@ public Report ImportReport(TDM api, Stream file)
 
 | Property | Type | Description | Example |
 |----------|------|-------------|---------|
-| `SerialNumber` | string | Unique unit identifier | "SN12345" |
-| `PartNumber` | string | Product identifier | "PN-001" |
-| `PartRevisionNumber` | string | Product revision | "A", "Rev 2" |
-| `OperatorName` | string | Test operator | "John Doe", "Auto" |
-| `OperationType` | OperationType | Test operation | ICT, FCT, etc. |
+| SerialNumber | string | Unique unit identifier | "SN12345" |
+| PartNumber | string | Product identifier | "PN-001" |
+| PartRevisionNumber | string | Product revision | "A", "Rev 2" |
+| OperatorName | string | Test operator | "John Doe", "Auto" |
+| OperationType | OperationType | Test operation | ICT, FCT, etc. |
 
 #### DateTime Properties
 
@@ -287,7 +286,7 @@ uut.ErrorMessage = "No errors";
 
 ### Custom Properties (MiscInfo)
 
-**⚠️ IMPORTANT:** Use `AddMiscUUTInfo()` for key-value pairs:
+⚠️ **IMPORTANT:** Use `AddMiscUUTInfo()` for key-value pairs:
 
 ```csharp
 // ✅ CORRECT
@@ -312,7 +311,7 @@ root.AddStringValueStep("PCB Serial Number").AddTest(pcbSerial);
 
 ### Operation Types
 
-**Operation types are retrieved from YOUR WATS server:**
+Operation types are retrieved from **YOUR** WATS server:
 
 ```csharp
 // Option 1: Get by name from file content
@@ -322,89 +321,13 @@ OperationType opType = api.GetOperationTypes()
 
 // Option 2: Get by code from parameters
 OperationType opType = api.GetOperationType("30");
-
-// Option 3: Get by integer code
-OperationType opType = api.GetOperationType(30);
-
-// Option 4: List all available operation types
-var operationTypes = api.GetOperationTypes();
-foreach (var op in operationTypes)
-{
-    Console.WriteLine($"Code: {op.Code}, Name: {op.Name}");
-}
 ```
-
-**⚠️ IMPORTANT:** You MUST use `api.GetOperationType()` or `api.GetOperationTypes()` - do not pass operation type as a string directly to CreateUUTReport.
-
-#### Retrieving Available Operation Types
-
-**Using PowerShell utility (recommended for quick reference):**
-
-```powershell
-# List all operation types from your WATS server
-.\Tools\GetOperationTypes.ps1
-
-# Filter by name or code
-.\Tools\GetOperationTypes.ps1 -Filter "ICT"
-
-# Export to CSV for creating mapping tables
-.\Tools\GetOperationTypes.ps1 -ExportPath "operations.csv"
-```
-
-**Using C# helper class (in your converter code):**
-
-```csharp
-// List all available operation types
-OperationTypeHelper.ListAvailableOperationTypes(api);
-
-// Validate operation code exists
-if (!OperationTypeHelper.OperationCodeExists(api, "30"))
-{
-    throw new Exception("Operation code not found!");
-}
-
-// Get with detailed error message
-var opType = OperationTypeHelper.GetOperationTypeOrThrow(api, "30");
-```
-
-#### Creating Operation Type Mappings
-
-When your test files contain operation identifiers, create a mapping function:
-
-```csharp
-// Map source file values to WATS operation codes
-private string MapToOperationCode(string sourceValue)
-{
-    return sourceValue switch
-    {
-        "ICT" => "30",           // In-Circuit Test
-        "FUNCTIONAL" => "40",     // Functional Test
-        "BURN-IN" => "50",       // Burn-In
-        "FINAL" => "60",         // Final Test
-        _ => "30"                // Default
-    };
-}
-
-// Use in your converter
-string opCode = MapToOperationCode(testType);
-var opType = api.GetOperationType(opCode);
-```
-
-**See** `OperationTypeHelper.cs` in ExampleConverters for more mapping examples.
 
 **To see YOUR server's operation types:**
 
-1. Open WATS Web Application
-2. Navigate to: **Control Panel → Process & Production → Processes**
-3. Note the **Process Name** and **Process Code** for each
-
-**Example operation types** (your server configuration will vary):
-
-- In-Circuit Test - Code: 30
-- Programming - Code: 10  
-- Functional Test - Code: 40
-- Final Inspection - Code: 50
-- Burn-In - Code: 60
+1. Open WATS Web Application → Control Panel → Process & Production → Processes
+2. Note the Process Name and Process Code for each
+3. Use `api.GetOperationTypes()` to retrieve all available types programmatically
 
 ---
 
@@ -415,12 +338,10 @@ var opType = api.GetOperationType(opCode);
 ```csharp
 SequenceCall rootSequence = uut.GetRootSequenceCall();
 
-// Set sequence metadata (important for tracking test software changes)
-rootSequence.SequenceFileName = "ICT_TestProgram.seq";
-rootSequence.SequenceFileVersion = "2.4.1";
+// Set sequence metadata
+rootSequence.SequenceFileName = "TestProgram.seq";
+rootSequence.SequenceFileVersion = "1.0";
 ```
-
-**Best Practice:** Always set SequenceFileName and SequenceFileVersion when available from your source file. This helps correlate test failures to specific test software versions.
 
 ### Test Modes
 
@@ -436,10 +357,9 @@ api.TestMode = TestModeType.TestStand;
 ```
 
 **When to use:**
-
-- **Import** - Trust the pass/fail status from source file (most converters). WATS does NOT recalculate status.
-- **Active** - WATS calculates step status from limits and propagates status up the sequence hierarchy. Use when source file has measurements but unreliable pass/fail.
-- **TestStand** - Processing NI TestStand XML files (special handling)
+- **Import** - Source file already contains final pass/fail per test (most converters)
+- **Active** - You provide limits and want WATS to determine pass/fail
+- **TestStand** - Processing NI TestStand XML files
 
 ---
 
@@ -447,7 +367,7 @@ api.TestMode = TestModeType.TestStand;
 
 ### NumericLimitStep - Numeric Measurements
 
-**For measurements with numeric values and optional limits.**
+For measurements with numeric values and optional limits.
 
 #### Simple Measurement (No Limits)
 
@@ -476,12 +396,12 @@ step.AddTest(
 #### With Single Limit
 
 ```csharp
-// Less Than (use lowLimit parameter for single-sided limits)
+// Less Than
 var step = rootSequence.AddNumericLimitStep("Temperature");
 step.AddTest(
     numericValue: 23.5,
     compOperator: CompOperatorType.LT,
-    lowLimit: 25.0,  // Note: use lowLimit parameter even for upper limit comparisons
+    limit: 25.0,
     units: "°C",
     status: StepStatusType.Passed
 );
@@ -491,7 +411,7 @@ var step = rootSequence.AddNumericLimitStep("Voltage");
 step.AddTest(
     numericValue: 5.1,
     compOperator: CompOperatorType.GE,
-    lowLimit: 5.0,
+    limit: 5.0,
     units: "V",
     status: StepStatusType.Passed
 );
@@ -501,15 +421,15 @@ step.AddTest(
 
 | Operator | Description | Usage |
 |----------|-------------|-------|
-| `EQ` | Equal | Exact match |
-| `NE` | Not Equal | Value must differ |
-| `LT` | Less Than | value < limit |
-| `LE` | Less or Equal | value ≤ limit |
-| `GT` | Greater Than | value > limit |
-| `GE` | Greater or Equal | value ≥ limit |
-| `GELE` | Greater-or-Equal AND Less-or-Equal | lowLimit ≤ value ≤ highLimit |
-| `GTLT` | Greater-Than AND Less-Than | lowLimit < value < highLimit |
-| `LOG` | Log value only | No pass/fail comparison - just record the value |
+| EQ | Equal | Exact match |
+| NE | Not Equal | Value must differ |
+| LT | Less Than | value < limit |
+| LE | Less or Equal | value ≤ limit |
+| GT | Greater Than | value > limit |
+| GE | Greater or Equal | value ≥ limit |
+| GELE | Greater-or-Equal AND Less-or-Equal | lowLimit ≤ value ≤ highLimit |
+| GTLT | Greater-Than AND Less-Than | lowLimit < value < highLimit |
+| LOG | No comparison | Simply log the value |
 
 #### Status Values
 
@@ -527,7 +447,7 @@ StepStatusType.Done         // Test done (status unknown)
 
 ### PassFailStep - Binary Results
 
-**For tests with only PASS/FAIL result (no measurement).**
+For tests with only PASS/FAIL result (no measurement).
 
 ```csharp
 var step = rootSequence.AddPassFailStep("Continuity Test");
@@ -542,13 +462,13 @@ step.AddTest(
 step.Status = StepStatusType.Passed;
 ```
 
-**⚠️ Important:** Always call `AddTest()` or set `Status` - never leave empty!
+⚠️ **Important:** Always call `AddTest()` or set `Status` - never leave empty!
 
 ---
 
 ### StringValueStep - Text Results
 
-**For steps with text/string measurements.**
+For steps with text/string measurements.
 
 ```csharp
 var step = rootSequence.AddStringValueStep("Barcode Scan");
@@ -569,7 +489,6 @@ step.AddTest(
 ```
 
 **Common Uses:**
-
 - Barcode/serial number verification
 - Version strings
 - Configuration values
@@ -579,7 +498,7 @@ step.AddTest(
 
 ### SequenceCall - Nested Sequences
 
-**For grouping steps into hierarchies.**
+For grouping steps into hierarchies.
 
 ```csharp
 // Create parent sequence
@@ -603,7 +522,7 @@ diagnostics.AddPassFailStep("Self-Test").Status = StepStatusType.Passed;
 
 ### MultipleNumericLimitStep - Multiple Measurements in One Step
 
-**For steps that measure multiple related values simultaneously.**
+For steps that measure multiple related values simultaneously.
 
 ```csharp
 var step = rootSequence.AddMultipleNumericLimitStep("Multi-Channel Voltage");
@@ -615,7 +534,6 @@ step.AddTest(2, 12.05, CompOperatorType.GELE, 11.8, 12.2, "V", StepStatusType.Pa
 ```
 
 **When to use:**
-
 - Multi-channel measurements
 - Array/vector measurements
 - Related measurements that logically belong together
@@ -624,7 +542,7 @@ step.AddTest(2, 12.05, CompOperatorType.GELE, 11.8, 12.2, "V", StepStatusType.Pa
 
 ### Step Looping
 
-**For repeated test steps (e.g., stress tests, cycles).**
+For repeated test steps (e.g., stress tests, cycles).
 
 ```csharp
 var step = rootSequence.AddNumericLimitStep("Cycle Test");
@@ -645,21 +563,12 @@ step.AddTest(5.01, "V", StepStatusType.Passed);
 ### Validation Mode
 
 ```csharp
-// AutoTruncate - Automatically truncate strings that exceed field limits (recommended)
+// Auto-truncate long strings (recommended)
 api.ValidationMode = ValidationModeType.AutoTruncate;
 
-// Strict - Throw exceptions if data exceeds limits (use for debugging)
+// Strict validation (throws exceptions)
 api.ValidationMode = ValidationModeType.Strict;
-
-// Import - No validation, accept data as-is (not recommended)
-api.ValidationMode = ValidationModeType.Import;
 ```
-
-**When to use:**
-
-- **AutoTruncate** (recommended) - Truncates long string values to fit database field limits. Best for production converters.
-- **Strict** - Throws exceptions if data violates limits. Use during development to catch data issues.
-- **Import** - No validation. Use only if you're certain your data is clean.
 
 ### Submitting Reports
 
@@ -692,7 +601,7 @@ api.ValidationMode = ValidationModeType.AutoTruncate;
 
 // ✅ Get operation types from server
 var opType = api.GetOperationTypes()
-    .FirstOrDefault(o => o.Name.Equals("In-Circuit Test", StringComparison.OrdinalIgnoreCase));
+    .FirstOrDefault(o => o.Name.Equals("ICT", StringComparison.OrdinalIgnoreCase));
 
 // ✅ Always set status or call AddTest
 step.AddTest(5.0, "V", StepStatusType.Passed);
@@ -725,8 +634,8 @@ string operator = ExtractOperator(file) ?? "Unknown";
 var step = root.AddPassFailStep("Test");
 // step.Status = ...  // WRONG - must call AddTest()
 
-// ❌ Don't pass operation type as string to CreateUUTReport
-// Use api.GetOperationType() or api.GetOperationTypes() instead
+// ❌ Don't hardcode operation types
+// operationType: "ICT"  // Your server may not have "ICT"!
 ```
 
 ---
@@ -743,7 +652,7 @@ using Virinco.WATS.Interface;
 public class ExampleConverter : IReportConverter_v2
 {
     private readonly Dictionary<string, string> _parameters;
-    
+
     public ExampleConverter()
     {
         _parameters = new Dictionary<string, string>
@@ -790,7 +699,7 @@ public class ExampleConverter : IReportConverter_v2
                 serialNumber: serialNumber,
                 operationType: opType,
                 sequenceFileName: "TestProgram.seq",
-                sequenceFileVersion: "2.4.1"
+                sequenceFileVersion: "1.0"
             );
             
             uut.StartDateTime = testTime;
@@ -831,30 +740,24 @@ public class ExampleConverter : IReportConverter_v2
 
 ### Common Errors
 
-**"OperationType not found"**
-
+#### "OperationType not found"
 - Check that operation type exists on YOUR server
 - Use `api.GetOperationTypes()` to see available types
 - Verify code/name matches exactly
 
-**"Step has no measurement"**
-
+#### "Step has no measurement"
 - Always call `AddTest()` for all step types
 - Or set `Status` property directly for PassFailStep
 
-**"Misc property is read-only"**
-
+#### "Misc property is read-only"
 - Use `uut.AddMiscUUTInfo(key, value)` instead
 - Don't try to set `uut.Misc[key] = value`
 
-**"Invalid DateTime"**
-
-- Use DateTime.TryParse with multiple formats
-- Provide fallback to DateTime.Now
+#### "Invalid DateTime"
+- Use `DateTime.TryParse` with multiple formats
+- Provide fallback to `DateTime.Now`
 
 ---
 
 **For more examples, see:**
-
-- [DevKit/Converters/ExampleConverters/](../Converters/ExampleConverters/)
-- Repository API_KNOWLEDGE/DotNet/UUTReport_API_Quick_Reference.md
+- [ExampleConverters](../../Converters/ExampleConverters/)

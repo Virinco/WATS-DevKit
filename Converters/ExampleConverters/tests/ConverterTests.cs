@@ -73,15 +73,28 @@ namespace ExampleConverters.Tests
             {
                 try
                 {
-                    converter.ImportReport(api, fileStream);
+                    var report = converter.ImportReport(api, fileStream);
 
-                    if (modeSettings.Submit)
+                    // Submit report if converter returned it (not null)
+                    if (report != null && modeSettings.Submit)
                     {
+                        api.Submit(report);
                         _output.WriteLine($"✓ Successfully converted and SUBMITTED: {fileName}");
+                    }
+                    else if (report != null)
+                    {
+                        _output.WriteLine($"✓ Successfully VALIDATED (not submitted): {fileName}");
                     }
                     else
                     {
-                        _output.WriteLine($"✓ Successfully VALIDATED (not submitted): {fileName}");
+                        if (modeSettings.Submit)
+                        {
+                            _output.WriteLine($"✓ Successfully converted and SUBMITTED: {fileName}");
+                        }
+                        else
+                        {
+                            _output.WriteLine($"✓ Successfully VALIDATED (not submitted): {fileName}");
+                        }
                     }
                 }
                 catch (Exception ex)
