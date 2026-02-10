@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using Virinco.WATS.Interface;
 using Xunit;
-using Xunit.Abstracts;
+using Xunit.Abstractions;
 
 namespace {{PROJECT_NAME}}Converters.Tests
 {
