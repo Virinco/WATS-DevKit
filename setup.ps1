@@ -153,12 +153,15 @@ if ($checks.Failed -eq 0) {
     Write-Host "SUCCESS! Setup Complete - Ready to build converters." -ForegroundColor Green
     Write-Host ""
     Write-Host "Next Steps:" -ForegroundColor Cyan
-    Write-Host "  1. Open GitHub Copilot Chat (Ctrl+Alt+I)" -ForegroundColor White
-    Write-Host "  2. Type: @workspace /new-converter" -ForegroundColor White
-    Write-Host "  3. Follow the prompts" -ForegroundColor White
+    Write-Host "  1. Open project:" -ForegroundColor White
+    Write-Host "     - VS Code (recommended): Open this folder for full workspace access" -ForegroundColor Gray
+    Write-Host "     - Visual Studio: Open WATS-DevKit.sln" -ForegroundColor Gray
+    Write-Host "" 
+    Write-Host "  2. Create converter (VS Code with Copilot):" -ForegroundColor White
+    Write-Host "     - Ctrl+Alt+I → @workspace /new-converter" -ForegroundColor Gray
     Write-Host ""
-    Write-Host "OR run manually:" -ForegroundColor Cyan
-    Write-Host "  .\tools\new-converter.ps1" -ForegroundColor White
+    Write-Host "  OR run manually:" -ForegroundColor White
+    Write-Host "     .\Tools\NewConverter.ps1" -ForegroundColor Gray
     Write-Host ""
 }
 else {

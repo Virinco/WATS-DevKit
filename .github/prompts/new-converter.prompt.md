@@ -15,7 +15,7 @@ Run the `tools/new-converter.ps1` script to create a new converter project from 
 Execute the PowerShell script:
 
 ```powershell
-.\tools\new-converter.ps1
+.\Tools\NewConverter.ps1
 ```
 
 ### 2. Follow Interactive Prompts

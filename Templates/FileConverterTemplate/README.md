@@ -203,7 +203,7 @@ public Report Convert(TDM api, string file, int operationType)
 
 ## Development Workflow & Tools
 
-### 🔧 Available Tools (Repository Root/tools/)
+### 🔧 Available Tools (Repository Root/Tools/)
 
 This converter project is part of a larger repository with automation tools:
 
@@ -258,7 +258,7 @@ This repository uses specialized AI agents for converter development. Use them i
 
 **Online Documentation:**
 - GitHub Pages: `https://[your-org].github.io/Converters`
-- Local Preview: `.\tools\build-docs.ps1 -Watch` (opens browser with live-reload)
+- Local Preview: `.\Tools\build-docs.ps1 -Watch` (opens browser with live-reload)
 
 ### 📋 Development Milestones
 

@@ -10,7 +10,7 @@ namespace ExampleConverters.Tests
 {
     /// <summary>
     /// Tests for ExampleCSVConverter (in ExampleConverters assembly).
-    /// Supports three test modes (configured in test.config.json):
+    /// Supports three test modes (configured in TestConfig.json):
     /// 1. ValidateOnly (default) - Validates conversion without server submission
     /// 2. SubmitToDebug - Submits all reports to SW-Debug (operation code 10)
     /// 3. Production - Submits with actual operation codes

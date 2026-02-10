@@ -1,5 +1,5 @@
 {
-    "$schema": "./test.config.schema.json",
+    "$schema": "./TestConfig.Schema.json",
     "testMode": "ValidateOnly",
     "modes": {
         "ValidateOnly": {

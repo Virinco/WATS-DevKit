@@ -15,7 +15,7 @@ using WATS.Client; // Adjust based on actual WATS NuGet package namespace
 //    • Repository root/.github/copilot-instructions.md - AI agent best practices
 //    • Repository root/API_KNOWLEDGE/DotNet/UUTReport_API_Quick_Reference.md
 //
-// 🔧 AVAILABLE TOOLS (in repository root/tools/):
+// 🔧 AVAILABLE TOOLS (in repository root/Tools/):
 //    • new-converter.ps1 - Create new converter project
 //    • analyze-test-files.ps1 - Analyze sample files and generate analysis report
 //    • test-converter.ps1 - Run tests against all Data/*.{{FILE_EXTENSION}} files

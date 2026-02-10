@@ -5,6 +5,9 @@ obj/
 *.exe
 *.pdb
 
+# Distribution artifacts
+Dist/
+
 # User-specific files
 *.user
 *.suo

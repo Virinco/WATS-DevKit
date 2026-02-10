@@ -37,7 +37,7 @@
 
   <!-- Include config file in output -->
   <ItemGroup>
-    <None Update="converter.config.json">
+    <None Update="ConverterConfig.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Data\**\*">

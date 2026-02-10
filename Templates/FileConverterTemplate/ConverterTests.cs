@@ -12,7 +12,7 @@ namespace {{PROJECT_NAME}}Converters
     /// <summary>
     /// Tests for {{CONVERTER_CLASS_NAME}} with built-in safety checks.
     /// 
-    /// Testing Modes (set in converter.config.json):
+    /// Testing Modes (set in ConverterConfig.json):
     ///   - Offline: Uses ValidateForSubmit() - no server connection needed
     ///   - TestServer: Submits to approved test server URLs only
     ///   - Production: BLOCKED - prevents accidental production submissions
@@ -244,7 +244,7 @@ namespace {{PROJECT_NAME}}Converters
             {
                 throw new InvalidOperationException(
                     "WATS Client not installed. Cannot submit in TestServer mode. " +
-                    "Use Mode='Offline' in converter.config.json for offline testing.");
+                    "Use Mode='Offline' in ConverterConfig.json for offline testing.");
             }
 
             if (string.IsNullOrEmpty(_currentServerUrl))
@@ -303,11 +303,11 @@ namespace {{PROJECT_NAME}}Converters
                     $"\n" +
                     $"This server is NOT in the allowed test servers list.\n" +
                     $"\n" +
-                    $"Allowed servers (from converter.config.json):\n" +
+                    $"Allowed servers (from ConverterConfig.json):\n" +
                     $"{string.Join("\n", _config.Testing.AllowedServerUrls.Select(u => $"  • {u}"))}\n" +
                     $"\n" +
                     $"Actions:\n" +
-                    $"  1. If this is a test server: Add '{_currentServerUrl}' to AllowedServerUrls in converter.config.json\n" +
+                    $"  1. If this is a test server: Add '{_currentServerUrl}' to AllowedServerUrls in ConverterConfig.json\n" +
                     $"  2. If this is customer target server: Set TargetServerUrl='{_currentServerUrl}' and use bypass\n" +
                     $"  3. If this is PRODUCTION: STOP! Use Mode='Offline' for local testing\n" +
                     $"  4. To switch servers: Reconfigure WATS Client to connect to test server\n" +
@@ -353,7 +353,7 @@ namespace {{PROJECT_NAME}}Converters
 
         private ConverterConfig LoadConfig()
         {
-            var configPath = Path.Combine(AppContext.BaseDirectory, "converter.config.json");
+            var configPath = Path.Combine(AppContext.BaseDirectory, "ConverterConfig.json");
             
             if (!File.Exists(configPath))
             {

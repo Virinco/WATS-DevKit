@@ -21,8 +21,11 @@
 ### Install Required Software
 
 1. Download and install [.NET SDK 8.0](https://dotnet.microsoft.com/download/dotnet/8.0)
-2. Download and install [Visual Studio Code](https://code.visualstudio.com/)
-3. Open VS Code and install "C# Dev Kit" extension
+2. Download and install [Visual Studio Code](https://code.visualstudio.com/) (recommended)
+   - Alternative: Visual Studio 2022 with .NET desktop development workload
+3. Open VS Code and install:
+   - **C# Dev Kit** extension
+   - **GitHub Copilot** extension (optional but highly recommended)
 
 ### Verify Installation
 
@@ -44,7 +47,7 @@ dotnet --version
 3. Run the converter generator:
 
 ```powershell
-.\tools\new-converter.ps1
+.\Tools\NewConverter.ps1
 ```
 
 The script will prompt you for:
@@ -196,7 +199,7 @@ step2.Status = StepStatusType.Passed;
 Once your tests pass locally, validate against your WATS test server:
 
 ```powershell
-.\tools\test-converter.ps1 -ConverterPath "Converters\YourAssemblyName"
+.\Tools\TestConverter.ps1 -ConverterPath "Converters\YourAssemblyName"
 ```
 
 This will run all tests in the Data/ folder.

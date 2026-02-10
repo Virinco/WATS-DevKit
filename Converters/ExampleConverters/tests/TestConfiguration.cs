@@ -7,7 +7,7 @@ namespace ExampleConverters.Tests
 {
     /// <summary>
     /// Test configuration manager - controls how tests interact with WATS server.
-    /// Reads configuration from test.config.json.
+    /// Reads configuration from TestConfig.json.
     /// </summary>
     public class TestConfiguration
     {
@@ -43,7 +43,7 @@ namespace ExampleConverters.Tests
             try
             {
                 string assemblyDir = Path.GetDirectoryName(typeof(TestConfiguration).Assembly.Location)!;
-                string configPath = Path.Combine(assemblyDir, "test.config.json");
+                string configPath = Path.Combine(assemblyDir, "TestConfig.json");
 
                 if (File.Exists(configPath))
                 {
@@ -57,7 +57,7 @@ namespace ExampleConverters.Tests
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Warning: Could not load test.config.json: {ex.Message}");
+                Console.WriteLine($"Warning: Could not load TestConfig.json: {ex.Message}");
             }
 
             // Return default configuration
@@ -94,7 +94,7 @@ namespace ExampleConverters.Tests
                 Console.WriteLine("  This validates conversion logic without server submission.");
                 Console.WriteLine();
                 Console.WriteLine("  To submit reports:");
-                Console.WriteLine("  1. Edit tests/test.config.json");
+                Console.WriteLine("  1. Edit tests/TestConfig.json");
                 Console.WriteLine("  2. Change \"testMode\": \"SubmitToDebug\"");
                 Console.WriteLine("  3. Run tests again");
                 Console.WriteLine("  4. Check WATS under 'SW-Debug' process");
@@ -108,7 +108,7 @@ namespace ExampleConverters.Tests
                 Console.WriteLine("  operation code 10 (SW-Debug process) for testing.");
                 Console.WriteLine();
                 Console.WriteLine("  To use actual operation codes:");
-                Console.WriteLine("  1. Edit tests/test.config.json");
+                Console.WriteLine("  1. Edit tests/TestConfig.json");
                 Console.WriteLine("  2. Change \"testMode\": \"Production\"");
                 Console.WriteLine("  3. Run tests again");
             }

@@ -68,4 +68,4 @@ This is your **primary reference** for all WATS API usage. It contains:
 - **[Main README](../README.md)** - Repository overview and quick start
 - **[Example Converters](../Converters/ExampleConverters/)** - Working code examples
 - **[Templates](../templates/)** - Project templates for new converters
-- **[Tools](../tools/)** - Scripts for creating and testing converters
+- **[Tools](../Tools/)** - Scripts for creating and testing converters

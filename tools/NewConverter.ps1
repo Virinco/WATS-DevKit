@@ -69,12 +69,8 @@ Write-Host "Converters: $($converters -join ', ')" -ForegroundColor Gray
 Write-Host ""
 
 # Define paths
-<<<<<<< HEAD
 $convertersPath = Join-Path $PSScriptRoot "..\Converters"
 $outputPath = Join-Path $convertersPath $assemblyName
-=======
-$outputPath = Join-Path $PSScriptRoot "Converters\$assemblyName"
->>>>>>> 6e32c93 (Fix new-converter.ps1 to ensure output path is correctly set under Converters directory and remove potential issues with folder creation.)
 $rootSlnPath = Join-Path $PSScriptRoot "..\WATS-DevKit.sln"
 
 if (Test-Path $outputPath) {
@@ -152,7 +148,7 @@ $testCsproj = @'
         <None Update="Data\**\*">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
-        <None Update="test.config.json">
+        <None Update="TestConfig.json">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
     </ItemGroup>
@@ -364,7 +360,7 @@ namespace $assemblyName.Tests
 {
     /// <summary>
     /// Tests for $assemblyName converters.
-    /// Supports three test modes (configured in test.config.json):
+    /// Supports three test modes (configured in TestConfig.json):
     /// 1. ValidateOnly (default) - Validates conversion without server submission
     /// 2. SubmitToDebug - Submits all reports to SW-Debug (operation code 10)
     /// 3. Production - Submits with actual operation codes
@@ -469,9 +465,9 @@ if (Test-Path "$exampleConvertersPath\TestConfiguration.cs") {
     Copy-Item "$exampleConvertersPath\TestConfiguration.cs" -Destination "$outputPath\tests\" -Force
 }
 
-# Copy test.config.json from ExampleConverters
-if (Test-Path "$exampleConvertersPath\test.config.json") {
-    Copy-Item "$exampleConvertersPath\test.config.json" -Destination "$outputPath\tests\" -Force
+# Copy TestConfig.json from ExampleConverters
+if (Test-Path "$exampleConvertersPath\TestConfig.json") {
+    Copy-Item "$exampleConvertersPath\TestConfig.json" -Destination "$outputPath\tests\" -Force
 }
 
 # Create README in Data folder
@@ -532,14 +528,14 @@ $($converters | ForEach-Object { "    $($_).cs`n" } | Out-String)  tests/       
     $assemblyName.Tests.csproj
     ConverterTests.cs
     TestConfiguration.cs
-    test.config.json
+    TestConfig.json
     Data/                 # Test files go here
   $assemblyName.sln
 ``````
 
 ## Test Modes
 
-Configured in ``tests/test.config.json``:
+Configured in ``tests/TestConfig.json``:
 
 ### ValidateOnly (Default)
 - No server submission

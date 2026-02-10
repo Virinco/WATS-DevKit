@@ -324,9 +324,72 @@ OperationType opType = api.GetOperationType("30");
 
 // Option 3: Get by integer code
 OperationType opType = api.GetOperationType(30);
+
+// Option 4: List all available operation types
+var operationTypes = api.GetOperationTypes();
+foreach (var op in operationTypes)
+{
+    Console.WriteLine($"Code: {op.Code}, Name: {op.Name}");
+}
 ```
 
 **⚠️ IMPORTANT:** You MUST use `api.GetOperationType()` or `api.GetOperationTypes()` - do not pass operation type as a string directly to CreateUUTReport.
+
+#### Retrieving Available Operation Types
+
+**Using PowerShell utility (recommended for quick reference):**
+
+```powershell
+# List all operation types from your WATS server
+.\Tools\GetOperationTypes.ps1
+
+# Filter by name or code
+.\Tools\GetOperationTypes.ps1 -Filter "ICT"
+
+# Export to CSV for creating mapping tables
+.\Tools\GetOperationTypes.ps1 -ExportPath "operations.csv"
+```
+
+**Using C# helper class (in your converter code):**
+
+```csharp
+// List all available operation types
+OperationTypeHelper.ListAvailableOperationTypes(api);
+
+// Validate operation code exists
+if (!OperationTypeHelper.OperationCodeExists(api, "30"))
+{
+    throw new Exception("Operation code not found!");
+}
+
+// Get with detailed error message
+var opType = OperationTypeHelper.GetOperationTypeOrThrow(api, "30");
+```
+
+#### Creating Operation Type Mappings
+
+When your test files contain operation identifiers, create a mapping function:
+
+```csharp
+// Map source file values to WATS operation codes
+private string MapToOperationCode(string sourceValue)
+{
+    return sourceValue switch
+    {
+        "ICT" => "30",           // In-Circuit Test
+        "FUNCTIONAL" => "40",     // Functional Test
+        "BURN-IN" => "50",       // Burn-In
+        "FINAL" => "60",         // Final Test
+        _ => "30"                // Default
+    };
+}
+
+// Use in your converter
+string opCode = MapToOperationCode(testType);
+var opType = api.GetOperationType(opCode);
+```
+
+**See** `OperationTypeHelper.cs` in ExampleConverters for more mapping examples.
 
 **To see YOUR server's operation types:**
 

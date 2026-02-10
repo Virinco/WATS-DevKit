@@ -62,7 +62,7 @@ This will:
 **Option B: Using PowerShell Script**
 
 ```powershell
-.\tools\new-converter.ps1
+.\Tools\NewConverter.ps1
 ```
 
 Answer the prompts:
@@ -77,7 +77,9 @@ Answer the prompts:
 - Creates separate src/ and tests/ projects
 - Adds projects to WATS-DevKit.sln (master solution)
 
-**To open your project:** Open `WATS-DevKit.sln` in the root folder - all converters are in one solution.
+**Opening the project:**
+- **VS Code** (recommended): Open the root WATS-DevKit folder for full access to tools, docs, and GitHub Copilot prompts
+- **Visual Studio**: Open `WATS-DevKit.sln` for traditional IDE experience
 
 ### Step 3: Add Test Files 📁
 
@@ -169,30 +171,29 @@ WATS-Converter-Kit/
 ├── NuGet.config               # NuGet package sources
 ├── .gitignore                 # Git ignore patterns
 │
-├── docs/                      # Documentation
-│   ├── guides/
+├── Docs/                      # Documentation
+│   ├── Guides/
 │   │   ├── QUICKSTART.md      # 15-minute getting started
 │   │   ├── API_GUIDE.md       # WATS Report API user guide
 │   │   └── METHODOLOGY.md     # Best practices & patterns
-│   └── api/
+│   └── Api/
 │       └── API_REFERENCE.md   # Detailed API reference for agents
 │   └── TESTING.md             # Testing guide
 │
-├── templates/                 # Converter templates
-│   └── dotnet/
+├── Templates/                 # Converter templates
 │       └── FileConverterTemplate/  # Template project
 │           ├── FileConverter.cs      # Converter implementation
 │           ├── ConverterTests.cs         # xUnit test suite
 │           ├── FileConverterTemplate.csproj   # Project file
-│           ├── converter.config.json     # Test configuration
+│           ├── ConverterConfig.json     # Test configuration
 │           ├── Data/                     # Test files go here!
 │           │   └── README.md
 │           ├── DEPLOYMENT.md
 │           └── README.md
 │
-└── tools/                     # Development scripts
-    ├── new-converter.ps1      # Create new converter
-    ├── test-converter.ps1     # Run tests
+└── Tools/                     # Development scripts
+    ├── NewConverter.ps1      # Create new converter
+    ├── TestConverter.ps1     # Run tests
     └── README.md
 ```
 
@@ -235,8 +236,8 @@ Run tests at any time:
 # From project directory
 dotnet test
 
-# From tools directory
-.\tools\test-converter.ps1 -ConverterPath "templates\dotnet\YourProject"
+# From Tools directory
+.\Tools\TestConverter.ps1 -ConverterPath "Converters\YourProject"
 ```
 
 ## Documentation
@@ -245,11 +246,11 @@ dotnet test
 
 | Guide | Description |
 |-------|-------------|
-| **[Documentation Hub](docs/README.md)** | Full documentation navigation |
-| [QUICKSTART.md](docs/guides/QUICKSTART.md) | Get up and running in 15 minutes |
-| [METHODOLOGY.md](docs/guides/METHODOLOGY.md) | Best practices for robust converters |
-| [API_GUIDE.md](docs/guides/API_GUIDE.md) | Complete WATS Report API guide |
-| [API_REFERENCE.md](docs/api/API_REFERENCE.md) | Detailed API reference for agents |
+| **[Documentation Hub](Docs/README.md)** | Full documentation navigation |
+| [QUICKSTART.md](Docs/Guides/QUICKSTART.md) | Get up and running in 15 minutes |
+| [METHODOLOGY.md](Docs/Guides/METHODOLOGY.md) | Best practices for robust converters |
+| [API_GUIDE.md](Docs/Guides/API_GUIDE.md) | Complete WATS Report API guide |
+| [API_REFERENCE.md](Docs/Api/API_REFERENCE.md) | Detailed API reference for agents |
 
 ## Milestone-Based Development
 
@@ -286,24 +287,38 @@ We recommend implementing converters in milestones:
 ### Create a New Converter
 
 ```powershell
-.\tools\new-converter.ps1
+.\Tools\NewConverter.ps1
 ```
 
 ### Add Test Files
 
-Copy files to: `templates\dotnet\YourProject\Data\`
+Copy files to: `Converters\YourProject\tests\Data\`
+
+### Get Available Operation Types
+
+List operation types from your WATS server to verify codes and create mappings:
+
+```powershell
+.\Tools\GetOperationTypes.ps1
+
+# Or filter by name/code
+.\Tools\GetOperationTypes.ps1 -Filter "ICT"
+
+# Export for mapping tables
+.\Tools\GetOperationTypes.ps1 -ExportPath "operations.csv"
+```
 
 ### Run Tests
 
 ```powershell
-cd templates\dotnet\YourProject
+cd Converters\YourProject
 dotnet test
 ```
 
 ### Build for Deployment
 
 ```powershell
-cd templates\dotnet\YourProject
+cd Converters\YourProject
 dotnet build -c Release
 ```
 
@@ -342,8 +357,8 @@ Output DLL will be in: `bin\Release\net8.0\YourProject.dll` (or `net48`)
 
 ## What's Next?
 
-1. **Read** [docs/QUICKSTART.md](docs/QUICKSTART.md) for a guided tutorial
-2. **Create** your first converter with `.\tools\new-converter.ps1`
+1. **Read** [Docs/Guides/QUICKSTART.md](Docs/Guides/QUICKSTART.md) for a guided tutorial
+2. **Create** your first converter with `.\Tools\NewConverter.ps1`
 3. **Add** test files to the `Data/` folder
 4. **Implement** your converter following the milestones
 5. **Test** continuously with `dotnet test`

@@ -32,14 +32,14 @@ If not provided:
 Execute:
 
 ```powershell
-.\tools\test-converter.ps1 -ConverterPath "Converters/{AssemblyName}"
+.\Tools\TestConverter.ps1 -ConverterPath "Converters/{AssemblyName}"
 ```
 
 Or if user is in the converter directory:
 
 ```powershell
 # From converter directory
-..\..\..\tools\test-converter.ps1
+..\..\..\Tools\TestConverter.ps1
 ```
 
 ### 3. Interpret Results

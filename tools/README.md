@@ -4,12 +4,12 @@ PowerShell scripts for converter development workflow.
 
 ## Available Tools
 
-### new-converter.ps1
+### NewConverter.ps1
 
 Creates a new converter project from template.
 
 ```powershell
-.\new-converter.ps1
+.\NewConverter.ps1
 ```
 
 Interactive wizard that prompts for:
@@ -20,17 +20,37 @@ Interactive wizard that prompts for:
 
 **Output:** New project in `Converters/YourAssemblyName/`
 
-### test-converter.ps1
+### GetOperationTypes.ps1
+
+Retrieves available operation types (processes) from WATS server.
+
+```powershell
+# List all operation types
+.\GetOperationTypes.ps1
+
+# Filter by name or code
+.\GetOperationTypes.ps1 -Filter "ICT"
+
+# Export to CSV for mapping
+.\GetOperationTypes.ps1 -ExportPath "operations.csv"
+```
+
+**Use cases:**
+- Verify operation codes before using in converters
+- Create mapping tables from test data to WATS processes
+- Understand what's configured on your WATS server
+
+### TestConverter.ps1
 
 Runs tests on a converter project.
 
 ```powershell
-# From tools directory
-.\test-converter.ps1 -ConverterPath "..\templates\dotnet\MyConverter"
+# From Tools directory
+.\TestConverter.ps1 -ConverterPath "..\Converters\MyConverter"
 
 # From converter directory
-cd ..\templates\dotnet\MyConverter
-..\..\..\tools\test-converter.ps1
+cd ..\Converters\MyConverter
+..\..\..\Tools\TestConverter.ps1
 ```
 
 Tests automatically discover all files in the `Data/` folder and process them.
@@ -40,7 +60,7 @@ Tests automatically discover all files in the `Data/` folder and process them.
 1. **Create** a new converter:
 
    ```powershell
-   .\tools\new-converter.ps1
+   .\Tools\NewConverter.ps1
    ```
 
 2. **Add test files** to the `Data/` folder in your converter project
@@ -48,7 +68,7 @@ Tests automatically discover all files in the `Data/` folder and process them.
 3. **Run tests** to validate:
 
    ```powershell
-   .\tools\test-converter.ps1 -ConverterPath "templates\dotnet\YourProject"
+   .\Tools\TestConverter.ps1 -ConverterPath "Converters\YourProject"
    ```
 
 4. **Implement** converter logic in the generated `.cs` file
