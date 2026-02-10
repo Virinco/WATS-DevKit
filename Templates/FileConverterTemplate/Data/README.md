@@ -5,12 +5,20 @@ Place sample test files in this directory for automated testing.
 ## Quick Start
 
 1. **Add sample files** to this directory
+   ```
+   Data/sample-001.{{FILE_EXTENSION}}
+   Data/sample-002.{{FILE_EXTENSION}}
+   ```
+
 2. **Run tests**: `dotnet test`
+
 3. **Configure testing** in [TestConfig.json](../TestConfig.json)
 
-## Directory Structure
+## File Organization
 
-### Option 1: Simple (All Files in Data/)
+You can organize files in **any way that suits your workflow**:
+
+### Option 1: Flat Structure (Simple)
 ```
 Data/
 ├── sample-001.{{FILE_EXTENSION}}
@@ -18,103 +26,62 @@ Data/
 └── sample-fail.{{FILE_EXTENSION}}
 ```
 
-**Use when**: Single test file type, small test suite (<10 files)
+**Best for**: Small test suites (<10 files), single file type
 
-**Run tests**: `dotnet test`
-
-### Option 2: Category-Based (Recommended for Large Test Suites)
+### Option 2: Subdirectories by Stage
 ```
 Data/
 ├── ICT/
-│   ├── board-001-pass.{{FILE_EXTENSION}}
-│   ├── board-002-fail.{{FILE_EXTENSION}}
-│   └── component-short.{{FILE_EXTENSION}}
+│   ├── board-001.{{FILE_EXTENSION}}
+│   └── board-002.{{FILE_EXTENSION}}
 ├── Functional/
-│   ├── functional-pass.{{FILE_EXTENSION}}
-│   └── functional-fail.{{FILE_EXTENSION}}
+│   └── func-test.{{FILE_EXTENSION}}
 └── EOL/
-    ├── endofline-001.{{FILE_EXTENSION}}
-    └── endofline-002.{{FILE_EXTENSION}}
+    └── eol-test.{{FILE_EXTENSION}}
 ```
 
-**Use when**: Multiple test types, large test suite (10+ files)
+**Best for**: Multiple test stages, organized workflow
 
-**Run tests**:
-```bash
-# Test all files
-dotnet test
-
-# Test only ICT files
-dotnet test --filter "Category=ICT"
-
-# Test only Functional files
-dotnet test --filter "Category=Functional"
+### Option 3: Subdirectories by Customer/Product
+```
+Data/
+├── CustomerA/
+│   ├── ProductX/
+│   │   └── test1.{{FILE_EXTENSION}}
+│   └── ProductY/
+│       └── test2.{{FILE_EXTENSION}}
+└── CustomerB/
+    └── test3.{{FILE_EXTENSION}}
 ```
 
-### Option 3: Format/Version-Based
+**Best for**: Multiple customers, different products
+
+### Option 4: Subdirectories by Format
 ```
 Data/
 ├── xml-format/
-│   ├── sample-001.xml
-│   └── sample-002.xml
+│   └── sample.xml
 ├── csv-format/
-│   ├── sample-001.csv
-│   └── sample-002.csv
-└── legacy-v1/
-    └── old-format.{{FILE_EXTENSION}}
+│   └── sample.csv
+└── json-format/
+    └── sample.json
 ```
 
-**Use when**: Customer has multiple file formats or versions
+**Best for**: Multiple file formats, version migrations
 
-## Category Tests Explained
+## How Tests Work
 
-The template includes optional category-based test methods:
+The test framework **automatically discovers all files** in `Data/` and subdirectories:
 
-- **`TestICTFile()`** - Tests files in `Data/ICT/` subdirectory
-- **`TestFunctionalFile()`** - Tests files in `Data/Functional/` subdirectory
-- **`TestFile()`** - Tests all files in `Data/` recursively
+```bash
+dotnet test
+```
 
-### How to Use Categories
-
-1. **Create subdirectories** under `Data/`:
-   ```bash
-   mkdir Data/ICT
-   mkdir Data/Functional
-   mkdir Data/EOL
-   ```
-
-2. **Add files** to category folders:
-   ```
-   Data/ICT/board-001.{{FILE_EXTENSION}}
-   Data/Functional/test-001.{{FILE_EXTENSION}}
-   ```
-
-3. **Run filtered tests**:
-   ```bash
-   # Run only ICT tests
-   dotnet test --filter "Category=ICT"
-   
-   # Run ICT and Functional (exclude EOL)
-   dotnet test --filter "Category=ICT|Category=Functional"
-   ```
-
-4. **Add custom categories** (optional):
-   - Copy the `TestICTFile()` pattern in `ConverterTests.cs`
-   - Change `[Trait("Category", "YourCategory")]`
-   - Update `GetICTFiles()` to point to your subdirectory
-
-### When to Use Categories
-
-✅ **Use category tests when**:
-- You have 10+ test files
-- Different test types (ICT vs Functional vs EOL)
-- Want to run subset of tests during development
-- CI/CD needs to run specific test types
-
-❌ **Skip categories when**:
-- Small test suite (<10 files)
-- All files test same functionality
-- Don't need filtering
+This will:
+- ✅ Find all `*.{{FILE_EXTENSION}}` files recursively
+- ✅ Test each file individually
+- ✅ Show results for each file
+- ✅ Work with any subdirectory structure you create
 
 ## Test File Guidelines
 
@@ -122,89 +89,60 @@ The template includes optional category-based test methods:
 - **3+ files** for basic coverage
 - **10+ files** recommended for production
 - Include **PASS and FAIL** examples
-- Include **different part numbers** if possible
-
-### Sample Coverage Checklist
-- [ ] Pass result
-- [ ] Fail result
-- [ ] Different part numbers
-- [ ] Edge cases (missing fields, special characters)
-- [ ] Different serial number formats
-- [ ] Minimum/maximum test counts
+- Include edge cases (missing fields, special characters, boundary values)
 
 ### Data Sanitization
 ⚠️ **Always sanitize sensitive data**:
 - Customer names → "CustomerA", "CustomerB"
 - Serial numbers → "SN-001", "SN-002"
 - Part numbers → "PN-12345"
-- Proprietary test names → "Test1", "Test2"
+- Proprietary information → Generic equivalents
 
 ## Running Tests
 
-### All Test Files
+### Test All Files
 ```bash
-# Command line
 dotnet test
-
-# Visual Studio Test Explorer
-Ctrl+Shift+T → Click "Run All"
 ```
 
-### Specific Category
-```bash
-# Only ICT tests
-dotnet test --filter "Category=ICT"
-
-# Only Functional tests
-dotnet test --filter "Category=Functional"
-
-# Multiple categories
-dotnet test --filter "Category=ICT|Category=Functional"
-```
-
-### Specific File (for debugging)
-Edit `ConverterTests.cs` → Update `[InlineData("your-file.{{FILE_EXTENSION}}")]` → Run test
-
-### Test Output
-Tests will show:
-- ✅ File name and conversion status
-- 📊 SerialNumber, PartNumber, Result
-- ⚙️ Test mode (ValidateOnly, SubmitToDebug, etc.)
-- ❌ Error details if conversion fails
+### Test Specific File (for debugging)
+Use the xUnit Test Explorer in VS Code or Visual Studio to run individual tests.
 
 ## Configuration
 
 Test behavior is controlled by [TestConfig.json](../TestConfig.json):
 
-```json
-{
-  "CurrentMode": "ValidateOnly",  // Change to switch test mode
-  "Modes": {
-    "ValidateOnly": {
-      "MockApi": true             // No server submission
-    },
-    "SubmitToDebug": {
-      "MockApi": false,           // Submit to debug server
-      "ServerUrl": "..."
-    }
-  }
-}
-```
+### ValidateOnly (Default)
+- No server submission
+- Validates conversion logic only
+- Fast, no WATS server required
 
-See [TestConfig.json](../TestConfig.json) for full configuration options.
+### SubmitToDebug
+- Submits to `SW-Debug` process (code 10)
+- Useful for testing on real server
+- Won't clutter production data
+
+### Production
+- Submits with actual operation codes
+- Use when converter is ready for deployment
+
+See [TestConfig.json](../TestConfig.json) for configuration details.
 
 ## Troubleshooting
 
 ### "No test files found"
-- Check files have correct extension (`.{{FILE_EXTENSION}}`)
-- Verify files are in `Data/` directory or subdirectories
-- Build project (`dotnet build`) to copy files
-
-### "No data found for theory"
-- **Cause**: Category subdirectory doesn't exist
-- **Solution**: Create subdirectory or remove category tests from `ConverterTests.cs`
-- **Example**: If `Data/ICT/` doesn't exist, `TestICTFile()` will skip gracefully
+- Verify files have correct extension (`.{{FILE_EXTENSION}}`)
+- Check files are in `Data/` directory or subdirectories  
+- Build project: `dotnet build` (copies files to output)
 
 ### Test runs but no output
-- Check Visual Studio Test Output window
-- Run with: `dotnet test --logger "console;verbosity=detailed"`
+- Check VS Code Test Output panel
+- Run with detailed logging: `dotnet test --logger "console;verbosity=detailed"`
+
+### Want to exclude certain files?
+- Move them outside `Data/` directory
+- Or rename extension temporarily
+
+---
+
+**Note**: The test framework recursively scans all subdirectories, so you can organize files however makes sense for your project!

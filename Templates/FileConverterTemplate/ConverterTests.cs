@@ -74,9 +74,13 @@ namespace {{PROJECT_NAME}}Converters.Tests
         }
 
         /// <summary>
-        /// Returns all test files from Data directory.
-        /// Automatically discovers files in Data/ and subdirectories.
-        /// Excludes README.md files automatically.
+        /// Returns all test files from Data directory and subdirectories.
+        /// Files are automatically discovered - organize them however you like!
+        /// 
+        /// Examples:
+        /// - Data/sample.{{FILE_EXTENSION}}
+        /// - Data/ICT/sample.{{FILE_EXTENSION}}
+        /// - Data/Customer1/ProductA/test.{{FILE_EXTENSION}}
         /// </summary>
         public static IEnumerable<object[]> GetTestFiles()
         {
@@ -98,117 +102,6 @@ namespace {{PROJECT_NAME}}Converters.Tests
                 yield return new object[] { file, relativePath };
             }
         }
-
-        #region Category-Based Tests (Optional - for organizing test files by type)
-
-        /// <summary>
-        ///  Test files in Data/ICT/ subdirectory only.
-        /// Example category-based test for ICT (In-Circuit Test) files.
-        /// 
-        /// To run only ICT tests: dotnet test --filter "Category=ICT"
-        /// 
-        /// Usage:
-        /// 1. Create Data/ICT/ subdirectory
-        /// 2. Place ICT test files there
-        /// 3. Run: dotnet test --filter "Category=ICT"
-        /// </summary>
-        [Theory]
-        [MemberData(nameof(GetICTFiles))]
-        [Trait("Category", "ICT")]
-        public void TestICTFile(string filePath, string fileName)
-        {
-            _output.WriteLine($"Testing ICT file: {fileName}");
-
-            var converter = new {{CONVERTER_CLASS_NAME}}();
-            var modeSettings = _config.GetCurrentModeSettings();
-
-            TDM api = modeSettings.MockApi ? CreateMockApi() : CreateRealApi(modeSettings);
-
-            if (modeSettings.ForceOperationCode != null)
-            {
-                converter.ConverterParameters["operationTypeCode"] = modeSettings.ForceOperationCode;
-            }
-
-            using (var fileStream = File.OpenRead(filePath))
-            {
-                converter.ImportReport(api, fileStream);
-                _output.WriteLine($"Successfully converted ICT file: {fileName}");
-            }
-        }
-
-        public static IEnumerable<object[]> GetICTFiles()
-        {
-            string assemblyDir = Path.GetDirectoryName(typeof(ConverterTests).Assembly.Location)!;
-            string ictDir = Path.Combine(assemblyDir, "Data", "ICT");
-
-            if (!Directory.Exists(ictDir))
-            {
-                yield break; // No ICT subdirectory - gracefully skip
-            }
-
-            var files = Directory.GetFiles(ictDir, "*.{{FILE_EXTENSION}}", SearchOption.TopDirectoryOnly)
-                .OrderBy(f => f)
-                .ToArray();
-
-            foreach (var file in files)
-            {
-                string fileName = Path.GetFileName(file);
-                yield return new object[] { file, fileName };
-            }
-        }
-
-        /// <summary>
-        /// Test files in Data/Functional/ subdirectory only.
-        /// Example category-based test for Functional test files.
-        /// 
-        /// To run only Functional tests: dotnet test --filter "Category=Functional"
-        /// </summary>
-        [Theory]
-        [MemberData(nameof(GetFunctionalFiles))]
-        [Trait("Category", "Functional")]
-        public void TestFunctionalFile(string filePath, string fileName)
-        {
-            _output.WriteLine($"Testing Functional file: {fileName}");
-
-            var converter = new {{CONVERTER_CLASS_NAME}}();
-            var modeSettings = _config.GetCurrentModeSettings();
-
-            TDM api = modeSettings.MockApi ? CreateMockApi() : CreateRealApi(modeSettings);
-
-            if (modeSettings.ForceOperationCode != null)
-            {
-                converter.ConverterParameters["operationTypeCode"] = modeSettings.ForceOperationCode;
-            }
-
-            using (var fileStream = File.OpenRead(filePath))
-            {
-                converter.ImportReport(api, fileStream);
-                _output.WriteLine($"Successfully converted Functional file: {fileName}");
-            }
-        }
-
-        public static IEnumerable<object[]> GetFunctionalFiles()
-        {
-            string assemblyDir = Path.GetDirectoryName(typeof(ConverterTests).Assembly.Location)!;
-            string functionalDir = Path.Combine(assemblyDir, "Data", "Functional");
-
-            if (!Directory.Exists(functionalDir))
-            {
-                yield break; // No Functional subdirectory - gracefully skip
-            }
-
-            var files = Directory.GetFiles(functionalDir, "*.{{FILE_EXTENSION}}", SearchOption.TopDirectoryOnly)
-                .OrderBy(f => f)
-                .ToArray();
-
-            foreach (var file in files)
-            {
-                string fileName = Path.GetFileName(file);
-                yield return new object[] { file, fileName };
-            }
-        }
-
-        #endregion
 
         #region Helper Methods
 
