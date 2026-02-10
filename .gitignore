@@ -1,25 +1,62 @@
+# WATS-DevKit - Public Repository .gitignore
+# Excludes internal files from being committed to GitHub
+
+# ============================================================================
+# INTERNAL FILES - Never commit to public repository
+# ============================================================================
+
+# Internal deployment documentation
+DEPLOY.md
+
+# Git information and internal notes
+git-info/
+*.internal.md
+
+# Publishing tools (only needed for initial setup)
+.publishignore
+tools/publish-to-github.ps1
+Tools/publish-to-github.ps1
+
+# Personal/local configuration
+*.local.*
+local/
+
+# ============================================================================
+# DEVELOPMENT ARTIFACTS - Standard exclusions
+# ============================================================================
+
 # Build outputs
 bin/
 obj/
 *.dll
 *.exe
 *.pdb
+**/Debug/
+**/Release/
 
 # Distribution artifacts
 Dist/
 
-# User-specific files
-*.user
-*.suo
+# Visual Studio
 .vs/
 .vscode/
+*.user
+*.suo
+*.sln.docstates
+*.userprefs
+*.pidb
+*.DotSettings.user
 
 # Test results
 TestResults/
+*.trx
+*.coverage
 
 # NuGet packages
 packages/
 *.nupkg
+*.snupkg
+!packages/build/
 
 # OS files
 .DS_Store
@@ -29,6 +66,7 @@ desktop.ini
 # Temporary files
 *.tmp
 *.temp
+*.log
 ~$*
 
 # Large test data files
@@ -40,4 +78,13 @@ desktop.ini
 # Allow README files
 !**/README.md
 
+# IDE files
+.idea/
+*.swp
+*.swo
+*~
 .fake
+
+# Local environment
+.env
+.env.local
