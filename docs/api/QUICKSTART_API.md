@@ -520,23 +520,26 @@ diagnostics.AddPassFailStep("Self-Test").Status = StepStatusType.Passed;
 
 ---
 
-### MultipleNumericLimitStep - Multiple Measurements in One Step
+### Multiple Measurements in One Step
 
 For steps that measure multiple related values simultaneously.
 
 ```csharp
-var step = rootSequence.AddMultipleNumericLimitStep("Multi-Channel Voltage");
+// Use NumericLimitStep and AddMultipleTest() for multiple measurements
+var step = rootSequence.AddNumericLimitStep("Multi-Channel Voltage");
 
-// Add multiple measurements
-step.AddTest(0, 5.01, CompOperatorType.GELE, 4.9, 5.1, "V", StepStatusType.Passed);  // Channel 0
-step.AddTest(1, 3.32, CompOperatorType.GELE, 3.2, 3.4, "V", StepStatusType.Passed);  // Channel 1
-step.AddTest(2, 12.05, CompOperatorType.GELE, 11.8, 12.2, "V", StepStatusType.Passed); // Channel 2
+// First call to AddMultipleTest() locks the step as MULTIPLE
+step.AddMultipleTest(5.01, CompOperatorType.GELE, 4.9, 5.1, "V", "Channel_0");
+step.AddMultipleTest(3.32, CompOperatorType.GELE, 3.2, 3.4, "V", "Channel_1");
+step.AddMultipleTest(12.05, CompOperatorType.GELE, 11.8, 12.2, "V", "Channel_2");
 ```
 
 **When to use:**
 - Multi-channel measurements
 - Array/vector measurements
 - Related measurements that logically belong together
+
+**Important:** Once you call `AddMultipleTest()`, you cannot call `AddTest()` on the same step
 
 ---
 

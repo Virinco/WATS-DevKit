@@ -421,7 +421,7 @@ step.ReportText = "Additional information";
 ```csharp
 // Add chart to step (max ONE per step)
 Chart chart = step.AddChart(
-    chartType: ChartType.Linear,  // or Logarithmic
+    chartType: ChartType.Line,          // NOT ChartType.Linear!
     chartLabel: "Frequency Response",
     xLabel: "Frequency",
     xUnit: "Hz",
@@ -430,9 +430,11 @@ Chart chart = step.AddChart(
 );
 
 // Add data points
-chart.AddXYValue(100, -3.2);
-chart.AddXYValue(1000, -0.5);
-chart.AddXYValue(10000, -6.1);
+chart.AddSeries(
+    seriesName: "Frequency Response",
+    xValues: new double[] { 100, 1000, 10000 },
+    yValues: new double[] { -3.2, -0.5, -6.1 }
+);
 
 // Retrieve chart
 Chart existingChart = step.Chart;

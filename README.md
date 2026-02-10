@@ -1,6 +1,6 @@
 # WATS Converter Development Kit
 
-**Version:** 1.0.0  
+**Version:** 1.1.0  
 **For:** WATS Users  
 **Purpose:** Build custom .NET converters to import your test data into WATS
 
