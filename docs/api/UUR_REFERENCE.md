@@ -44,22 +44,22 @@ A **UUR (Unit Under Repair) Report** documents the repair process for a failed p
 
 ```
 UURReport
-??? Header Properties
-?   ??? RepairType (required)
-?   ??? OperationType (test that failed)
-?   ??? Operator
-?   ??? UUTGuid (optional reference)
-?   ??? Timestamps
-??? Header Containers
-?   ??? MiscInfo[] (repair-specific metadata)
-?   ??? PartInfo[] (sub-assemblies/replaced parts)
-??? Failures[]
-?   ??? FailCode (hierarchical)
-?   ??? ComponentReference
-?   ??? Comment
-?   ??? Component Details
-?   ??? Attachments[]
-??? Attachments[] (report-level)
+├── Header Properties
+│   ├── RepairType (required)
+│   ├── OperationType (test that failed)
+│   ├── Operator
+│   ├── UUTGuid (optional reference)
+│   └── Timestamps
+├── Header Containers
+│   ├── MiscInfo[] (repair-specific metadata)
+│   └── PartInfo[] (sub-assemblies/replaced parts)
+├── Failures[]
+│   ├── FailCode (hierarchical)
+│   ├── ComponentReference
+│   ├── Comment
+│   ├── Component Details
+│   └── Attachments[]
+└── Attachments[] (report-level)
 ```
 
 ---
@@ -243,10 +243,10 @@ Fail codes are organized hierarchically:
 
 ```
 RepairType
-??? Categories (Root Level)
-    ??? FailCodes (Child Level)
-        ??? FailCodes (Grandchild Level)
-            ??? ... (unlimited depth)
+└── Categories (Root Level)
+    └── FailCodes (Child Level)
+        └── FailCodes (Grandchild Level)
+            └── ... (unlimited depth)
 ```
 
 ### 4.2 Working with Fail Codes
@@ -563,9 +563,9 @@ Information about replaced sub-assemblies or components.
 
 ```
 Main Unit (Index 0)
-??? Replaced PCB (Index 1)
-??? Replaced Display (Index 2)
-??? Replaced Module (Index 3)
+├── Replaced PCB (Index 1)
+├── Replaced Display (Index 2)
+└── Replaced Module (Index 3)
 ```
 
 The **main unit** (index 0) is created automatically with the report.

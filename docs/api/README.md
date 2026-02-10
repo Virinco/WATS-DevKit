@@ -10,7 +10,7 @@ This directory contains comprehensive WATS API documentation for converter devel
 
 1. **[UUT_REFERENCE.md](UUT_REFERENCE.md)** - For test report converters (UUTReport)
 2. **[UUR_REFERENCE.md](UUR_REFERENCE.md)** - For repair report converters (UURReport)
-3. **[QUICKSTART_API.md](QUICKSTART_API.md)** - For converter architecture and patterns
+3. **[CONVERTER_GUIDE.md](CONVERTER_GUIDE.md)** - Complete converter development guide with examples
 
 **DO NOT guess at API usage - always verify against these references!**
 
@@ -18,15 +18,18 @@ This directory contains comprehensive WATS API documentation for converter devel
 
 ## Documentation Files
 
-### [QUICKSTART_API.md](QUICKSTART_API.md) - Start Here! 🚀
+### [CONVERTER_GUIDE.md](CONVERTER_GUIDE.md) - Start Here! 🚀
 
-**Tutorial-style guide** for building your first converter:
-- IReportConverter_v2 architecture
-- Step-by-step converter creation
-- Common patterns and workflows
-- Troubleshooting guide
+**Complete reference** for building IReportConverter_v2 implementations:
+- Interface requirements and architecture
+- Configuration and parameters
+- Parsing source data (XML, CSV, JSON)
+- Building UUT and UUR reports
+- Error handling and logging
+- Testing, debugging, and deployment
+- Complete working examples (CSV, XML, UUR)
 
-**Use when:** Building a new converter, learning the API basics
+**Use when:** Building any converter, learning the API, understanding deployment
 
 ### [UUT_REFERENCE.md](UUT_REFERENCE.md) - UUT Report Reference 📚
 
@@ -59,8 +62,8 @@ This directory contains comprehensive WATS API documentation for converter devel
 **CRITICAL:** Always reference the correct documentation:
 
 **For Test Report Converters (most common):**
-- Architecture: [QUICKSTART_API.md](QUICKSTART_API.md)
-- Complete API: [UUT_REFERENCE.md](UUT_REFERENCE.md)
+- Complete Guide: [CONVERTER_GUIDE.md](CONVERTER_GUIDE.md)
+- API Reference: [UUT_REFERENCE.md](UUT_REFERENCE.md)
 - Use UUTReport, NumericLimitStep, PassFailStep, etc.
 
 **For Repair Report Converters:**
@@ -83,7 +86,7 @@ This directory contains comprehensive WATS API documentation for converter devel
 
 ## Quick Links
 
-- **Getting Started:** [QUICKSTART_API.md - Getting Started](QUICKSTART_API.md#getting-started)
+- **Getting Started:** [CONVERTER_GUIDE.md - Getting Started](CONVERTER_GUIDE.md#2-getting-started)
 - **UUT Test Reports:** [UUT_REFERENCE.md - Step Types](UUT_REFERENCE.md#4-step-types)
 - **UUR Repair Reports:** [UUR_REFERENCE.md - Failures](UUR_REFERENCE.md#5-failures)
 - **Validation Rules:** [UUT_REFERENCE.md - Validation](UUT_REFERENCE.md#6-validation-rules)

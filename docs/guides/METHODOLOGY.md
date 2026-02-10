@@ -10,7 +10,10 @@
 >
 > This guide focuses on **workflow and process**. For detailed API usage, method signatures, and code examples, **ALWAYS consult:**
 > 
-> **[API_REFERENCE.md](../api/API_REFERENCE.md)** - Complete WATS Report API documentation
+> **API References:**
+> - [UUT_REFERENCE.md](../api/UUT_REFERENCE.md) - Test report API
+> - [UUR_REFERENCE.md](../api/UUR_REFERENCE.md) - Repair report API
+> - [CONVERTER_GUIDE.md](../api/CONVERTER_GUIDE.md) - Complete converter development guide
 >
 > Key topics covered in API Reference:
 > - ✅ API initialization (`api.InitializeAPI(true)`)

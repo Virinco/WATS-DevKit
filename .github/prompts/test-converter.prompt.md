@@ -83,7 +83,9 @@ Based on results, ask:
 
 When helping debug converter issues or implement features, **YOU MUST REFERENCE**:
 
-📘 **`docs/api/API_REFERENCE.md`** - Complete WATS Report API documentation
+📘 **API Documentation:**
+- `docs/api/UUT_REFERENCE.md` - UUT Report API (test results)
+- `docs/api/UUR_REFERENCE.md` - UUR Report API (repairs)
 
 This contains:
 - ✅ Correct API initialization patterns

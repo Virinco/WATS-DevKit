@@ -22,7 +22,7 @@ When assisting with WATS converter development:
    - Component tracking, MiscInfo fields, part replacement
    - Repair workflows and validation
 
-3. **[api/QUICKSTART_API.md](api/QUICKSTART_API.md)** - Converter architecture and patterns
+3. **[api/CONVERTER_GUIDE.md](api/CONVERTER_GUIDE.md)** - Complete converter development guide with examples
    - IReportConverter_v2 interface
    - API initialization (`api.InitializeAPI(true)`)
    - Operation type handling (server-specific, NEVER hardcoded)
@@ -53,7 +53,7 @@ When assisting with WATS converter development:
 📂 **[api/](api/)**
 - **[UUT_REFERENCE.md](api/UUT_REFERENCE.md)** - Complete UUTReport API for test converters
 - **[UUR_REFERENCE.md](api/UUR_REFERENCE.md)** - Complete UURReport API for repair converters
-- **[QUICKSTART_API.md](api/QUICKSTART_API.md)** - Converter architecture and patterns
+- **[CONVERTER_GUIDE.md](api/CONVERTER_GUIDE.md)** - Complete converter development guide with examples
 
 **Purpose:** These provide clean, detailed API documentation specifically formatted for AI agents assisting users with WATS converter development. They include all method signatures, parameters, validation rules, examples, and common patterns.
 

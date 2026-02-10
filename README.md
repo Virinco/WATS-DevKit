@@ -13,12 +13,20 @@ This kit provides everything you need to create custom .NET converters that tran
 ## What's Included
 
 - **.NET Converter Template** - Ready-to-use C# project with built-in test suite
-- **API Documentation** - Complete guide to WATS Report API (see [docs/api/API_REFERENCE.md](docs/api/API_REFERENCE.md))
+- **API Documentation** - Complete guide to WATS Report API:
+  - [UUT Reports (Test Results)](docs/api/UUT_REFERENCE.md)
+  - [UUR Reports (Repairs)](docs/api/UUR_REFERENCE.md)
+  - [Converter Development Guide](docs/api/CONVERTER_GUIDE.md)
 - **Development Tools** - Scripts to create and test converters
 - **Testing Framework** - Automated xUnit tests that auto-discover files in Data/ folder
 - **Best Practices Guide** - Proven patterns for robust converters
 
-> **🤖 For AI Agents:** When helping with converter development, **always reference** [docs/api/API_REFERENCE.md](docs/api/API_REFERENCE.md) for authoritative API documentation. Do not guess at API usage.
+> **🤖 For AI Agents:** When helping with converter development, **always reference:**
+> - [docs/api/UUT_REFERENCE.md](docs/api/UUT_REFERENCE.md) for test report converters (UUTReport)
+> - [docs/api/UUR_REFERENCE.md](docs/api/UUR_REFERENCE.md) for repair report converters (UURReport)
+> - [docs/api/CONVERTER_GUIDE.md](docs/api/CONVERTER_GUIDE.md) for converter architecture and complete examples
+> 
+> Do not guess at API usage.
 
 ## Prerequisites
 
@@ -28,6 +36,19 @@ This kit provides everything you need to create custom .NET converters that tran
 - **Visual Studio Code** (recommended) - [Install guide](docs/PREREQUISITES.md#1-install-visual-studio-code)
 - **Git** (recommended) - [Install guide](docs/PREREQUISITES.md#4-install-git-recommended)
 - **PowerShell 5.1+** (Windows) or **PowerShell Core** (cross-platform)
+
+## Getting the DevKit
+
+**Clone from GitHub (Recommended):**
+
+```bash
+git clone https://github.com/virinco/WATS-DevKit.git
+cd WATS-DevKit
+```
+
+**Or download as ZIP:**
+
+Download the latest release from [github.com/virinco/WATS-DevKit/releases](https://github.com/virinco/WATS-DevKit/releases) and extract it.
 
 ## Quick Start
 
@@ -179,7 +200,9 @@ WATS-Converter-Kit/
 │   │   ├── API_GUIDE.md       # WATS Report API user guide
 │   │   └── METHODOLOGY.md     # Best practices & patterns
 │   └── Api/
-│       └── API_REFERENCE.md   # Detailed API reference for agents
+│       ├── UUT_REFERENCE.md   # UUT Report API (test results)
+│       ├── UUR_REFERENCE.md   # UUR Report API (repairs)
+│       └── CONVERTER_GUIDE.md  # Complete converter development guide
 │   └── TESTING.md             # Testing guide
 │
 ├── Templates/                 # Converter templates
@@ -252,7 +275,9 @@ dotnet test
 | [QUICKSTART.md](Docs/Guides/QUICKSTART.md) | Get up and running in 15 minutes |
 | [METHODOLOGY.md](Docs/Guides/METHODOLOGY.md) | Best practices for robust converters |
 | [API_GUIDE.md](Docs/Guides/API_GUIDE.md) | Complete WATS Report API guide |
-| [API_REFERENCE.md](Docs/Api/API_REFERENCE.md) | Detailed API reference for agents |
+| [UUT_REFERENCE.md](Docs/Api/UUT_REFERENCE.md) | Test report API reference |
+| [UUR_REFERENCE.md](Docs/Api/UUR_REFERENCE.md) | Repair report API reference |
+| [CONVERTER_GUIDE.md](Docs/Api/CONVERTER_GUIDE.md) | Complete converter development guide |
 
 ## Milestone-Based Development
 

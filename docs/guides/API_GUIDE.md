@@ -6,7 +6,9 @@
 
 ---
 
-> **📘 Note for AI Agents:** This is the **user-facing guide**. For a complete, structured API reference optimized for agent consumption, see [../api/API_REFERENCE.md](../api/API_REFERENCE.md).
+> **📘 Note for AI Agents:** This is the **user-facing guide**. For complete, structured API references optimized for agent consumption, see:
+> - [../api/UUT_REFERENCE.md](../api/UUT_REFERENCE.md) - Test reports (UUTReport)
+> - [../api/UUR_REFERENCE.md](../api/UUR_REFERENCE.md) - Repair reports (UURReport)
 
 ---
 

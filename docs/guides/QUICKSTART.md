@@ -5,7 +5,12 @@
 
 ---
 
-> **🤖 FOR AI AGENTS:** When helping with WATS converter development, **ALWAYS REFERENCE** the complete API documentation at [docs/api/API_REFERENCE.md](../api/API_REFERENCE.md). This contains critical information about:
+> **🤖 FOR AI AGENTS:** When helping with WATS converter development, **ALWAYS REFERENCE** the complete API documentation:
+> - [UUT_REFERENCE.md](../api/UUT_REFERENCE.md) - For test report converters
+> - [UUR_REFERENCE.md](../api/UUR_REFERENCE.md) - For repair report converters  
+> - [CONVERTER_GUIDE.md](../api/CONVERTER_GUIDE.md) - Complete converter development guide
+> 
+> This contains critical information about:
 > - Correct API initialization patterns
 > - Operation type handling (server-specific, NOT hardcoded)
 > - Step types (NumericLimitStep, PassFailStep, StringValueStep, etc.)
@@ -16,7 +21,20 @@
 
 ---
 
-## Step 1: Set Up Environment (5 minutes)
+## Step 1: Get the DevKit
+
+### Clone from GitHub
+
+```bash
+git clone https://github.com/virinco/WATS-DevKit.git
+cd WATS-DevKit
+```
+
+**Or download:** Get the latest release from [github.com/virinco/WATS-DevKit/releases](https://github.com/virinco/WATS-DevKit/releases)
+
+---
+
+## Step 2: Set Up Environment (5 minutes)
 
 ### Install Required Software
 
@@ -38,7 +56,7 @@ dotnet --version
 
 ---
 
-## Step 2: Create Your Converter (5 minutes)
+## Step 3: Create Your Converter (5 minutes)
 
 ### Using the Wizard
 
@@ -59,7 +77,7 @@ The wizard creates a ready-to-run .NET converter project!
 
 ---
 
-## Step 3: Add Your Test Files (5 minutes)
+## Step 4: Add Your Test Files (5 minutes)
 
 1. **Locate the Data/ folder** in your new converter project
 2. **Copy 10+ test files** from your test equipment into this folder
@@ -83,7 +101,7 @@ Converters/MyConverters/
 
 ---
 
-## Step 4: Run Initial Test (2 minutes)
+## Step 5: Run Initial Test (2 minutes)
 
 Run the test suite to see what happens with the default template:
 
@@ -96,7 +114,7 @@ dotnet test
 
 ---
 
-## Step 5: Implement Basic Parsing (15-30 minutes)
+## Step 6: Implement Basic Parsing (15-30 minutes)
 
 Now you'll modify the converter to read your specific file format.
 

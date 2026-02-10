@@ -30,19 +30,19 @@ A **UUT (Unit Under Test) Report** represents the results of testing a single pr
 
 ```
 UUTReport
-??? Header Properties (PartNumber, SerialNumber, etc.)
-??? Header Containers
-?   ??? MiscInfo[]     (Additional metadata)
-?   ??? PartInfo[]     (Sub-assemblies)
-?   ??? Assets[]       (Test equipment)
-??? Test Steps (Hierarchical)
-    ??? Root SequenceCall
-    ?   ??? NumericLimitStep
-    ?   ??? PassFailStep
-    ?   ??? StringValueStep
-    ?   ??? GenericStep
-    ?   ??? SequenceCall (nested)
-    ??? ...
+├── Header Properties (PartNumber, SerialNumber, etc.)
+├── Header Containers
+│   ├── MiscInfo[]     (Additional metadata)
+│   ├── PartInfo[]     (Sub-assemblies)
+│   └── Assets[]       (Test equipment)
+└── Test Steps (Hierarchical)
+    └── Root SequenceCall
+        ├── NumericLimitStep
+        ├── PassFailStep
+        ├── StringValueStep
+        ├── GenericStep
+        └── SequenceCall (nested)
+            └── ...
 ```
 
 ---
@@ -245,7 +245,7 @@ step2.AddTest(
     numericValue: 45.2,
     compOperator: CompOperatorType.LT,  // value < 50
     lowLimit: 50.0,
-    units: "�C"
+    units: "�C"
 );
 
 // Log only (no limits)
@@ -695,7 +695,7 @@ MiscUUTInfo misc4 = report.AddMiscUUTInfo(
 MiscUUTInfo misc = report.AddMiscUUTInfo("Example");
 
 misc.Description = "Temperature";  // Tag/label
-misc.DataString = "25.5�C";        // String value
+misc.DataString = "25.5�C";        // String value
 misc.DataNumeric = 255;             // Numeric value (Int16)
 misc.DataNumericFormat = "0";       // Format for numeric
 ```
@@ -1019,7 +1019,7 @@ class HierarchicalExample
         
         // Add misc info
         report.AddMiscUUTInfo("FW_Version", "2.5.1");
-        report.AddMiscUUTInfo("Temp", "23�C", 230);
+        report.AddMiscUUTInfo("Temp", "23�C", 230);
         
         // Add part info
         report.AddUUTPartInfo("Display", "LCD-5", "LCD-SN-001", "C");

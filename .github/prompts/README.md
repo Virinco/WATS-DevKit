@@ -8,7 +8,10 @@ This folder contains **GitHub Copilot Chat prompts** that make it easy to run co
 
 When using these prompts to help with WATS converter development:
 
-**📘 ALWAYS REFERENCE:** `docs/api/API_REFERENCE.md`
+**📘 ALWAYS REFERENCE:**
+- `docs/api/UUT_REFERENCE.md` - For test report converters
+- `docs/api/UUR_REFERENCE.md` - For repair report converters
+- `docs/api/CONVERTER_GUIDE.md` - Complete converter development guide
 
 This is the **authoritative source** for:
 - ✅ Correct WATS API usage patterns

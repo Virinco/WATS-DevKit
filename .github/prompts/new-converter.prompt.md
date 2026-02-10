@@ -55,7 +55,8 @@ Inform the user:
 
 4. **Review documentation**:
    - See `docs/guides/QUICKSTART.md` for detailed tutorial
-   - **⚠️ CRITICAL:** See `docs/api/API_REFERENCE.md` for complete WATS API reference
+   - **⚠️ CRITICAL:** See `docs/api/UUT_REFERENCE.md` for complete UUT Report API reference
+   - For repair converters, see `docs/api/UUR_REFERENCE.md`
 
 ---
 
@@ -63,7 +64,10 @@ Inform the user:
 
 When helping implement converters, **YOU MUST REFERENCE**:
 
-📘 **`docs/api/API_REFERENCE.md`** - Complete WATS Report API documentation
+📘 **API Documentation:**
+- `docs/api/UUT_REFERENCE.md` - UUT Report API (test results)
+- `docs/api/UUR_REFERENCE.md` - UUR Report API (repairs)
+- `docs/api/CONVERTER_GUIDE.md` - Complete converter development guide
 
 This contains:
 - ✅ Correct API initialization patterns (`api.InitializeAPI(true)`)
