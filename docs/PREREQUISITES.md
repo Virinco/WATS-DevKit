@@ -54,13 +54,24 @@ Install WATS Client → Configure server connection.
 
 ## Getting Started
 
-### 1. Clone the DevKit
+### 1. Get the DevKit
 
-Clone from GitHub to your preferred location:
+**Best Practice:** Use as a template on GitHub
 
+1. Visit **https://github.com/Virinco/WATS-DevKit**
+2. Click **"Use this template"** → Create a new repository
+3. Clone your new repo:
+   ```powershell
+   git clone https://github.com/YOUR-ORG/YOUR-PROJECT.git
+   cd YOUR-PROJECT
+   ```
+
+**Alternative:** Clone and remove git history:
 ```powershell
-git clone https://github.com/Virinco/WATS-DevKit.git
-cd WATS-DevKit
+git clone --depth 1 https://github.com/Virinco/WATS-DevKit.git MyConverters
+cd MyConverters
+Remove-Item -Recurse -Force .git
+git init  # Optional: start fresh
 ```
 
 ### 2. Open in VS Code

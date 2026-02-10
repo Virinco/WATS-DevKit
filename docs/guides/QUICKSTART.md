@@ -23,14 +23,29 @@
 
 ## Step 1: Get the DevKit
 
-### Clone from GitHub
+### Option 1: Use as Template (Recommended)
+
+1. **Visit:** https://github.com/Virinco/WATS-DevKit
+2. **Click:** "Use this template" button (green, top right)
+3. **Create** your own repository (e.g., "MyCompany-Converters")
+4. **Clone** your new repository:
+   ```bash
+   git clone https://github.com/YOUR-ORG/YOUR-CONVERTER-PROJECT.git
+   cd YOUR-CONVERTER-PROJECT
+   ```
+
+### Option 2: Clone Without Git History
+
+If you want local files without version control:
 
 ```bash
-git clone https://github.com/Virinco/WATS-DevKit.git
-cd WATS-DevKit
+git clone --depth 1 https://github.com/Virinco/WATS-DevKit.git MyConverters
+cd MyConverters
+rm -rf .git    # Remove DevKit history
+git init       # Start fresh (optional)
 ```
 
-> **Tip:** Using Git allows you to easily get updates with `git pull` when new features are added.
+> **Important:** Option 1 gives you a clean repository for your converters without WATS-DevKit commit history.
 
 ---
 

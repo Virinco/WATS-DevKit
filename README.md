@@ -39,14 +39,29 @@ This kit provides everything you need to create custom .NET converters that tran
 
 ## Getting the DevKit
 
-**Clone from GitHub:**
+**Option 1: Use as Template (Recommended)**
+
+1. Go to **https://github.com/Virinco/WATS-DevKit**
+2. Click the **"Use this template"** button (green button near top)
+3. Create your own repository with a clean git history
+4. Clone your new repository:
+   ```bash
+   git clone https://github.com/YOUR-USERNAME/YOUR-CONVERTER-PROJECT.git
+   cd YOUR-CONVERTER-PROJECT
+   ```
+
+**Option 2: Download for Local Use**
+
+If you don't need git version control:
 
 ```bash
-git clone https://github.com/Virinco/WATS-DevKit.git
-cd WATS-DevKit
+git clone --depth 1 https://github.com/Virinco/WATS-DevKit.git MyConverters
+cd MyConverters
+rm -rf .git  # Remove WATS-DevKit git history
+git init      # Start fresh (optional)
 ```
 
-> **Note:** Cloning keeps you up-to-date with the latest improvements. You can pull updates anytime with `git pull`.
+> **Why?** Using the template gives you a clean starting point without the WATS-DevKit commit history.
 
 ## Quick Start
 
