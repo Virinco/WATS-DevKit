@@ -22,9 +22,11 @@ This kit provides everything you need to create custom .NET converters that tran
 
 ## Prerequisites
 
-- **.NET SDK 8.0** or **.NET Framework 4.8**
-- **Visual Studio Code** (recommended)
-- **GitHub Copilot** extension (for AI-assisted development)
+**New to .NET development?** See [docs/PREREQUISITES.md](docs/PREREQUISITES.md) for detailed installation instructions.
+
+- **.NET SDK 8.0** or **.NET Framework 4.8** - [Install guide](docs/PREREQUISITES.md#2-install-net-80-sdk)
+- **Visual Studio Code** (recommended) - [Install guide](docs/PREREQUISITES.md#1-install-visual-studio-code)
+- **Git** (recommended) - [Install guide](docs/PREREQUISITES.md#4-install-git-recommended)
 - **PowerShell 5.1+** (Windows) or **PowerShell Core** (cross-platform)
 
 ## Quick Start

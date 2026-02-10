@@ -1,36 +1,77 @@
-# ⚠️ CRITICAL - API Reference for Agents
+# API Documentation
 
-**Location:** `docs/api/API_REFERENCE.md`
+This directory contains comprehensive WATS API documentation for converter development.
 
-This file contains the **authoritative WATS Report API documentation** for AI agents helping with converter development.
+---
 
-## Why This Matters
+## ⚠️ FOR AI AGENTS - CRITICAL REFERENCES
 
-AI agents MUST reference this documentation when:
-- Implementing converter code
-- Debugging API usage issues
-- Answering questions about WATS API
-- Suggesting code patterns
+**When helping with WATS converter development, you MUST reference:**
 
-## What It Contains
+1. **[UUT_REFERENCE.md](UUT_REFERENCE.md)** - For test report converters (UUTReport)
+2. **[UUR_REFERENCE.md](UUR_REFERENCE.md)** - For repair report converters (UURReport)
+3. **[QUICKSTART_API.md](QUICKSTART_API.md)** - For converter architecture and patterns
 
-✅ Complete API method signatures  
-✅ Required vs optional parameters  
-✅ Correct initialization patterns  
-✅ Operation type handling (server-specific)  
-✅ All step types with examples  
-✅ Validation modes and test modes  
-✅ Best practices and anti-patterns  
-✅ Common errors and solutions  
+**DO NOT guess at API usage - always verify against these references!**
 
-## How to Use
+---
 
-Before suggesting ANY WATS API code:
+## Documentation Files
 
-1. **Read** the relevant section in API_REFERENCE.md
-2. **Verify** method signatures and parameters
-3. **Check** for common pitfalls in that section
-4. **Use** the exact patterns shown in examples
+### [QUICKSTART_API.md](QUICKSTART_API.md) - Start Here! 🚀
+
+**Tutorial-style guide** for building your first converter:
+- IReportConverter_v2 architecture
+- Step-by-step converter creation
+- Common patterns and workflows
+- Troubleshooting guide
+
+**Use when:** Building a new converter, learning the API basics
+
+### [UUT_REFERENCE.md](UUT_REFERENCE.md) - UUT Report Reference 📚
+
+**Comprehensive SDK reference for test reports** based on actual API source code:
+- All UUTReport classes, properties, and methods
+- Validation rules and constraints
+- TestMode and ValidationMode details
+- Charts, Attachments, Header containers
+- Complete CompOperator list
+- Status propagation rules
+
+**Use when:** Looking up specific UUT properties, understanding validation, debugging test reports
+
+### [UUR_REFERENCE.md](UUR_REFERENCE.md) - UUR Report Reference 🔧
+
+**Comprehensive SDK reference for repair reports**:
+- All UURReport classes, properties, and methods
+- RepairType and FailCode hierarchies
+- Failure tracking and component references
+- MiscInfo fields (repair-specific metadata)
+- Part tracking for replaced components
+- Attachments and documentation
+
+**Use when:** Building repair converters, tracking failures, documenting component replacements
+
+---
+
+## For AI Agents
+
+**CRITICAL:** Always reference the correct documentation:
+
+**For Test Report Converters (most common):**
+- Architecture: [QUICKSTART_API.md](QUICKSTART_API.md)
+- Complete API: [UUT_REFERENCE.md](UUT_REFERENCE.md)
+- Use UUTReport, NumericLimitStep, PassFailStep, etc.
+
+**For Repair Report Converters:**
+- Complete API: [UUR_REFERENCE.md](UUR_REFERENCE.md)
+- Use UURReport, RepairType, FailCode, Failure, etc.
+
+**Before suggesting ANY code:**
+1. Identify report type (UUT = test results, UUR = repairs)
+2. Reference correct documentation file
+3. Verify exact method signatures and properties
+4. Use patterns from Complete Example sections
 
 **DO NOT:**
 - Guess at API method names
@@ -38,16 +79,15 @@ Before suggesting ANY WATS API code:
 - Invent properties that don't exist
 - Skip validation modes
 
-## References in Code
+---
 
-All workflow docs now reference this file:
-- ✅ `docs/README.md` - Documentation hub
-- ✅ `docs/guides/QUICKSTART.md` - Quick start guide
-- ✅ `docs/guides/METHODOLOGY.md` - Development methodology
-- ✅ `docs/guides/API_GUIDE.md` - User-facing guide
-- ✅ `.github/prompts/README.md` - Copilot prompts
-- ✅ `.github/prompts/new-converter.prompt.md` - New converter prompt
-- ✅ `.github/prompts/test-converter.prompt.md` - Test converter prompt
+## Quick Links
+
+- **Getting Started:** [QUICKSTART_API.md - Getting Started](QUICKSTART_API.md#getting-started)
+- **UUT Test Reports:** [UUT_REFERENCE.md - Step Types](UUT_REFERENCE.md#4-step-types)
+- **UUR Repair Reports:** [UUR_REFERENCE.md - Failures](UUR_REFERENCE.md#5-failures)
+- **Validation Rules:** [UUT_REFERENCE.md - Validation](UUT_REFERENCE.md#6-validation-rules)
+- **Examples:** Both files contain complete working examples
 - ✅ `README.md` - Main repository README
 
 This ensures agents cannot miss this critical resource!

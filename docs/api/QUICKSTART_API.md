@@ -1,8 +1,12 @@
-# WATS Report API Reference
+# WATS Converter API - Quick Start Guide
 
 **Version:** WATS.Client 6.1+ / Virinco.WATS.ClientAPI 7.0+  
 **Namespace:** `Virinco.WATS.Interface`  
-**For:** AI Agents & Developers Building WATS Converters
+**For:** Developers Building WATS Converters
+
+> **📖 Complete References:**
+> - **Test Reports (UUT):** [UUT_REFERENCE.md](UUT_REFERENCE.md) - Complete UUTReport API
+> - **Repair Reports (UUR):** [UUR_REFERENCE.md](UUR_REFERENCE.md) - Complete UURReport API
 
 ---
 
