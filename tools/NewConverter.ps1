@@ -85,6 +85,10 @@ New-Item -ItemType Directory -Path "$outputPath\src" -Force | Out-Null
 New-Item -ItemType Directory -Path "$outputPath\tests" -Force | Out-Null
 New-Item -ItemType Directory -Path "$outputPath\tests\Data" -Force | Out-Null
 
+# Create category subdirectories for organized testing
+New-Item -ItemType Directory -Path "$outputPath\tests\Data\ICT" -Force | Out-Null
+New-Item -ItemType Directory -Path "$outputPath\tests\Data\Functional" -Force | Out-Null
+
 Write-Host "Generating project files..." -ForegroundColor Gray
 
 # Create src project file (using -replace for variable substitution)
@@ -345,9 +349,23 @@ namespace $assemblyName
 
 Write-Host "Generating test infrastructure..." -ForegroundColor Gray
 
-# Create ConverterTests.cs (generic test scaffold)
-$firstConverterName = $converters[0]
-$testCode = @"
+# Copy and process ConverterTests.cs from template
+$templatePath = Join-Path $PSScriptRoot "..\Templates\FileConverterTemplate"
+Write-Host "  ├─ ConverterTests.cs" -ForegroundColor Gray
+
+if (Test-Path "$templatePath\ConverterTests.cs") {
+    $firstConverterName = $converters[0]
+    $testCode = Get-Content "$templatePath\ConverterTests.cs" -Raw
+    $testCode = $testCode -replace '\{\{PROJECT_NAME\}\}', $assemblyName
+    $testCode = $testCode -replace '\{\{CONVERTER_CLASS_NAME\}\}', $firstConverterName
+    $testCode = $testCode -replace '\{\{FILE_EXTENSION\}\}', $firstExtension
+    Set-Content "$outputPath\tests\ConverterTests.cs" -Value $testCode
+    Write-Host "     (with category-based tests)" -ForegroundColor DarkGray
+} else {
+    Write-Warning "Template file not found: $templatePath\ConverterTests.cs - using embedded fallback"
+    # Fallback to embedded simple version
+    $firstConverterName = $converters[0]
+    $testCode = @"
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -358,13 +376,6 @@ using Xunit.Abstractions;
 
 namespace $assemblyName.Tests
 {
-    /// <summary>
-    /// Tests for $assemblyName converters.
-    /// Supports three test modes (configured in TestConfig.json):
-    /// 1. ValidateOnly (default) - Validates conversion without server submission
-    /// 2. SubmitToDebug - Submits all reports to SW-Debug (operation code 10)
-    /// 3. Production - Submits with actual operation codes
-    /// </summary>
     public class ConverterTests
     {
         private readonly ITestOutputHelper _output;
@@ -378,44 +389,17 @@ namespace $assemblyName.Tests
 
         [Theory]
         [MemberData(nameof(GetTestFiles))]
-        public void TestSingleFile(string filePath, string fileName)
+        public void TestFile(string filePath, string fileName)
         {
             _output.WriteLine(`$"Testing file: {fileName}");
-
-            // TODO: Create your converter instance (change to match your converter name)
             var converter = new $firstConverterName();
             var modeSettings = _config.GetCurrentModeSettings();
-
-            TDM api;
-            if (modeSettings.MockApi)
-            {
-                api = CreateMockApi();
-                _output.WriteLine("Using MockAPI (ValidateOnly mode - no server submission)");
-            }
-            else
-            {
-                api = CreateRealApi(modeSettings);
-                _output.WriteLine(`$"Using Real API - Server: {modeSettings.ServerUrl}");
-            }
-
-            if (modeSettings.ForceOperationCode != null)
-            {
-                converter.ConverterParameters["operationTypeCode"] = modeSettings.ForceOperationCode;
-            }
-
+            TDM api = modeSettings.MockApi ? CreateMockApi() : CreateRealApi(modeSettings);
+            
             using (var fileStream = File.OpenRead(filePath))
             {
-                try
-                {
-                    converter.ImportReport(api, fileStream);
-                    _output.WriteLine(`$"Successfully converted: {fileName}");
-                }
-                catch (Exception ex)
-                {
-                    _output.WriteLine(`$"FAILED: {fileName}");
-                    _output.WriteLine(`$"  Error: {ex.Message}");
-                    throw;
-                }
+                converter.ImportReport(api, fileStream);
+                _output.WriteLine(`$"Successfully converted: {fileName}");
             }
         }
 
@@ -423,17 +407,9 @@ namespace $assemblyName.Tests
         {
             string assemblyDir = Path.GetDirectoryName(typeof(ConverterTests).Assembly.Location)!;
             string dataDir = Path.Combine(assemblyDir, "Data");
-
-            if (!Directory.Exists(dataDir))
-            {
-                throw new DirectoryNotFoundException(`$"Data directory not found: {dataDir}");
-            }
-
-            var files = Directory.GetFiles(dataDir, "*.*", SearchOption.AllDirectories)
-                .Where(f => !Path.GetFileName(f).StartsWith("README", StringComparison.OrdinalIgnoreCase))
-                .OrderBy(f => f)
-                .ToArray();
-
+            if (!Directory.Exists(dataDir)) yield break;
+            
+            var files = Directory.GetFiles(dataDir, "*.$firstExtension", SearchOption.AllDirectories).OrderBy(f => f);
             foreach (var file in files)
             {
                 string relativePath = file.Substring(dataDir.Length).TrimStart(Path.DirectorySeparatorChar);
@@ -451,50 +427,72 @@ namespace $assemblyName.Tests
         private TDM CreateRealApi(TestModeSettings settings)
         {
             var api = new TDM();
-            api.InitializeAPI(true);
+            api.InitializeAPI();
             return api;
         }
     }
 }
 "@
-Set-Content "$outputPath\tests\ConverterTests.cs" -Value $testCode
-
-# Copy TestConfiguration.cs from ExampleConverters
-$exampleConvertersPath = Join-Path $PSScriptRoot "..\Converters\ExampleConverters\tests"
-if (Test-Path "$exampleConvertersPath\TestConfiguration.cs") {
-    Copy-Item "$exampleConvertersPath\TestConfiguration.cs" -Destination "$outputPath\tests\" -Force
+    Set-Content "$outputPath\tests\ConverterTests.cs" -Value $testCode
 }
 
-# Copy TestConfig.json from ExampleConverters
-if (Test-Path "$exampleConvertersPath\TestConfig.json") {
-    Copy-Item "$exampleConvertersPath\TestConfig.json" -Destination "$outputPath\tests\" -Force
+# Copy and process TestConfiguration.cs from template
+$templatePath = Join-Path $PSScriptRoot "..\Templates\FileConverterTemplate"
+Write-Host "  ├─ TestConfiguration.cs" -ForegroundColor Gray
+
+if (Test-Path "$templatePath\TestConfiguration.cs") {
+    $testConfigCode = Get-Content "$templatePath\TestConfiguration.cs" -Raw
+    $testConfigCode = $testConfigCode -replace '\{\{NAMESPACE\}\}', "$assemblyName"
+    Set-Content "$outputPath\tests\TestConfiguration.cs" -Value $testConfigCode
+    Write-Host "     (namespace: $assemblyName.Tests)" -ForegroundColor DarkGray
+} else {
+    Write-Warning "Template file not found: $templatePath\TestConfiguration.cs"
 }
 
-# Create README in Data folder
-$dataReadme = @"
+# Copy TestConfig.json from template
+Write-Host "  ├─ TestConfig.json" -ForegroundColor Gray
+if (Test-Path "$templatePath\TestConfig.json") {
+    Copy-Item "$templatePath\TestConfig.json" -Destination "$outputPath\tests\" -Force
+} else {
+    Write-Warning "Template file not found: $templatePath\TestConfig.json"
+}
+
+# Copy TestConfig.Schema.json from template
+Write-Host "  ├─ TestConfig.Schema.json" -ForegroundColor Gray
+if (Test-Path "$templatePath\TestConfig.Schema.json") {
+    Copy-Item "$templatePath\TestConfig.Schema.json" -Destination "$outputPath\tests\" -Force
+} else {
+    Write-Warning "Template file not found: $templatePath\TestConfig.Schema.json"
+}
+
+# Copy Data/README.md from template and replace placeholders
+Write-Host "  └─ Data\README.md" -ForegroundColor Gray
+if (Test-Path "$templatePath\Data\README.md") {
+    $dataReadme = Get-Content "$templatePath\Data\README.md" -Raw
+    $dataReadme = $dataReadme -replace '\{\{PROJECT_NAME\}\}', $assemblyName
+    $dataReadme = $dataReadme -replace '\{\{FILE_EXTENSION\}\}', $firstExtension
+    Set-Content "$outputPath\tests\Data\README.md" -Value $dataReadme
+} else {
+    # Fallback to basic README if template not found
+    $dataReadme = @"
 # Test Data
 
 Place your test files in this directory.
 
 The test framework will automatically discover and test all files in this folder.
 
-## File Organization
-
-- For single format: Place files directly here
-- For multiple formats: Create subdirectories (e.g., `xml/`, `csv/`)
-
 ## Example
 
 ``````
 Data/
-  sample1.log
-  sample2.log
-  sample3.log
+  sample1.$firstExtension
+  sample2.$firstExtension
 ``````
 
 Then run: ``dotnet test``
 "@
-Set-Content "$outputPath\tests\Data\README.md" -Value $dataReadme
+    Set-Content "$outputPath\tests\Data\README.md" -Value $dataReadme
+}
 
 # Create main README
 $readmeContent = @"
