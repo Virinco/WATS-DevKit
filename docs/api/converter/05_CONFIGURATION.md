@@ -1,5 +1,12 @@
 ## 5. Configuration and Parameters
 
+**This section covers:**
+- [5.1 Parameter Definition](#51-parameter-definition) - Defining converter parameters
+- [5.2 Parameter Access](#52-parameter-access) - Reading parameter values
+- [5.3 Configuration in Converters.xml](#53-configuration-in-convertersxml) - WATS Client setup
+
+---
+
 ### 5.1 Parameter Definition
 
 ```csharp

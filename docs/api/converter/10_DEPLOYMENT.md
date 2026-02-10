@@ -1,5 +1,13 @@
 ## 10. Deployment
 
+**This section covers:**
+- [10.1 Build Configuration](#101-build-configuration) - Compiling for release
+- [10.2 Deployment Structure](#102-deployment-structure) - File organization
+- [10.3 Installation Steps](#103-installation-steps) - Installing on WATS Client
+- [10.4 Verification](#104-verification) - Testing deployment
+
+---
+
 ### 10.1 Build Configuration
 
 ```xml

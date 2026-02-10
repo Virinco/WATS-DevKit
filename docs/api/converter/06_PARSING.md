@@ -1,5 +1,13 @@
 ## 6. Parsing Source Data
 
+**This section covers:**
+- [6.1 Stream Handling](#61-stream-handling) - Working with file streams
+- [6.2 XML Parsing Example](#62-xml-parsing-example) - Parsing XML files
+- [6.3 CSV Parsing Example](#63-csv-parsing-example) - Parsing CSV files
+- [6.4 JSON Parsing Example](#64-json-parsing-example) - Parsing JSON files
+
+---
+
 ### 6.1 Stream Handling
 
 The file stream provided is:

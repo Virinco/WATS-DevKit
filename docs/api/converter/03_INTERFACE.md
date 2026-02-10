@@ -1,5 +1,12 @@
 ## 3. Interface Requirements
 
+**This section covers:**
+- [3.1 IReportConverter_v2 Interface](#31-ireportconverter_v2-interface) - Interface definition
+- [3.2 Constructor Requirements](#32-constructor-requirements) - Default and parameterized constructors
+- [3.3 ConverterParameters Property](#33-converterparameters-property) - Exposing configuration
+
+---
+
 ### 3.1 IReportConverter_v2 Interface
 
 ```csharp

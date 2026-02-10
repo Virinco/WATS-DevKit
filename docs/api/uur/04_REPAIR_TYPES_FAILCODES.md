@@ -1,5 +1,11 @@
 ## 4. Repair Types and Fail Codes
 
+**This section covers:**
+- [4.1 Fail Code Hierarchy](#41-fail-code-hierarchy) - Organizing failure types in tree structure
+- [4.2 Working with Fail Codes](#42-working-with-fail-codes) - Accessing and navigating the tree
+
+---
+
 ### 4.1 Fail Code Hierarchy
 
 Fail codes are organized hierarchically:

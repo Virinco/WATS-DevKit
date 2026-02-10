@@ -1,5 +1,13 @@
 ## 7. Validation Rules
 
+**This section covers:**
+- [7.1 String Validation](#71-string-validation) - String length and character limits
+- [7.2 Component Reference Validation](#72-component-reference-validation) - Validating part references
+- [7.3 MiscInfo Validation](#73-miscinfo-validation) - Metadata validation rules
+- [7.4 DateTime Validation](#74-datetime-validation) - Date/time requirements
+
+---
+
 ### 7.1 String Validation
 
 Same validation as UUT reports:

@@ -1,5 +1,12 @@
 ## 9. Testing and Debugging
 
+**This section covers:**
+- [9.1 Unit Test Setup](#91-unit-test-setup) - Setting up test infrastructure
+- [9.2 Integration Test](#92-integration-test) - Full end-to-end testing
+- [9.3 Debugging Tips](#93-debugging-tips) - Common troubleshooting
+
+---
+
 ### 9.1 Unit Test Setup
 
 ```csharp

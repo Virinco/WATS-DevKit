@@ -1,5 +1,13 @@
 ## 9. Quick Reference
 
+**This section covers:**
+- [9.1 UUR Creation Decision Tree](#91-uur-creation-decision-tree) - Choosing creation method
+- [9.2 Common Mistakes](#92-common-mistakes) - Avoiding typical errors
+- [9.3 Quick Checklist](#93-quick-checklist) - Report creation verification
+- [9.4 UUR vs UUT Comparison](#94-uur-vs-uut-comparison) - Key differences
+
+---
+
 ### 9.1 UUR Creation Decision Tree
 
 ```

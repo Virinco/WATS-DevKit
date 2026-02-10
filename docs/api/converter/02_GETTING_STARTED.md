@@ -1,5 +1,11 @@
 ## 2. Getting Started
 
+**This section covers:**
+- [2.1 Project Setup](#21-project-setup) - Create class library, configure references
+- [2.2 Basic Converter Template](#22-basic-converter-template) - Minimal working converter code
+
+---
+
 ### 2.1 Project Setup
 
 #### Create a Class Library

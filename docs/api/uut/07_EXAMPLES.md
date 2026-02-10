@@ -1,5 +1,14 @@
 ## 7. Complete Examples
 
+**This section covers:**
+- [7.1 Simple Test Report](#71-simple-test-report) - Basic single-level test
+- [7.2 Multi-Level Test Report](#72-multi-level-test-report) - Hierarchical tests
+- [7.3 Import Historical Data](#73-import-historical-data) - Import mode example
+- [7.4 Report with Chart and Attachment](#74-report-with-chart-and-attachment) - Adding visual data
+- [7.5 Handling Failures](#75-handling-failures) - Failed test examples
+
+---
+
 ### 7.1 Simple Test Report
 
 ```csharp

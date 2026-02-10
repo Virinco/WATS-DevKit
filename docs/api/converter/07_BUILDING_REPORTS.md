@@ -1,5 +1,14 @@
 ## 7. Building Reports
 
+**This section covers:**
+- [7.1 UUT Report Creation](#71-uut-report-creation) - Creating test reports
+- [7.2 UUR Report Creation](#72-uur-report-creation) - Creating repair reports
+- [7.3 Hierarchical Test Structure](#73-hierarchical-test-structure) - Building step hierarchy
+
+**See also:** [UUT Reference](../uut/INDEX.md) | [UUR Reference](../uur/INDEX.md)
+
+---
+
 ### 7.1 UUT Report Creation
 
 ```csharp

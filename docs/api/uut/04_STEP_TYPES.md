@@ -1,5 +1,17 @@
 ## 4. Step Types
 
+**This section covers:**
+- [4.1 Step Type Overview](#41-step-type-overview) - All available step types
+- [4.2 NumericLimitStep](#42-numericlimitstep) - Numeric measurements with limits
+- [4.3 PassFailStep](#43-passfailstep) - Boolean pass/fail tests 
+- [4.4 StringValueStep](#44-stringvaluestep) - String comparison tests
+- [4.5 SequenceCall](#45-sequencecall-nested-steps) - Nested step containers
+- [4.6 GenericStep](#46-genericstep) - Actions without measurements
+- [4.7 Common Step Properties](#47-common-step-properties) - Properties inherited by all steps
+- [4.8 Step Attachments and Extensions](#48-step-attachments-and-extensions) - Charts, files, additional data
+
+---
+
 ### 4.1 Step Type Overview
 
 | Step Type | Class | Purpose | Test Count |

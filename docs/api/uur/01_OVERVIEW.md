@@ -19,6 +19,13 @@
 
 ## 1. Overview
 
+**This section covers:**
+- [What is a UURReport?](#what-is-a-uurreport) - Basic definition and structure
+- [UUR vs UUT Reports](#uur-vs-uut-reports) - Key differences
+- [Report Lifecycle](#report-lifecycle) - Creation, submission, workflow
+
+---
+
 ### What is a UURReport?
 
 A **UUR (Unit Under Repair) Report** documents the repair process for a failed product/device. It contains:

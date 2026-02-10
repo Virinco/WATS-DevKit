@@ -1,5 +1,12 @@
 ## 4. Converter Architecture
 
+**This section covers:**
+- [4.1 Recommended Structure](#41-recommended-structure) - Organizing converter code
+- [4.2 Separation of Concerns](#42-separation-of-concerns) - Modular design
+- [4.3 Error Isolation](#43-error-isolation) - Protecting against failures
+
+---
+
 ### 4.1 Recommended Structure
 
 ```

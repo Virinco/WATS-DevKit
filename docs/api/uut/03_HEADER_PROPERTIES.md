@@ -1,5 +1,12 @@
 ## 3. Report Header Properties
 
+**This section covers:**
+- [3.1 Required Properties](#31-required-properties) - Must be set for valid report
+- [3.2 Optional Properties](#32-optional-properties) - Additional metadata
+- [3.3 Validation Rules](#33-validation-rules) - Property validation requirements
+
+---
+
 ### 3.1 Required Properties
 
 These are set during creation and should not be changed:

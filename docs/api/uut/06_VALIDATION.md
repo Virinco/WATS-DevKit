@@ -1,5 +1,14 @@
 ## 6. Validation Rules
 
+**This section covers:**
+- [6.1 String Validation](#61-string-validation) - String length and character limits
+- [6.2 Invalid XML Characters](#62-invalid-xml-characters) - Characters to avoid
+- [6.3 DateTime Validation](#63-datetime-validation) - Date/time requirements
+- [6.4 Status Validation](#64-status-validation) - Status propagation rules
+- [6.5 Report Validation](#65-report-validation) - Overall report validation
+
+---
+
 ### 6.1 String Validation
 
 All string properties are validated using `SetPropertyValidated<T>()`:

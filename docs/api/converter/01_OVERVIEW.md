@@ -22,6 +22,13 @@
 
 ## 1. Overview
 
+**This section covers:**
+- [What is a Converter?](#what-is-a-converter) - Basic definition and purpose
+- [How Converters Work](#how-converters-work) - Processing workflow
+- [Converter Lifecycle](#converter-lifecycle) - Initialization and execution
+
+---
+
 ### What is a Converter?
 
 A **WATS Converter** is a .NET DLL that implements the `IReportConverter_v2` interface to transform external test data formats into WATS reports. Converters enable WATS to import data from:

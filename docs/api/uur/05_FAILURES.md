@@ -1,5 +1,13 @@
 ## 5. Failures
 
+**This section covers:**
+- [5.1 Adding Failures](#51-adding-failures) - Recording failure information
+- [5.2 Component References](#52-component-references) - Linking failures to components
+- [5.3 Failure Attachments](#53-failure-attachments) - Adding supporting documentation
+- [5.4 Restrictions](#54-restrictions) - Validation rules and limits
+
+---
+
 ### 5.1 Adding Failures
 
 Failures document what went wrong with the unit.

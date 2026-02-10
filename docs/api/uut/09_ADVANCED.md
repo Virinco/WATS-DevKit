@@ -1,5 +1,13 @@
 ## 9. Advanced Topics
 
+**This section covers:**
+- [9.1 Step Path](#91-step-path) - Understanding step hierarchy paths
+- [9.2 Step Identification](#92-step-identification) - Unique identification patterns
+- [9.3 Status Control](#93-status-control) - Overriding automatic status calculation
+- [9.4 Number Formatting](#94-number-formatting) - Controlling numeric display
+
+---
+
 ### 9.1 Step Path
 
 Every step has a path showing its position in the hierarchy:

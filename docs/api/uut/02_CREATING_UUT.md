@@ -1,5 +1,12 @@
 ## 2. Creating a UUT Report
 
+**This section covers:**
+- [2.1 Basic Creation](#21-basic-creation) - CreateUUTReport method and parameters
+- [2.2 Operation Types](#22-operation-types) - Getting operation types from server
+- [2.3 TestMode and ValidationMode](#23-testmode-and-validationmode) - Controlling report behavior
+
+---
+
 ### 2.1 Basic Creation
 
 ```csharp

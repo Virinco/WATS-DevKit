@@ -1,5 +1,12 @@
 ## 8. Error Handling and Logging
 
+**This section covers:**
+- [8.1 ConversionLog](#81-conversionlog) - Informational logging
+- [8.2 ErrorLog](#82-errorlog) - Error logging
+- [8.3 Exception Handling Strategy](#83-exception-handling-strategy) - Best practices
+
+---
+
 ### 8.1 ConversionLog
 
 Enable logging in `Converters.xml`:

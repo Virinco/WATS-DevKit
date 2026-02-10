@@ -1,5 +1,13 @@
 ## 6. Header Containers
 
+**This section covers:**
+- [6.1 MiscUURInfo](#61-miscuurinfo) - Repair-specific metadata (predefined by RepairType)
+- [6.2 UURPartInfo](#62-uurpartinfo) - Component/sub-assembly tracking
+- [6.3 Dynamic UURPartInfo](#63-dynamic-uurpartinfo) - Adding custom part information
+- [6.4 Attachments](#64-attachments) - File attachments to header
+
+---
+
 ### 6.1 MiscUURInfo
 
 Repair-specific metadata defined by the RepairType.

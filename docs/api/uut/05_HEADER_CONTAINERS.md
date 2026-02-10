@@ -1,5 +1,12 @@
 ## 5. Header Containers
 
+**This section covers:**
+- [5.1 MiscUUTInfo](#51-miscuutinfo) - Additional metadata (key-value pairs)
+- [5.2 UUTPartInfo](#52-uutpartinfo) - Sub-assembly tracking
+- [5.3 Assets](#53-assets) - Test equipment information
+
+---
+
 ### 5.1 MiscUUTInfo
 
 Store searchable metadata attached to the UUT header.

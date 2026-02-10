@@ -1,5 +1,12 @@
 ## 2. Creating a UUR Report
 
+**This section covers:**
+- [2.1 Creation Methods](#21-creation-methods) - Two ways to create UUR reports
+- [2.2 RepairType](#22-repairtype) - Understanding repair classification
+- [2.3 TestMode and ValidationMode](#23-testmode-and-validationmode) - Controlling report behavior
+
+---
+
 ### 2.1 Creation Methods
 
 There are two primary ways to create a UUR report:

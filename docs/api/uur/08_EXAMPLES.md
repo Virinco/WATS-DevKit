@@ -1,5 +1,14 @@
 ## 8. Complete Examples
 
+**This section covers:**
+- [8.1 Simple Repair Report](#81-simple-repair-report) - Basic standalone repair
+- [8.2 Repair from Failed UUT](#82-repair-from-failed-uut) - Linking repair to test failure
+- [8.3 Complex Repair](#83-complex-repair) - Multiple failures, components, attachments
+- [8.4 Historical Repair Data](#84-historical-repair-data) - Import mode with past timestamps
+- [8.5 Field Repair](#85-field-repair) - Customer return repair scenario
+
+---
+
 ### 8.1 Simple Repair Report
 
 ```csharp

@@ -1,5 +1,13 @@
 ## 8. Quick Reference
 
+**This section covers:**
+- [8.1 Step Type Decision Tree](#81-step-type-decision-tree) - Choosing the right step type
+- [8.2 Common Mistakes](#82-common-mistakes) - Avoiding typical errors
+- [8.3 Status Propagation Rules](#83-status-propagation-rules) - How step status affects sequence status
+- [8.4 Quick Checklist](#84-quick-checklist) - Report creation verification
+
+---
+
 ### 8.1 Step Type Decision Tree
 
 ```

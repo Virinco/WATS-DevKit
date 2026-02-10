@@ -1,5 +1,13 @@
 ## 10. Advanced Topics
 
+**This section covers:**
+- [10.1 Fail Code Hierarchy Best Practices](#101-fail-code-hierarchy-best-practices) - Organizing fail codes logically
+- [10.2 Linking Failures to Test Results](#102-linking-failures-to-test-results) - Connecting UUR failures to UUT steps
+- [10.3 Component Tracking](#103-component-tracking) - Managing component references
+- [10.4 Repair Workflow States](#104-repair-workflow-states) - Status field usage
+
+---
+
 ### 10.1 Fail Code Hierarchy Best Practices
 
 ```csharp
