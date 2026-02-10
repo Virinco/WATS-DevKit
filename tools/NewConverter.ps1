@@ -86,10 +86,6 @@ New-Item -ItemType Directory -Path "$outputPath\src" -Force | Out-Null
 New-Item -ItemType Directory -Path "$outputPath\tests" -Force | Out-Null
 New-Item -ItemType Directory -Path "$outputPath\tests\Data" -Force | Out-Null
 
-# Create category subdirectories for organized testing
-New-Item -ItemType Directory -Path "$outputPath\tests\Data\ICT" -Force | Out-Null
-New-Item -ItemType Directory -Path "$outputPath\tests\Data\Functional" -Force | Out-Null
-
 Write-Host "Generating project files..." -ForegroundColor Gray
 
 # Create src project file (using -replace for variable substitution)
@@ -574,7 +570,7 @@ Write-Host ""
 Write-Host "1. Add test files:" -ForegroundColor Cyan
 Write-Host "   $outputPath\tests\Data\your-file.log" -ForegroundColor Gray
 Write-Host ""
-Write-Host " 2. Open in VS Code:" -ForegroundColor Cyan
+Write-Host "2. Open in VS Code:" -ForegroundColor Cyan
 Write-Host "   code $outputPath" -ForegroundColor Gray
 Write-Host ""
 Write-Host "3. Implement your converter(s):" -ForegroundColor Cyan
