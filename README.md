@@ -1,6 +1,6 @@
 # WATS Converter Development Kit
 
-**Version:** 1.1.0  
+**Version:** 1.0.0  
 **For:** WATS Users  
 **Purpose:** Build custom .NET converters to import your test data into WATS
 
@@ -14,19 +14,19 @@ This kit provides everything you need to create custom .NET converters that tran
 
 - **.NET Converter Template** - Ready-to-use C# project with built-in test suite
 - **API Documentation** - Complete guide to WATS Report API:
-  - [UUT Reports (Test Results)](docs/api/UUT_REFERENCE.md)
-  - [UUR Reports (Repairs)](docs/api/UUR_REFERENCE.md)
-  - [Converter Development Guide](docs/api/CONVERTER_GUIDE.md)
+  - [UUT Reports (Test Results)](docs/api/uut/INDEX.md) - 9 detailed files
+  - [UUR Reports (Repairs)](docs/api/uur/INDEX.md) - 10 detailed files
+  - [Converter Development Guide](docs/api/converter/INDEX.md) - 11 detailed files
 - **Development Tools** - Scripts to create and test converters
 - **Testing Framework** - Automated xUnit tests that auto-discover files in Data/ folder
 - **Best Practices Guide** - Proven patterns for robust converters
 
 > **🤖 For AI Agents:** When helping with converter development, **always reference:**
-> - [docs/api/UUT_REFERENCE.md](docs/api/UUT_REFERENCE.md) for test report converters (UUTReport)
-> - [docs/api/UUR_REFERENCE.md](docs/api/UUR_REFERENCE.md) for repair report converters (UURReport)
-> - [docs/api/CONVERTER_GUIDE.md](docs/api/CONVERTER_GUIDE.md) for converter architecture and complete examples
+> - [docs/api/uut/INDEX.md](docs/api/uut/INDEX.md) for test report converters (UUTReport)
+> - [docs/api/uur/INDEX.md](docs/api/uur/INDEX.md) for repair report converters (UURReport)
+> - [docs/api/converter/INDEX.md](docs/api/converter/INDEX.md) for converter architecture and complete examples
 > 
-> Do not guess at API usage.
+> These are split into multiple focused files (< 500 lines each). Do not guess at API usage.
 
 ## Prerequisites
 
@@ -202,36 +202,52 @@ As you implement parsing logic, more tests should pass!
 ## Project Structure
 
 ```
-WATS-Converter-Kit/
+WATS-DevKit/
 ├── README.md                  # This file
 ├── NuGet.config               # NuGet package sources
+├── setup.ps1                  # Initial setup script
 ├── .gitignore                 # Git ignore patterns
 │
 ├── Docs/                      # Documentation
-│   ├── Guides/
+│   ├── README.md              # Documentation hub
+│   ├── PREREQUISITES.md       # Installation guide
+│   ├── COMMON_ISSUES.md       # Troubleshooting guide
+│   ├── QUICKSTART_TESTING.md  # Quick test setup
+│   │
+│   ├── guides/                # User guides
 │   │   ├── QUICKSTART.md      # 15-minute getting started
 │   │   ├── API_GUIDE.md       # WATS Report API user guide
 │   │   └── METHODOLOGY.md     # Best practices & patterns
-│   └── Api/
-│       ├── UUT_REFERENCE.md   # UUT Report API (test results)
-│       ├── UUR_REFERENCE.md   # UUR Report API (repairs)
-│       └── CONVERTER_GUIDE.md  # Complete converter development guide
-│   └── TESTING.md             # Testing guide
+│   │
+│   └── api/                   # API references (for AI agents)
+│       ├── README.md
+│       ├── QUICKSTART_API.md  # Quick API reference
+│       ├── CONVERTER_GUIDE.md # Legacy converter guide
+│       ├── converter/         # Converter development (11 files)
+│       │   └── INDEX.md
+│       ├── uut/               # UUT Report API (9 files)
+│       │   └── INDEX.md
+│       └── uur/               # UUR Report API (10 files)
+│           └── INDEX.md
+│
+├── Converters/                # Your converter projects go here
+│   └── ExampleConverters/     # Example project
+│       ├── src/
+│       │   └── ExampleCSVConverter.cs
+│       └── tests/
+│           ├── ConverterTests.cs
+│           └── Data/          # Test files go here!
 │
 ├── Templates/                 # Converter templates
-│       └── FileConverterTemplate/  # Template project
-│           ├── FileConverter.cs      # Converter implementation
-│           ├── ConverterTests.cs         # xUnit test suite
-│           ├── FileConverterTemplate.csproj   # Project file
-│           ├── ConverterConfig.json     # Test configuration
-│           ├── Data/                     # Test files go here!
-│           │   └── README.md
-│           ├── DEPLOYMENT.md
-│           └── README.md
+│   └── FileConverterTemplate/ # Template project
+│       ├── FileConverter.cs
+│       ├── ConverterTests.cs
+│       └── Data/
 │
 └── Tools/                     # Development scripts
-    ├── NewConverter.ps1      # Create new converter
-    ├── TestConverter.ps1     # Run tests
+    ├── NewConverter.ps1       # Create new converter
+    ├── new-converter.ps1      # Alias for NewConverter.ps1
+    ├── GetOperationTypes.ps1  # List operation types
     └── README.md
 ```
 
@@ -284,13 +300,21 @@ dotnet test
 
 | Guide | Description |
 |-------|-------------|
-| **[Documentation Hub](Docs/README.md)** | Full documentation navigation |
-| [QUICKSTART.md](Docs/Guides/QUICKSTART.md) | Get up and running in 15 minutes |
-| [METHODOLOGY.md](Docs/Guides/METHODOLOGY.md) | Best practices for robust converters |
-| [API_GUIDE.md](Docs/Guides/API_GUIDE.md) | Complete WATS Report API guide |
-| [UUT_REFERENCE.md](Docs/Api/UUT_REFERENCE.md) | Test report API reference |
-| [UUR_REFERENCE.md](Docs/Api/UUR_REFERENCE.md) | Repair report API reference |
-| [CONVERTER_GUIDE.md](Docs/Api/CONVERTER_GUIDE.md) | Complete converter development guide |
+| **[Documentation Hub](docs/README.md)** | Full documentation navigation |
+| [PREREQUISITES.md](docs/PREREQUISITES.md) | Install VS Code, .NET SDK, and tools |
+| [QUICKSTART.md](docs/guides/QUICKSTART.md) | Get up and running in 15 minutes |
+| [METHODOLOGY.md](docs/guides/METHODOLOGY.md) | Best practices for robust converters |
+| [API_GUIDE.md](docs/guides/API_GUIDE.md) | Complete WATS Report API guide |
+| [COMMON_ISSUES.md](docs/COMMON_ISSUES.md) | Troubleshooting common problems |
+| [QUICKSTART_TESTING.md](docs/QUICKSTART_TESTING.md) | Quick test setup guide |
+
+**API References (for AI agents):**
+
+| Reference | Description |
+|-----------|-------------|
+| [UUT API](docs/api/uut/INDEX.md) | Test report API (9 detailed files) |
+| [UUR API](docs/api/uur/INDEX.md) | Repair report API (10 detailed files) |
+| [Converter Guide](docs/api/converter/INDEX.md) | Complete converter development (11 files) |
 
 ## Milestone-Based Development
 
@@ -408,4 +432,6 @@ Output DLL will be in: `bin\Release\net8.0\YourProject.dll` (or `net48`)
 
 **Happy Converting!** 🚀
 
-For detailed guidance, start with [docs/QUICKSTART.md](docs/QUICKSTART.md)
+For detailed guidance, start with [docs/PREREQUISITES.md](docs/PREREQUISITES.md) then [docs/guides/QUICKSTART.md](docs/guides/QUICKSTART.md)
+
+**Documentation:** See [docs/README.md](docs/README.md) for complete documentation navigation
